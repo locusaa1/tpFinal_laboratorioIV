@@ -14,5 +14,5 @@
 </main>
 <?php
 require_once ('companies.php');
-require_once ('contactForm.php')
+require_once ('contactForm.php');
 ?>
