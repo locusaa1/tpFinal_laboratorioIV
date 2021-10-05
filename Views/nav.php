@@ -1,7 +1,7 @@
 <div class="nav-bg">
      <nav class="nav">  
-          <a href="#">Inicio</a> 
-          <a href="#">Iniciar Sesión</a>  
+          <a href="index.php">Inicio</a> 
+          <a href="login.php">Iniciar Sesión</a>  
           <a href="#">Contacto</a> 
           <a href="#">Salir</a>
      </nav>
