@@ -3,6 +3,7 @@
 
 namespace Models;
 
+use Models\Person as Person;
 
 class Administrator extends Person
 {
@@ -12,15 +13,10 @@ class Administrator extends Person
 
     /**
      * Administrator constructor.
-     * @param $idAdmin
-     * @param $username
-     * @param $password
      */
-    public function __construct($idAdmin, $username, $password)
+    public function __construct()
     {
-        $this->idAdmin = $idAdmin;
-        $this->username = $username;
-        $this->password = $password;
+        parent::__construct();
     }
 
     /**
@@ -69,37 +65,5 @@ class Administrator extends Person
     public function setPassword($password)
     {
         $this->password = $password;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * @param mixed $firstName
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * @param mixed $lastName
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
     }
 }
