@@ -36,5 +36,19 @@
 
             $this->ShowAddView();
         }
+
+        public function CheckEmail ($email){
+            
+            $student = $this->studentDAO->GetByEmail($email);
+            
+            if($student){
+                $_SESSION ['student'] = $student;
+                require_once (VIEWS_PATH."studentView.php");
+            }else{
+                header("location:Home/Login.php?emailInvalid=1");
+                require_once (VIEWS_PATH."login.php");
+            }
+
+        }
     }
 ?>
