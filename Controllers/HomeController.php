@@ -13,5 +13,9 @@
             require_once (VIEWS_PATH."login.php");
         }
 
+        public function AdminsLogin ()
+        {
+            require_once (VIEWS_PATH."AdminsLogin.php");
+        }
     }
 ?>
