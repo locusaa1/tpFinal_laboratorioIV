@@ -1,0 +1,14 @@
+[
+  {
+    "firstName": "Leonardo",
+    "lastName": "gazaba",
+    "dni": 1,
+    "birthDate": "25/07/1997",
+    "gender": "male",
+    "email": "asd@gmail.com",
+    "phoneNumber": "111",
+    "idAdmin": 1,
+    "username": "asd",
+    "password": "asd"
+  }
+]
