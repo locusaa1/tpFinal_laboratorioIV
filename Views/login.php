@@ -2,11 +2,24 @@
     require_once ('title.php');
     require_once('nav.php');
 ?>
-<form action="" method="POST" class="loginForm">
+<p>
+    <?php
+    if(!empty($_GET['emailInvalid']))
+    {
+        echo "Email no encontrado. Intente nuevamente";
+
+    }
+
+
+
+    ?>
+</p>
+
+<form action="<?php echo FRONT_ROOT ?>Student/CheckEmail" method="POST" class="loginForm">
     <div class="loginContainer">
         <legend>Ingrese su correo electrónico</legend>
-        <label for="username">Email</label>
-        <input type="email" name="username" class="inputUsername" placeholder="Ej: nombre@gmail.com" required>
+        <label for="email">Email</label>
+        <input type="email" name="email" class="inputUsername" placeholder="Ej: nombre@gmail.com" required>
     </div>
     <button class="loginButton" type="submit">Iniciar Sesión</button>
 </form>
