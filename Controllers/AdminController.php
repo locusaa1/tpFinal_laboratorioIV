@@ -4,6 +4,7 @@
 namespace Controllers;
 
 use DAO\AdminDAO as AdminDAO;
+use Models\Administrator as Admin;
 
 class AdminController
 {
@@ -17,16 +18,22 @@ class AdminController
     public function Login($username, $password)
     {
         $adminList = $this->adminDAO->getAll();
+        $loggedAdm = null;
         foreach ($adminList as $admin) {
 
             if ($admin->getUsername() == $username && $admin->getPassword() == $password) {
 
-                $_SESSION['admin'] = $admin;
-                require_once(VIEWS_PATH . "AdminView.php");
-            } else {
-                header('location:AdminsLogin.php?log=error');
-                require_once(VIEWS_PATH . "AdminsLogin.php");
+                $loggedAdm = new Admin();
+                $loggedAdm = $admin;
             }
+        }
+        if ($loggedAdm) {
+
+            require_once(VIEWS_PATH . "AdminView.php");
+        } else {
+
+            $_GET['log'] = 'error';
+            require_once(VIEWS_PATH . "AdminsLogin.php");
         }
     }
 }
