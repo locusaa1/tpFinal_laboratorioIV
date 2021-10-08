@@ -23,11 +23,10 @@ class AdminController
 
             if ($admin->getUsername() == $username && $admin->getPassword() == $password) {
 
-                $loggedAdm = new Admin();
-                $loggedAdm = $admin;
+                $_SESSION['admin'] = $admin;
             }
         }
-        if ($loggedAdm) {
+        if (isset($_SESSION['admin'])) {
 
             require_once(VIEWS_PATH . "AdminView.php");
         } else {
