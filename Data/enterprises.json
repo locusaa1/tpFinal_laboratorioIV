@@ -1,0 +1,9 @@
+[
+  {
+    "idEnterprise": 1,
+    "name": "Globant",
+    "cuit": 123,
+    "phoneNumber": "223example",
+    "address": "example 123"
+  }
+]
