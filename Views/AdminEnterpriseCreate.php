@@ -12,31 +12,32 @@ use Controllers\EnterpriseController as EnterpriseController;
         </div>
     </section>
     <form action="<?php echo FRONT_ROOT ?>Enterprise/Add" method="post">
-        <label>All the fields are required</label><br>
-        <label for="name">Name:</label><br>
-        <input type="text" name="name" value="" required placeholder="example"><br>
-        <label for="cuit">Cuit:</label><br>
-        <input type="number" name="cuit" value="" required placeholder="111111"><br>
-        <label for="phoneNumber">Phone number:</label><br>
-        <input type="number" name="phoneNumber" value="" required placeholder="223-example"><br>
-        <label for="addres"></label>
-        <button name="action" value="delete">delete</button>
-        <button name="action" value="update">update</button>
-        <button name="action" value="create">create</button>
-        <ul>
+        <label>
             <?php
-            $controller = new EnterpriseController();
-            $list = $controller->getEnterprisesList();
-            foreach ($list as $enterprise) {
-                echo '<li>';
-                echo 'name: ' . $enterprise->getName() . '<br>';
-                echo 'cuit: ' . $enterprise->getCuit() . '<br>';
-                echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
-                echo 'address: ' . $enterprise->getAddress() . '<br>';
-                echo '</li>'; ?>
-                <input type="radio" name="enterprise" value="<?= $enterprise; ?>" required>
-                <br>
-            <?php } ?>
+            if (isset($_SESSION['updateEnterprise'])) {
+                echo 'The actual info into the fields are the actual data into the file';
+            } else {
+                echo 'All the fields are required';
+            }
+            ?>
+        </label><br>
+        <label for="name">Name:</label><br>
+        <input type="text" name="name" value="" required
+               placeholder="<?php echo $message = (isset($_SESSION['updateEnterprise'])) ? $_SESSION['updateEnterprise']->getName() : 'example' ?>"><br>
+        <label for="cuit">Cuit:</label><br>
+        <input type="number" name="cuit" value="" required
+               placeholder="<?php echo $message = (isset($_SESSION['updateEnterprise'])) ? $_SESSION['updateEnterprise']->getCuit() : '1111' ?>"><br>
+        <label for="phoneNumber">Phone number:</label><br>
+        <input type="number" name="phoneNumber" value="" required
+               placeholder="<?php echo $message = (isset($_SESSION['updateEnterprise'])) ? $_SESSION['updateEnterprise']->getPhoneNumber() : '223-example' ?>"><br>
+        <label for="addressName">AddressName</label><br>
+        <input type="text" name="addressName" value="" required
+               placeholder="<?php echo $message = (isset($_SESSION['updateEnterprise'])) ? $_SESSION['updateEnterprise']->getAddressName() : 'example' ?>"><br>
+        <label for="addressNumber">AddressNumber</label><br>
+        <input type="text" name="addressNumber" value="" required
+               placeholder="<?php echo $message = (isset($_SESSION['updateEnterprise'])) ? $_SESSION['updateEnterprise']->getAddressNumber() : '123' ?>"><br>
+        <button name="add" type="submit">Create</button>
+        <button name="reset" type="reset">Reset</button>
         </ul>
     </form>
 </main>

@@ -70,18 +70,25 @@ class EnterpriseDAO implements IEnterpriseDAO
 
             if ($this->enterpriseList[$c]->getCuit() == $cuit) {
                 array_splice($this->enterpriseList, $c, 1);
-                $deleted=true;
+                $deleted = true;
             }
         }
         $this->saveData();
         return $deleted;
     }
 
-    public function getSpecificPositionByCuit($cuit){
-        //valor a retornar es la posición a reemplazar de la empresa
-        //levantar toda la info
-        //comparar hasta dar con el objeto que quiero
-        //devolver la posición en la que se encuentra
+    public function getSpecificEnterpriseByCuit($cuit)
+    {
+        $value = new Enterprise();
+        $this->loadData();
+        for ($c = 0; $c < count($this->enterpriseList); $c++) {
+
+            if ($this->enterpriseList[$c]->getCuit() == $cuit) {
+
+                $value = $this->enterpriseList[$c];
+            }
+        }
+        return $value;
     }
 
     public function __construct()
