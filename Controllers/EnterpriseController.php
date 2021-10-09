@@ -37,4 +37,24 @@ class EnterpriseController
             require_once (VIEWS_PATH.'AdminEnterpriseCreate.php');
         }
     }
+
+    public function FilterByName($name)
+    {
+
+        $enterprise = $this->enterpriseDAO->GetByName($name);
+
+        if ($enterprise) {
+            $_GET['enterpriseFounded'] = $enterprise;
+            require_once(VIEWS_PATH . "studentEnterpriseList.php");
+        } else{
+            $_GET['enterpriseNotFounded'] = 1;
+            require_once(VIEWS_PATH . "studentEnterpriseList.php");
+        }
+
+    }
+
+    public function EnterpriseDetails ()
+    {
+        require_once(VIEWS_PATH . "enterpriseDetails.php");
+    }
 }

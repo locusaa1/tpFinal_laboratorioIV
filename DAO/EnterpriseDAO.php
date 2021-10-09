@@ -88,4 +88,20 @@ class EnterpriseDAO implements IEnterpriseDAO
     {
         $this->fileName = ROOT . "Data/enterprises.json";
     }
+
+    public function GetByName($name) 
+    {
+        $this->loadData();  
+        $enterpriseFounded = null;
+        
+        if(!empty($this->enterpriseList)){
+            foreach($this->enterpriseList as $enterprise){
+                if($enterprise->getName() == $name){
+                    $enterpriseFounded = $enterprise;
+                }
+            }
+        }
+
+        return $enterpriseFounded;
+    }
 }

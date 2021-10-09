@@ -25,7 +25,7 @@
             <br>
         </section> 
         <section>
-            <a href="#">Empresas</a>  
+            <a href="<?php echo FRONT_ROOT ?>Student/EnterpriseList">Empresas</a>  
         </section> 
         <section>
             <a href="#">Búsquedas abiertas</a>
