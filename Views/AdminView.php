@@ -8,6 +8,9 @@ require_once('nav.php');
                 <p>Weolcome</p>
             </div>
         </section>
+        <a href="#">MyAccount</a>
+        <a href="<?php echo FRONT_ROOT ?>Admin/enterpriseList">Enterprises List</a>
+        <a href="#">Add new enterprise</a>
     </main>
 <?php
 require_once('companies.php');
