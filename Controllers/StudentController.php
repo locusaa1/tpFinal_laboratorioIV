@@ -40,6 +40,11 @@ class StudentController
     {
         require_once(VIEWS_PATH . "studentInformation.php");
     }
+    //ver a qué controladora corresponde
+    public function EnterpriseList ()
+    {
+        require_once(VIEWS_PATH . "studentEnterpriseList.php");
+    }
 }
 
 ?>
