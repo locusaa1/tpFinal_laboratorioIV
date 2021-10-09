@@ -5,14 +5,26 @@
 <p>
     <?php
     if(!empty($_GET['emailInvalid']))
-    {
+    {   
+        ?>
+        <div class="rejectionMessaje">
+        <?php
         echo "Email no encontrado. Intente nuevamente";
-
+        ?>
+        </div>
+        <?php
     }
-
-
-
-    ?>
+    if(!empty($_GET['notActive']))
+    {
+        ?>
+        <div class="rejectionMessaje">
+        <?php
+        echo "Ingreso denegado. Usted no se encuentra activo";
+        ?>
+        </div>
+        <?php
+    }
+        ?>
 </p>
 
 <form action="<?php echo FRONT_ROOT ?>Student/CheckEmail" method="POST" class="loginForm">

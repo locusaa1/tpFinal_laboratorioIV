@@ -336,6 +336,18 @@ align-items: center;
 
 }
 
+.rejectionMessaje
+{
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    margin-top: 2rem;
+    text-decoration: none;
+    background-color: var(--blue);
+    color: var(--white);
+    font-size: 2.5rem;
+    text-align: center;
+}
+
 .hello-Bg
 {
     background-image: url(../img/tecnology.jpg);
