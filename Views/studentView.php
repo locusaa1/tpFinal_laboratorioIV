@@ -10,14 +10,14 @@
                     $loggedUser = $_SESSION['student'];
                 }
             ?>
-            <p>¡Hola <?php echo " " . $loggedUser->getFirstName() . " " . $loggedUser->getLastName() . "!"?></p>
+            <p>¡Hola <?php echo " " . $loggedUser->getFirstName() ."!"?></p>
         </div>
     </section> 
     <div class="studentOptions">
         <section class="profileContainer">
             <legend>Mi perfil</legend>
             <p class="profilePicture"></p>
-            <a href="#">Mis datos</a>
+            <a href="<?php echo FRONT_ROOT ?>Student/StudentInfo">Mis datos</a>
             <br>
             <a href="#">Información académica</a>
             <br>
