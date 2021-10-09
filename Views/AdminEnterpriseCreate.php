@@ -8,18 +8,18 @@ use Controllers\EnterpriseController as EnterpriseController;
 <main class="">
     <section class="ourMision-Bg">
         <div class="ourMision">
-            <p>Listing the enterprises</p>
+            <p>Creating a new enterprise</p>
         </div>
     </section>
-    <p>
-        <?php
-        if (isset($_SESSION['delete'])) {
-            echo 'The enterprise where successfully removed';
-            unset($_SESSION['delete']);
-        }
-        ?>
-    </p>
-    <form action="<?php echo FRONT_ROOT ?>Enterprise/ActionProcess" method="post">
+    <form action="<?php echo FRONT_ROOT ?>Enterprise/Add" method="post">
+        <label>All the fields are required</label><br>
+        <label for="name">Name:</label><br>
+        <input type="text" name="name" value="" required placeholder="example"><br>
+        <label for="cuit">Cuit:</label><br>
+        <input type="number" name="cuit" value="" required placeholder="111111"><br>
+        <label for="phoneNumber">Phone number:</label><br>
+        <input type="number" name="phoneNumber" value="" required placeholder="223-example"><br>
+        <label for="addres"></label>
         <button name="action" value="delete">delete</button>
         <button name="action" value="update">update</button>
         <button name="action" value="create">create</button>
@@ -32,9 +32,9 @@ use Controllers\EnterpriseController as EnterpriseController;
                 echo 'name: ' . $enterprise->getName() . '<br>';
                 echo 'cuit: ' . $enterprise->getCuit() . '<br>';
                 echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
-                echo 'address: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>';
+                echo 'address: ' . $enterprise->getAddress() . '<br>';
                 echo '</li>'; ?>
-                <input type="radio" name="enterpriseCuit" value="<?= $enterprise->getCuit(); ?>" required>
+                <input type="radio" name="enterprise" value="<?= $enterprise; ?>" required>
                 <br>
             <?php } ?>
         </ul>

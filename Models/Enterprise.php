@@ -10,7 +10,8 @@ class Enterprise
     private $name;
     private $cuit;
     private $phoneNumber;
-    private $address;
+    private $addressName;
+    private $addressNumber;
 
     /**
      * Enterprise constructor.
@@ -87,18 +88,32 @@ class Enterprise
     /**
      * @return mixed
      */
-    public function getAddress()
+    public function getAddressName()
     {
-        return $this->address;
+        return $this->addressName;
     }
 
     /**
-     * @param mixed $address
+     * @param mixed $addressName
      */
-    public function setAddress($address): void
+    public function setAddressName($addressName): void
     {
-        $this->address = $address;
+        $this->addressName = $addressName;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAddressNumber()
+    {
+        return $this->addressNumber;
+    }
 
+    /**
+     * @param mixed $addressNumber
+     */
+    public function setAddressNumber($addressNumber): void
+    {
+        $this->addressNumber = $addressNumber;
+    }
 }

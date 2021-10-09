@@ -25,7 +25,8 @@ class EnterpriseDAO implements IEnterpriseDAO
                 $newEnterprise->setName($enterprise['name']);
                 $newEnterprise->setCuit($enterprise['cuit']);
                 $newEnterprise->setPhoneNumber($enterprise['phoneNumber']);
-                $newEnterprise->setAddress($enterprise['address']);
+                $newEnterprise->setAddressName($enterprise['addressName']);
+                $newEnterprise->setAddressNumber($enterprise['addressNumber']);
                 array_push($this->enterpriseList, $newEnterprise);
             }
         }
@@ -40,7 +41,8 @@ class EnterpriseDAO implements IEnterpriseDAO
             $newEnterprise['name'] = $enterprise->getName();
             $newEnterprise['cuit'] = $enterprise->getCuit();
             $newEnterprise['phoneNumber'] = $enterprise->getPhoneNumber();
-            $newEnterprise['address'] = $enterprise->getAddress();
+            $newEnterprise['addressName'] = $enterprise->getAddressName();
+            $newEnterprise['addressNumber'] = $enterprise->getAddressNumber();
             array_push($arrayToEncode, $newEnterprise);
         }
         $content = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
@@ -73,6 +75,13 @@ class EnterpriseDAO implements IEnterpriseDAO
         }
         $this->saveData();
         return $deleted;
+    }
+
+    public function getSpecificPositionByCuit($cuit){
+        //valor a retornar es la posición a reemplazar de la empresa
+        //levantar toda la info
+        //comparar hasta dar con el objeto que quiero
+        //devolver la posición en la que se encuentra
     }
 
     public function __construct()

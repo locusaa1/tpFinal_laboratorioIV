@@ -4,27 +4,31 @@
         "name": "Globant",
         "cuit": "123",
         "phoneNumber": "223example",
-        "address": "example 123"
+        "addressName": "example",
+        "addressNumber": "1111"
     },
     {
         "idEnterprise": 2,
         "name": "Avalith",
         "cuit": "321",
         "phoneNumber": "223example",
-        "address": "example 123"
+        "addressName": "example",
+        "addressNumber": "1111"
     },
     {
         "idEnterprise": 3,
         "name": "DelPlata",
         "cuit": "456",
         "phoneNumber": "223example",
-        "address": "example 123"
+        "addressName": "example",
+        "addressNumber": "1111"
     },
     {
-        "idEnterprise": 4,
-        "name": "MakingSense",
+        "idEnterprise": 6,
+        "name": "ASDASD",
         "cuit": "654",
         "phoneNumber": "223example",
-        "address": "example 123"
+        "addressName": "example",
+        "addressNumber": "1111"
     }
 ]

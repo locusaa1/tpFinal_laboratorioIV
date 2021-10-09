@@ -30,8 +30,11 @@ class EnterpriseController
             require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
         } elseif ($action == 'update') {
 
+            $_SESSION['updateEnterprise']=$enterpriseCuit;
+            require_once (VIEWS_PATH.'AdminEnterpriseUpdate.php');
         } else {
 
+            require_once (VIEWS_PATH.'AdminEnterpriseCreate.php');
         }
     }
 }
