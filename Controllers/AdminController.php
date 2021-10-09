@@ -33,4 +33,9 @@ class AdminController
             require_once(VIEWS_PATH . "AdminsLogin.php");
         }
     }
+
+    public function enterpriseList()
+    {
+        require_once(VIEWS_PATH . "AdminEnterpriseList.php");
+    }
 }
