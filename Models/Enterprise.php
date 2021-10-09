@@ -17,7 +17,7 @@ class Enterprise
      */
     public function __construct()
     {
-
+        $this->idEnterprise = random_bytes(10);
     }
 
     /**
