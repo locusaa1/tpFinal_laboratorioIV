@@ -4,6 +4,7 @@
 namespace Controllers;
 
 use DAO\EnterpriseDAO as EnterpriseDAO;
+use Models\Enterprise as Enterprise;
 
 class EnterpriseController
 {
@@ -26,15 +27,19 @@ class EnterpriseController
     {
         if ($action == 'delete') {
 
-            $_SESSION['delete']=$this->enterpriseDAO->deleteByCuit($enterpriseCuit);
+            $_SESSION['delete'] = $this->enterpriseDAO->deleteByCuit($enterpriseCuit);
             require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
         } elseif ($action == 'update') {
 
-            $_SESSION['updateEnterprise']=$enterpriseCuit;
-            require_once (VIEWS_PATH.'AdminEnterpriseUpdate.php');
-        } else {
-
-            require_once (VIEWS_PATH.'AdminEnterpriseCreate.php');
+            $enterprise = $this->enterpriseDAO->getSpecificEnterpriseByCuit($enterpriseCuit);
+            $_SESSION['updateEnterprise'] = $enterprise;
+            $_SESSION['updatePosition'] = array_search($enterprise, $this->enterpriseDAO->getAll());
+            require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
         }
+    }
+
+    public function AddProcess()
+    {
+        require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
     }
 }
