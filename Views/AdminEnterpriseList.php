@@ -19,10 +19,12 @@ use Controllers\EnterpriseController as EnterpriseController;
         }
         ?>
     </p>
+    <form action="<?php echo FRONT_ROOT ?>Enterprise/AddProcess" method="post">
+        <button type="submit">create</button>
+    </form>
     <form action="<?php echo FRONT_ROOT ?>Enterprise/ActionProcess" method="post">
         <button name="action" value="delete">delete</button>
         <button name="action" value="update">update</button>
-        <button name="action" value="create">create</button>
         <ul>
             <?php
             $controller = new EnterpriseController();
