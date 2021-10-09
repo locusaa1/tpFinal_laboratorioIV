@@ -11,7 +11,15 @@ use Controllers\EnterpriseController as EnterpriseController;
             <p>Listing the enterprises</p>
         </div>
     </section>
-    <form action="#" method="post">
+    <p>
+        <?php
+        if(isset($_SESSION['delete'])){
+            echo 'The enterprise where successfully removed';
+            unset($_SESSION['delete']);
+        }
+        ?>
+    </p>
+    <form action="<?php echo FRONT_ROOT ?>Enterprise/ActionProcess" method="post">
         <button name="action" value="delete">delete</button>
         <button name="action" value="update">update</button>
         <button name="action" value="create">create</button>
@@ -20,14 +28,14 @@ use Controllers\EnterpriseController as EnterpriseController;
             $controller = new EnterpriseController();
             $list = $controller->getEnterprisesList();
             foreach ($list as $enterprise) {
-                echo '<li>';
-                echo 'name: ' . $enterprise->getName() . '<br>';
-                echo 'cuit: ' . $enterprise->getCuit() . '<br>';
-                echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
-                echo 'address: ' . $enterprise->getAddress() . '<br>';
-                echo '</li>'; ?>
-                <input type="radio" name="enterpriseCuit" value="<?= $enterprise->getCuit(); ?>" required>
-                <br>
+            echo '<li>';
+            echo 'name: ' . $enterprise->getName() . '<br>';
+            echo 'cuit: ' . $enterprise->getCuit() . '<br>';
+            echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
+            echo 'address: ' . $enterprise->getAddress() . '<br>';
+            echo '</li>'; ?>
+            <input type="radio" name="enterpriseCuit" value="<?= $enterprise->getCuit(); ?>" required>
+        <br>
             <?php } ?>
         </ul>
     </form>

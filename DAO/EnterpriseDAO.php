@@ -50,7 +50,7 @@ class EnterpriseDAO implements IEnterpriseDAO
     public function addEnterprise(Enterprise $enterprise)
     {
         $this->loadData();
-        array_push($this->enterpriseList,$enterprise);
+        array_push($this->enterpriseList, $enterprise);
         $this->saveData();
     }
 
@@ -60,8 +60,23 @@ class EnterpriseDAO implements IEnterpriseDAO
         return $this->enterpriseList;
     }
 
+    public function deleteByCuit($cuit)
+    {
+        $deleted = false;
+        $this->loadData();
+        for ($c = 0; $c < count($this->enterpriseList); $c++) {
+
+            if ($this->enterpriseList[$c]->getCuit() == $cuit) {
+                array_splice($this->enterpriseList, $c, 1);
+                $deleted=true;
+            }
+        }
+        $this->saveData();
+        return $deleted;
+    }
+
     public function __construct()
     {
-        $this->fileName = ROOT."Data/enterprises.json";
+        $this->fileName = ROOT . "Data/enterprises.json";
     }
 }

@@ -11,4 +11,6 @@ interface IEnterpriseDAO
 
     function addEnterprise(Enterprise $enterprise);
 
+    function deleteByCuit($cuit);
+
 }

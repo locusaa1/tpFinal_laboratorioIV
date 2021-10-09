@@ -22,5 +22,16 @@ class EnterpriseController
         return $this->enterpriseDAO->getAll();
     }
 
+    public function ActionProcess($action, $enterpriseCuit)
+    {
+        if ($action == 'delete') {
 
+            $_SESSION['delete']=$this->enterpriseDAO->deleteByCuit($enterpriseCuit);
+            require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
+        } elseif ($action == 'update') {
+
+        } else {
+
+        }
+    }
 }
