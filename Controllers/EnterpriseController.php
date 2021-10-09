@@ -38,6 +38,21 @@ class EnterpriseController
         }
     }
 
+    public function Add($name, $cuit, $phoneNumber, $addressName, $addressNumber)
+    {
+        if (isset($_SESSION['updateEnterprise'])) {
+
+        } else {
+            $newEnterprise = new Enterprise();
+            $newEnterprise->setName($name);
+            $newEnterprise->setCuit($cuit);
+            $newEnterprise->setPhoneNumber($phoneNumber);
+            $newEnterprise->setAddressName($addressName);
+            $newEnterprise->setAddressNumber($addressNumber);
+            $this->enterpriseDAO->addEnterprise($newEnterprise);
+            require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
+        }
+    }
 
     public function FilterByName($name)
     {
@@ -47,18 +62,18 @@ class EnterpriseController
         if ($enterprise) {
             $_GET['enterpriseFounded'] = $enterprise;
             require_once(VIEWS_PATH . "studentEnterpriseList.php");
-        } else{
+        } else {
             $_GET['enterpriseNotFounded'] = 1;
             require_once(VIEWS_PATH . "studentEnterpriseList.php");
         }
 
     }
 
-    public function EnterpriseDetails ()
+    public function EnterpriseDetails()
     {
         require_once(VIEWS_PATH . "enterpriseDetails.php");
     }
-    
+
     public function AddProcess()
     {
         require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
