@@ -35,6 +35,11 @@ class StudentController
         }
 
     }
+
+    public function StudentInfo ()
+    {
+        require_once(VIEWS_PATH . "studentInformation.php");
+    }
 }
 
 ?>
