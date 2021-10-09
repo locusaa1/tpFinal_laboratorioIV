@@ -34,21 +34,34 @@
     <?php
         if(!empty($_GET['enterpriseFounded'])){
             $enterprise = $_GET['enterpriseFounded'];
-            $_GET['enterpriseForDetail'] = $enterprise;
             ?>
-            <a href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails"><?php echo $enterprise->getName() . '<br>'; ?></a> 
+            <form action="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails" method="GET">
+                <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
+                <label for="name"><?php echo $enterprise->getName()?></label>
+                <button class="loginButton" type="submit">Ver detalle</button>
+            </form>
+            
+            
             <?php
         }else{
             $companies = new EnterpriseController();
             $list = $companies->getEnterprisesList();
+            ?>
+            <form action="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails" method="GET">
+            <?php
             foreach ($list as $enterprise) 
             {
-                $_GET['enterpriseForDetail'] = $enterprise;
                 ?>
-                <a href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails"><?php echo $enterprise->getName() . '<br>'; ?></a> 
+                    <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
+                    <label for="name"><?php echo $enterprise->getName()?></label>
+                    <br>
                 <?php
                 
             } 
+            ?>
+            <button class="loginButton" type="submit">Ver detalle</button>
+            </form>
+            <?php
         }
         
     ?>

@@ -21,7 +21,10 @@
         
         }
     ?>
-    </section>     
+    </section> 
+    <section>
+        <a href="<?php echo FRONT_ROOT ?>Student/EnterpriseList">Volver al listado</a>
+    </section>    
   
 </main>
 <?php
