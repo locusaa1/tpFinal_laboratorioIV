@@ -26,14 +26,14 @@ class AdminDAO implements IAdminDAO
 
                 $newAdmin = new Admin();
                 $newAdmin->setFirstName($admin['firstName']);
-                $newAdmin->setLasName($admin['lastName']);
+                $newAdmin->setLastName($admin['lastName']);
                 $newAdmin->setDni($admin['dni']);
                 $newAdmin->setBirthDate($admin['birthDate']);
                 $newAdmin->setGender($admin['gender']);
                 $newAdmin->setEmail($admin['email']);
                 $newAdmin->setPhoneNumber($admin['phoneNumber']);
                 $newAdmin->setIdAdmin($admin['idAdmin']);
-                $newAdmin->setUsername($admin['userName']);
+                $newAdmin->setUsername($admin['username']);
                 $newAdmin->setPassword($admin['password']);
                 array_push($this->adminList, $newAdmin);
             }
@@ -78,6 +78,6 @@ class AdminDAO implements IAdminDAO
 
     public function __construct()
     {
-        $this->fileName = FRONT_ROOT."Data/students.json";
+        $this->fileName = ROOT."Data/admins.json";
     }
 }
