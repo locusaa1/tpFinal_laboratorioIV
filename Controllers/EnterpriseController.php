@@ -52,7 +52,7 @@ class EnterpriseController
             $this->enterpriseDAO->updateEnterprise($newEnterprise, $_SESSION['updatePosition']);
             unset($_SESSION['updateEnterprise']);
             unset($_SESSION['updatePosition']);
-            $_SESSION['update']=true;
+            $_SESSION['update'] = true;
         } else {
 
             $this->enterpriseDAO->addEnterprise($newEnterprise);
@@ -62,20 +62,19 @@ class EnterpriseController
 
     public function FilterByName($name)
     {
+        $enterpriseList = $this->enterpriseDAO->getAll();
+        $_SESSION['similarArray'] = array();
+        foreach ($enterpriseList as $enterprise){
 
-        $enterprise = $this->enterpriseDAO->GetByName($name);
+            if (stripos($enterprise->getName(),$name)!==false){
 
-        if ($enterprise) {
-            $_GET['enterpriseFounded'] = $enterprise;
-            require_once(VIEWS_PATH . "studentEnterpriseList.php");
-        } else {
-            $_GET['enterpriseNotFounded'] = 1;
-            require_once(VIEWS_PATH . "studentEnterpriseList.php");
+                array_push($_SESSION['similarArray'],$enterprise);
+            }
         }
-
+        require_once (VIEWS_PATH.'studentEnterpriseList.php');
     }
-    
-    public function EnterpriseDetails ($name)
+
+    public function EnterpriseDetails($name)
     {
         $enterprise = $this->enterpriseDAO->GetByName($name);
         if ($enterprise) {
