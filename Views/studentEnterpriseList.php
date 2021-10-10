@@ -6,15 +6,12 @@
 <main class="">
     <p>
         <?php
-        if(!empty($_GET['enterpriseNotFounded']))
-        {
-            ?>
-            <div class="rejectionMessaje">
-            <?php
-            echo "No se han encontrado resultados";
-            ?>
-            </div>
-            <?php
+        if (empty($_SESSION['similarArray']))
+        {?>
+         <div class="rejectionMessaje">
+             <?php echo 'No match results'?>
+         </div>
+        <?php
         }
         ?>
     </p>
@@ -22,7 +19,7 @@
         <div class="hello">
             <p>Empresas</p>
         </div>
-    </section> 
+    </section>
     <section>
         <form action="<?php echo FRONT_ROOT ?>Enterprise/FilterByName" method="POST" class="loginForm">
             <label for="name">Filtrar empresas por nombre</label>
@@ -32,16 +29,18 @@
     </section>
     <section>
     <?php
-        if(!empty($_GET['enterpriseFounded'])){
-            $enterprise = $_GET['enterpriseFounded'];
-            ?>
-            <form action="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails" method="GET">
+        if (!empty($_SESSION['similarArray'])){?>
+            <form action="<?php echo FRONT_ROOT?>Enterprise/EnterpriseDetails" method="get">
+                <?php
+                foreach ($_SESSION['similarArray'] as $enterprise){
+                ?>
                 <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
-                <label for="name"><?php echo $enterprise->getName()?></label>
-                <button class="loginButton" type="submit">Ver detalle</button>
+                <label for="name"><?php echo $enterprise->getName()?></label><br>
+                    <?php }?>
+                    <button class="loginButton" type="submit">Details</button>
             </form>
-            
-            
+
+
             <?php
         }else{
             $companies = new EnterpriseController();
@@ -49,24 +48,24 @@
             ?>
             <form action="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails" method="GET">
             <?php
-            foreach ($list as $enterprise) 
+            foreach ($list as $enterprise)
             {
                 ?>
                     <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
                     <label for="name"><?php echo $enterprise->getName()?></label>
                     <br>
                 <?php
-                
-            } 
+
+            }
             ?>
             <button class="loginButton" type="submit">Ver detalle</button>
             </form>
             <?php
         }
-        
+
     ?>
-    </section>     
-  
+    </section>
+
 </main>
 <?php
 require_once ('companies.php');
