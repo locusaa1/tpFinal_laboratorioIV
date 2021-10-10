@@ -38,6 +38,27 @@ class EnterpriseController
         }
     }
 
+    public function Add($name, $cuit, $phoneNumber, $addressName, $addressNumber)
+    {
+        $newEnterprise = new Enterprise();
+        $newEnterprise->setName($name);
+        $newEnterprise->setCuit($cuit);
+        $newEnterprise->setPhoneNumber($phoneNumber);
+        $newEnterprise->setAddressName($addressName);
+        $newEnterprise->setAddressNumber($addressNumber);
+        if (isset($_SESSION['updateEnterprise'])) {
+
+            $newEnterprise->setIdEnterprise($_SESSION['updateEnterprise']->getIdEnterprise());
+            $this->enterpriseDAO->updateEnterprise($newEnterprise, $_SESSION['updatePosition']);
+            unset($_SESSION['updateEnterprise']);
+            unset($_SESSION['updatePosition']);
+            $_SESSION['update']=true;
+        } else {
+
+            $this->enterpriseDAO->addEnterprise($newEnterprise);
+        }
+        require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
+    }
 
     public function FilterByName($name)
     {
@@ -47,13 +68,13 @@ class EnterpriseController
         if ($enterprise) {
             $_GET['enterpriseFounded'] = $enterprise;
             require_once(VIEWS_PATH . "studentEnterpriseList.php");
-        } else{
+        } else {
             $_GET['enterpriseNotFounded'] = 1;
             require_once(VIEWS_PATH . "studentEnterpriseList.php");
         }
 
     }
-
+    
     public function EnterpriseDetails ($name)
     {
         $enterprise = $this->enterpriseDAO->GetByName($name);
@@ -62,7 +83,7 @@ class EnterpriseController
             require_once(VIEWS_PATH . "enterpriseDetails.php");
         }
     }
-    
+
     public function AddProcess()
     {
         require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');

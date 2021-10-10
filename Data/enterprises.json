@@ -17,10 +17,10 @@
     },
     {
         "idEnterprise": 6,
-        "name": "ASDASD",
-        "cuit": "654",
-        "phoneNumber": "223example",
-        "addressName": "example",
-        "addressNumber": "1111"
+        "name": "GlobalLogic",
+        "cuit": "1",
+        "phoneNumber": "1",
+        "addressName": "Constitucion",
+        "addressNumber": "5525"
     }
 ]

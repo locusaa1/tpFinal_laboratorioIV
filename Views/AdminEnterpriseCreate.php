@@ -36,8 +36,8 @@ use Controllers\EnterpriseController as EnterpriseController;
         <label for="addressNumber">AddressNumber</label><br>
         <input type="text" name="addressNumber" value="" required
                placeholder="<?php echo $message = (isset($_SESSION['updateEnterprise'])) ? $_SESSION['updateEnterprise']->getAddressNumber() : '123' ?>"><br>
-        <button name="add" type="submit">Create</button>
-        <button name="reset" type="reset">Reset</button>
+        <button type="submit"><?php echo $message = (isset($_SESSION['updateEnterprise']) ? 'Update' : 'Create') ?></button>
+        <button type="reset">Reset</button>
         </ul>
     </form>
 </main>
