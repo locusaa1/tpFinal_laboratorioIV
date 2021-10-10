@@ -77,6 +77,13 @@ class EnterpriseDAO implements IEnterpriseDAO
         return $deleted;
     }
 
+    public function updateEnterprise(Enterprise $enterprise, $position)
+    {
+        $this->loadData();
+        array_splice($this->enterpriseList, $position, 1, array($enterprise));
+        $this->saveData();
+    }
+
     public function getSpecificEnterpriseByCuit($cuit)
     {
         $value = new Enterprise();
@@ -96,14 +103,14 @@ class EnterpriseDAO implements IEnterpriseDAO
         $this->fileName = ROOT . "Data/enterprises.json";
     }
 
-    public function GetByName($name) 
+    public function GetByName($name)
     {
-        $this->loadData();  
+        $this->loadData();
         $enterpriseFounded = null;
-        
-        if(!empty($this->enterpriseList)){
-            foreach($this->enterpriseList as $enterprise){
-                if($enterprise->getName() == $name){
+
+        if (!empty($this->enterpriseList)) {
+            foreach ($this->enterpriseList as $enterprise) {
+                if ($enterprise->getName() == $name) {
                     $enterpriseFounded = $enterprise;
                 }
             }

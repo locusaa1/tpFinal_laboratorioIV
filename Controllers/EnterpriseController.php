@@ -40,18 +40,24 @@ class EnterpriseController
 
     public function Add($name, $cuit, $phoneNumber, $addressName, $addressNumber)
     {
+        $newEnterprise = new Enterprise();
+        $newEnterprise->setName($name);
+        $newEnterprise->setCuit($cuit);
+        $newEnterprise->setPhoneNumber($phoneNumber);
+        $newEnterprise->setAddressName($addressName);
+        $newEnterprise->setAddressNumber($addressNumber);
         if (isset($_SESSION['updateEnterprise'])) {
 
+            $newEnterprise->setIdEnterprise($_SESSION['updateEnterprise']->getIdEnterprise());
+            $this->enterpriseDAO->updateEnterprise($newEnterprise, $_SESSION['updatePosition']);
+            unset($_SESSION['updateEnterprise']);
+            unset($_SESSION['updatePosition']);
+            $_SESSION['update']=true;
         } else {
-            $newEnterprise = new Enterprise();
-            $newEnterprise->setName($name);
-            $newEnterprise->setCuit($cuit);
-            $newEnterprise->setPhoneNumber($phoneNumber);
-            $newEnterprise->setAddressName($addressName);
-            $newEnterprise->setAddressNumber($addressNumber);
+
             $this->enterpriseDAO->addEnterprise($newEnterprise);
-            require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
         }
+        require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
     }
 
     public function FilterByName($name)

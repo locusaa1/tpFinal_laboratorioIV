@@ -16,6 +16,8 @@ use Controllers\EnterpriseController as EnterpriseController;
         if (isset($_SESSION['delete'])) {
             echo 'The enterprise where successfully removed';
             unset($_SESSION['delete']);
+        } elseif (isset($_SESSION['update'])) {
+            echo 'The enterprise where successfully updated';
         }
         ?>
     </p>
