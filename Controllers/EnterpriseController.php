@@ -54,9 +54,13 @@ class EnterpriseController
 
     }
 
-    public function EnterpriseDetails ()
+    public function EnterpriseDetails ($name)
     {
-        require_once(VIEWS_PATH . "enterpriseDetails.php");
+        $enterprise = $this->enterpriseDAO->GetByName($name);
+        if ($enterprise) {
+            $_GET['enterpriseForDetail'] = $enterprise;
+            require_once(VIEWS_PATH . "enterpriseDetails.php");
+        }
     }
     
     public function AddProcess()
