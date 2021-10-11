@@ -63,6 +63,7 @@ class EnterpriseController
     public function FilterByName($name)
     {
         $enterpriseList = $this->enterpriseDAO->getAll();
+        $_GET['getIn'] = 1;
         $_SESSION['similarArray'] = array();
         foreach ($enterpriseList as $enterprise){
 
