@@ -44,7 +44,7 @@
                     <?php }
                     unset($_SESSION['similarArray']);
                     ?>
-                    <button class="loginButton" type="submit">Details</button>
+                    <button class="loginButton" type="submit">Ver Detalle</button>
             </form>
 
 
