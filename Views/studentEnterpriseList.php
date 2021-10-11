@@ -44,8 +44,9 @@
                     <?php }
                     unset($_SESSION['similarArray']);
                     ?>
-                    <button class="loginButton" type="submit">Ver Detalle</button>
+                    <button class="detailButton" type="submit">Ver Detalle de empresa</button>
             </form>
+            <a class="backButton" href="<?php echo FRONT_ROOT ?>Student/EnterpriseList">Quitar filtro</a>
 
 
             <?php
@@ -65,13 +66,17 @@
 
             }
             ?>
-            <button class="loginButton" type="submit">Ver detalle</button>
+            <button class="detailButton" type="submit">Ver detalle de empresa</button>
             </form>
             <?php
         }
 
     ?>
     </section>
+    <br>
+    <section>
+        <a class="backButton" href="<?php echo FRONT_ROOT ?>Student/StudentView">Volver</a>
+    </section>   
 
 </main>
 <?php
