@@ -17,5 +17,10 @@
         {
             require_once (VIEWS_PATH."AdminsLogin.php");
         }
+
+        public function LogOut ()
+        {
+            require_once (VIEWS_PATH."logout.php");
+        }
     }
 ?>
