@@ -4,26 +4,31 @@
     use Controllers\EnterpriseController as EnterpriseController;
 ?>
 <main class="">
-    <p>
-        <?php
-        if (empty($_SESSION['similarArray']))
-        {?>
-         <div class="rejectionMessaje">
-             <?php echo 'No match results'?>
-         </div>
-        <?php
-        }
-        ?>
-    </p>
+  
    <section class="hello-Bg">
         <div class="hello">
             <p>Empresas</p>
         </div>
     </section>
+    <p>
+        <?php
+        if(!empty($_GET['getIn']))
+        {
+            if (empty($_SESSION['similarArray']))
+            {?>
+             <div class="rejectionMessaje">
+                 <?php echo 'No se encontraron resultados'?>
+             </div>
+            <?php
+            }
+        }
+       
+        ?>
+    </p>
     <section class="filterByNameContainer">
-        <form action="<?php echo FRONT_ROOT ?>Enterprise/FilterByName" method="POST" class="filterForm">
+        <form action="<?php echo FRONT_ROOT ?>Enterprise/FilterByName" method="POST" class="filterForm" >
             <label for="name">Filtrar empresas por nombre</label>
-            <input type="text" name="name" class="inputFilter">
+            <input type="text" name="name" class="inputFilter" required>
             <button class="filterButton" type="submit">Filtrar</button>
         </form>
     </section>
@@ -36,7 +41,9 @@
                 ?>
                 <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
                 <label for="name"><?php echo $enterprise->getName()?></label><br>
-                    <?php }?>
+                    <?php }
+                    unset($_SESSION['similarArray']);
+                    ?>
                     <button class="loginButton" type="submit">Details</button>
             </form>
 
