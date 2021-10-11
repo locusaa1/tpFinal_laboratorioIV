@@ -24,10 +24,12 @@
             <a href="#">Mis postulaciones</a>  
             <br>
         </section> 
-        <section>
+        <section class="enterpriseStudentContainer">
+            <p class="enterprisePicture"></p>
             <a href="<?php echo FRONT_ROOT ?>Student/EnterpriseList">Empresas</a>  
         </section> 
-        <section>
+        <section class="searchStudentContainer">
+         <p class="searchPicture"></p>
             <a href="#">Búsquedas abiertas</a>
         </section>            
 
