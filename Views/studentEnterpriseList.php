@@ -20,17 +20,17 @@
             <p>Empresas</p>
         </div>
     </section>
-    <section>
-        <form action="<?php echo FRONT_ROOT ?>Enterprise/FilterByName" method="POST" class="loginForm">
+    <section class="filterByNameContainer">
+        <form action="<?php echo FRONT_ROOT ?>Enterprise/FilterByName" method="POST" class="filterForm">
             <label for="name">Filtrar empresas por nombre</label>
-            <input type="text" name="name" class="inputUsername">
-            <button class="loginButton" type="submit">Filtrar</button>
+            <input type="text" name="name" class="inputFilter">
+            <button class="filterButton" type="submit">Filtrar</button>
         </form>
     </section>
     <section>
     <?php
         if (!empty($_SESSION['similarArray'])){?>
-            <form action="<?php echo FRONT_ROOT?>Enterprise/EnterpriseDetails" method="get">
+            <form action="<?php echo FRONT_ROOT?>Enterprise/EnterpriseDetails" method="get" class="enterpriseStudentListContainer">
                 <?php
                 foreach ($_SESSION['similarArray'] as $enterprise){
                 ?>
@@ -46,7 +46,7 @@
             $companies = new EnterpriseController();
             $list = $companies->getEnterprisesList();
             ?>
-            <form action="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails" method="GET">
+            <form action="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails" method="GET" class="enterpriseStudentListContainer">
             <?php
             foreach ($list as $enterprise)
             {
