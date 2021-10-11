@@ -47,6 +47,11 @@ class StudentController
         require_once(VIEWS_PATH . "studentEnterpriseList.php");
     }
 
+    public function StudentView ()
+    {
+        require_once(VIEWS_PATH . "studentView.php");
+    }
+
 }
 
 ?>
