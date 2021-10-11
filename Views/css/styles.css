@@ -635,3 +635,40 @@ align-items: center;
     font-size: 3rem;
     color: var(--blue);
 }
+
+.enterpriseStudentDetailContainer
+{
+    background-color: var(--grey);
+    border-radius: 1.5rem;
+    margin: auto;
+    width: 600px;
+    position: relative;
+}
+
+.enterpriseStudentDetailContainer legend
+{
+    padding: 2rem;
+    font-size: 4rem;
+    font-weight: bolder;
+    color: var(--blue);
+    text-align: center;
+
+}
+
+.backButton, .detailButton
+{
+    text-decoration: none;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    margin-top: 2rem;
+    background-color: var(--blue);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 80rem;
+    margin-right: 80rem;
+    
+    
+}

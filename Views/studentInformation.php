@@ -28,6 +28,9 @@
         <p class="data">Teléfono</p> 
         <p class="dataAnswer"><?php echo $loggedUser->getPhoneNumber()?></p>
         <p class="data"><br></p>
+    </section>   
+    <section>
+        <a class="backButton" href="<?php echo FRONT_ROOT ?>Student/StudentView">Volver</a>
     </section>     
   
 </main>
