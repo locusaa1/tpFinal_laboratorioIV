@@ -391,7 +391,7 @@ align-items: center;
 .profileContainer
 {
     background-color: var(--grey);
-    width: min(60rem, 100%); 
+    width: min(40rem, 100%); 
     padding: 3rem;
     border-radius: 1rem;
     margin-left: 4rem;
@@ -405,11 +405,14 @@ align-items: center;
 
 .profileContainer legend
 {
-    color: var(--blue);
+    background-color: var(--blue);
+    color: var(--white);
     font-weight: bold;
     font-size: 4rem;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
+    padding: 1.8rem;
+    border-radius: 1.5rem;
 }
 
 
@@ -417,7 +420,7 @@ align-items: center;
 {
     padding: 1.5rem;
     border-radius: 1.5rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
     text-decoration: none;
     background-color: var(--blue);
     color: var(--white);
@@ -429,11 +432,14 @@ align-items: center;
 
 .profilePicture
 {
-    background-image: url(../img/profilePicture.jpg);
+    background-image: url(../img/profilePicture2.jpg);
     background-repeat: no-repeat;
     height: 250px;
+    width: 200px;
     background-position: center;
-    border-radius: 100%;
+    border-radius: 1.5rem;
+    border-color: var(--blue);
+   
 
 }
 
