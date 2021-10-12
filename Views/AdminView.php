@@ -9,7 +9,6 @@ require_once('nav.php');
             </div>
         </section>
         <?php require_once('adminAside.php'); ?>
-
     </main>
 <?php
 require_once('companies.php');

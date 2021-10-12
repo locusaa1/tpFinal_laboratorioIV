@@ -90,3 +90,15 @@
     margin: 2px;
 
 }
+
+.personalInfo{
+    float: left;
+    background-color: #757575;
+    border-radius: 1.5rem;
+    padding: 30px;
+}
+
+.personalInfo label{
+    padding: 2px;
+    color: white;
+}
