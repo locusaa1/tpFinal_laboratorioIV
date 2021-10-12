@@ -38,4 +38,9 @@ class AdminController
     {
         require_once(VIEWS_PATH . "AdminEnterpriseList.php");
     }
+
+    public function details()
+    {
+        require_once(VIEWS_PATH . "adminDetails.php");
+    }
 }

@@ -32,7 +32,7 @@
     color: #000000;
 }
 
-.adminEnterpriseListSection{
+.adminEnterpriseListSection {
     position: sticky;
     border-radius: 2rem;
     background-color: #acaca5;
@@ -45,12 +45,12 @@
     float: left;
 }
 
-.adminEnterpriseListSection ul{
+.adminEnterpriseListSection ul {
     padding: 10rem;
     margin-left: 20px;
 }
 
-.adminEnterpriseListSection ul li{
+.adminEnterpriseListSection ul li {
     background-color: #4c739e;
     border-radius: 1.5rem;
     text-align: center;
@@ -66,9 +66,27 @@
     position: center;
 }
 
-.enterpriseButton:hover{
+.enterpriseButton:hover {
     transition-duration: 0.4s;
     background-color: black;
     color: white;
 }
 
+.enterpriseForm {
+    float: left;
+    padding: 50px;
+    border-radius: 1.5rem;
+    background-color: #acaca5;
+    position: center;
+}
+
+.enterpriseForm label{
+    position: static;
+    width: fit-content;
+}
+
+.enterpriseForm input{
+    border-radius: 1.5rem;
+    margin: 2px;
+
+}
