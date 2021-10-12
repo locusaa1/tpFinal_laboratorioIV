@@ -6,11 +6,11 @@ require_once('nav.php');
         <nav class="adminNav">
 
         </nav>
-        <!--<section class="ourMision-Bg">
+        <section class="ourMision-Bg">
             <div class="ourMision">
                 <p>Weolcome</p>
             </div>
-        </section>-->
+        </section>
         <?php require_once('adminAside.php'); ?>
 
     </main>

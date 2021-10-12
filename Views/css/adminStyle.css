@@ -1,0 +1,32 @@
+.adminAside {
+    margin: 2rem;
+    padding: 3rem;
+    background-color: dimgrey;
+    position: static;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 300px;
+    width: 200px;
+}
+
+.adminAside a {
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    position: center;
+    text-align: center;
+    border-style: solid;
+    border-width: thin;
+    margin: 2px;
+    border-color: #212121;
+    background-color: #757575;
+    color: white;
+    text-decoration: none;
+}
+
+.adminLink:hover {
+    transition-duration: 0.4s;
+    background-color: white;
+    color: #000000;
+}

@@ -443,35 +443,6 @@ align-items: center;
 
 }
 
-.adminAside
-{
-    padding: 200px 20px 50px 20px;
-    background-color: dimgrey;
-    position: static;
-    border-radius: 1.5rem;
-    height: 300px;
-    width: 200px;
-}
-
-.adminLink
-{
-    position: center;
-    border-style: solid;
-    border-width: thin;
-    margin: 2px;
-    border-color: #212121;
-    background-color: #757575;
-    color: white;
-    text-decoration: none;
-}
-
-.adminLink:hover
-{
-    transition-duration: 0.4s;
-    background-color: white;
-    color: #000000;
-}
-
 .enterpriseStudentContainer
 {
     width: min(40rem, 100%); 
