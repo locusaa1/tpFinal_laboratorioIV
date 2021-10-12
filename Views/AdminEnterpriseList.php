@@ -18,29 +18,33 @@ use Controllers\EnterpriseController as EnterpriseController;
             unset($_SESSION['delete']);
         } elseif (isset($_SESSION['update'])) {
             echo 'The enterprise where successfully updated';
+            unset($_SESSION['update']);
         }
         ?>
     </p>
-    <form action="<?php echo FRONT_ROOT ?>Enterprise/AddProcess" method="post">
-        <button type="submit">create</button>
-    </form>
-    <form action="<?php echo FRONT_ROOT ?>Enterprise/ActionProcess" method="post">
-        <button name="action" value="delete">delete</button>
-        <button name="action" value="update">update</button>
-        <ul>
-            <?php
-            $controller = new EnterpriseController();
-            $list = $controller->getEnterprisesList();
-            foreach ($list as $enterprise) {
-                echo '<li>';
-                echo 'name: ' . $enterprise->getName() . '<br>';
-                echo 'cuit: ' . $enterprise->getCuit() . '<br>';
-                echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
-                echo 'address: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>';
-                echo '</li>'; ?>
-                <input type="radio" name="enterpriseCuit" value="<?= $enterprise->getCuit(); ?>" required>
-                <br>
-            <?php } ?>
-        </ul>
-    </form>
+    <?php require_once('adminAside.php'); ?>
+    <section class="adminEnterpriseListSection">
+        <form action="<?php echo FRONT_ROOT ?>Enterprise/AddProcess" method="post">
+            <button class="enterpriseButton" type="submit">Create New Enterprise</button>
+        </form>
+        <form action="<?php echo FRONT_ROOT ?>Enterprise/ActionProcess" method="post">
+            <button class="enterpriseButton" name="action" value="delete">delete</button>
+            <button class="enterpriseButton" name="action" value="update">update</button>
+            <ul>
+                <?php
+                $controller = new EnterpriseController();
+                $list = $controller->getEnterprisesList();
+                foreach ($list as $enterprise) {
+                    echo '<li>';
+                    echo 'name: ' . $enterprise->getName() . '<br>';
+                    echo 'cuit: ' . $enterprise->getCuit() . '<br>';
+                    echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
+                    echo 'address: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>';?>
+                    <input type="radio" name="enterpriseCuit" value="<?= $enterprise->getCuit(); ?>" required>
+                    <?php echo '</li>'; ?>
+                    <br>
+                <?php } ?>
+            </ul>
+        </form>
+    </section>
 </main>

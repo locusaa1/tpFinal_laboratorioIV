@@ -3,9 +3,6 @@ require_once('title.php');
 require_once('nav.php');
 ?>
     <main class="">
-        <nav class="adminNav">
-
-        </nav>
         <section class="ourMision-Bg">
             <div class="ourMision">
                 <p>Weolcome</p>

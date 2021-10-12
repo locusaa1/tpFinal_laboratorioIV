@@ -9,6 +9,7 @@
     justify-content: center;
     height: 300px;
     width: 200px;
+    float: left;
 }
 
 .adminAside a {
@@ -25,8 +26,49 @@
     text-decoration: none;
 }
 
-.adminLink:hover {
+.adminAside a:hover {
     transition-duration: 0.4s;
     background-color: white;
     color: #000000;
 }
+
+.adminEnterpriseListSection{
+    position: sticky;
+    border-radius: 2rem;
+    background-color: #acaca5;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    font-size: 3rem;
+    width: 1000px;
+    float: left;
+}
+
+.adminEnterpriseListSection ul{
+    padding: 10rem;
+    margin-left: 20px;
+}
+
+.adminEnterpriseListSection ul li{
+    background-color: #4c739e;
+    border-radius: 1.5rem;
+    text-align: center;
+}
+
+.enterpriseButton {
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    color: black;
+    background-color: white;
+    height: content-box;
+    width: content-box;
+    position: center;
+}
+
+.enterpriseButton:hover{
+    transition-duration: 0.4s;
+    background-color: black;
+    color: white;
+}
+
