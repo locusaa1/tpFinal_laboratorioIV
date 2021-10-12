@@ -14,6 +14,11 @@ class AdminController
         $this->adminDAO = new AdminDAO();
     }
 
+    public function AdminView()
+    {
+        require_once (VIEWS_PATH.'AdminView.php');
+    }
+
     public function Login($username, $password)
     {
         $adminList = $this->adminDAO->getAll();
