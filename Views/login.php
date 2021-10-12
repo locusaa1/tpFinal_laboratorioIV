@@ -3,10 +3,7 @@
     require_once('nav.php');
 
     use Controllers\StudentController as StudentController;
-    if(isset($_SESSION['student'])){
-        $controller = new StudentController();
-        $controller->StudentView();
-    }
+    
 ?>
 <p>
     <?php
@@ -32,16 +29,24 @@
     }
         ?>
 </p>
-
-<form action="<?php echo FRONT_ROOT ?>Student/CheckEmail" method="POST" class="loginForm">
-    <div class="loginContainer">
-        <legend>Ingrese su correo electrónico</legend>
-        <label for="email">Email</label>
-        <input type="email" name="email" class="inputUsername" placeholder="Ej: nombre@gmail.com" required>
-    </div>
-    <button class="loginButton" type="submit">Iniciar Sesión</button>
-</form>
 <?php
+if(isset($_SESSION['student'])){
+        $controller = new StudentController();
+        $controller->StudentView();
+    }else{
+        ?>
+        <form action="<?php echo FRONT_ROOT ?>Student/CheckEmail" method="POST" class="loginForm">
+            <div class="loginContainer">
+                <legend>Ingrese su correo electrónico</legend>
+                <label for="email">Email</label>
+                <input type="email" name="email" class="inputUsername" placeholder="Ej: nombre@gmail.com" required>
+            </div>
+        <button class="loginButton" type="submit">Iniciar Sesión</button>
+        </form>
+        <?php
+    }
+
+
 require_once ('companies.php');
 require_once ('contactForm.php');
 ?>
