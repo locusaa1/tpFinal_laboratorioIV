@@ -1,6 +1,12 @@
 <?php
     require_once ('title.php');
     require_once('nav.php');
+
+    use Controllers\StudentController as StudentController;
+    if(isset($_SESSION['student'])){
+        $controller = new StudentController();
+        $controller->StudentView();
+    }
 ?>
 <p>
     <?php
