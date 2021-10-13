@@ -1,26 +1,35 @@
 [
     {
-        "idEnterprise": 2,
-        "name": "Avalith",
-        "cuit": "321",
-        "phoneNumber": "223example",
-        "addressName": "example",
-        "addressNumber": "1111"
-    },
-    {
-        "idEnterprise": 3,
-        "name": "DelPlata",
-        "cuit": "456",
-        "phoneNumber": "223example",
-        "addressName": "example",
-        "addressNumber": "1111"
-    },
-    {
-        "idEnterprise": 6,
+        "idEnterprise": 1,
         "name": "GlobalLogic",
         "cuit": "1",
         "phoneNumber": "1",
         "addressName": "Constitucion",
         "addressNumber": "5525"
+    },
+    {
+        "idEnterprise": 2,
+        "name": "Globant",
+        "cuit": "2",
+        "phoneNumber": "1",
+        "addressName": "Buenos Aires",
+        "addressNumber": "2000"
+    },
+    {
+        "idEnterprise": 3,
+        "name": "Temperies",
+        "cuit": "3",
+        "phoneNumber": "1",
+        "addressName": "Luro",
+        "addressNumber": "3000"
+    },
+    {
+        "idEnterprise": 4,
+        "name": "Accenture",
+        "cuit": "4",
+        "phoneNumber": "1",
+        "addressName": "Tejedor",
+        "addressNumber": "1000"
     }
+
 ]

@@ -58,6 +58,7 @@
 
 .enterpriseButton {
     padding: 1.5rem;
+    box-sizing: border-box;
     border-radius: 1.5rem;
     color: black;
     background-color: white;
@@ -101,4 +102,8 @@
 .personalInfo label{
     padding: 2px;
     color: white;
+}
+
+.listConf{
+    border-color: #757575;
 }

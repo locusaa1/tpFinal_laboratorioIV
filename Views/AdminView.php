@@ -5,7 +5,7 @@ require_once('nav.php');
     <main class="">
         <section class="ourMision-Bg">
             <div class="ourMision">
-                <p>Weolcome</p>
+                <p>Welcome</p>
             </div>
         </section>
         <?php require_once('adminAside.php'); ?>

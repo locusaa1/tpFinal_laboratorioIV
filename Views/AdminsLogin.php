@@ -5,7 +5,7 @@ require_once('nav.php');
 use Controllers\AdminController as AdminController;
 
 ?>
-<p><?php if (isset($_GET['log'])){echo "The username or password are incorrect";} ?></p>
+<p><?php if (isset($_GET['log'])){ echo $message = ($_GET['log']=='error')? 'The username or password are incorrect' : 'You must login first' ;}?></p>
 <?php
 if (isset($_SESSION['admin'])){
     $controller = new AdminController();

@@ -98,6 +98,21 @@ class EnterpriseDAO implements IEnterpriseDAO
         return $value;
     }
 
+    public function cuitExists($cuit)
+    {
+        $confirm = false;
+        $c = 0;
+        $this->loadData();
+        while ($c < count($this->enterpriseList) && $confirm == false) {
+
+            if ($this->enterpriseList[$c]->getCuit() == $cuit) {
+
+                $confirm = true;
+            }
+        }
+        return true;
+    }
+
     public function __construct()
     {
         $this->fileName = ROOT . "Data/enterprises.json";

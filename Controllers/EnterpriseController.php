@@ -23,19 +23,53 @@ class EnterpriseController
         return $this->enterpriseDAO->getAll();
     }
 
-    public function ActionProcess($action, $enterpriseCuit)
+    //recivo por get un strin, con barras separando la acción del cuit
+    //rompo el string en un array con explode
+    //me fijo qué acción desea el usuario
+    //según la acción redirijo a donde sea necesario
+    public function ActionProcess($action)
     {
-        if ($action == 'delete') {
+        $values=explode('/',$_GET['action']);
+        if ($values[0]=='update'){
 
-            $_SESSION['delete'] = $this->enterpriseDAO->deleteByCuit($enterpriseCuit);
-            require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
-        } elseif ($action == 'update') {
+            $this->updateEnterprise($values[1]);
+            die(var_dump($values));
+        }elseif($values[0]=='delete'){
 
-            $enterprise = $this->enterpriseDAO->getSpecificEnterpriseByCuit($enterpriseCuit);
-            $_SESSION['updateEnterprise'] = $enterprise;
-            $_SESSION['updatePosition'] = array_search($enterprise, $this->enterpriseDAO->getAll());
-            require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
+            $this->deleteEnterprise($values[1]);
+        }else{
+
+            $this->addEnterprise();
         }
+        /*if ($_GET['action'] == 'delete') {
+
+            $this->deleteEnterprise();
+        } elseif ($_GET['action'] == 'update') {
+
+            $_GET['update'] = $this->enterpriseDAO->getSpecificEnterpriseByCuit($_GET['enterpriseCuit']);
+            require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
+        }else{
+
+            require_once (VIEWS_PATH. 'AdminEnterpriseCreate.php');
+        }*/
+    }
+
+    public function addEnterprise()
+    {
+        require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
+    }
+
+    private function updateEnterprise($cuit){
+
+        $_GET['update']=$this->enterpriseDAO->getSpecificEnterpriseByCuit($cuit);
+        require_once (VIEWS_PATH.'AdminEnterpriseCreate.php');
+    }
+
+    private function deleteEnterprise($cuit)
+    {
+        $_GET['delete'] = $this->enterpriseDAO->deleteByCuit($cuit);
+        $list = $this->enterpriseDAO->getAll();
+        require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
     }
 
     public function Add($name, $cuit, $phoneNumber, $addressName, $addressNumber)
@@ -46,6 +80,7 @@ class EnterpriseController
         $newEnterprise->setPhoneNumber($phoneNumber);
         $newEnterprise->setAddressName($addressName);
         $newEnterprise->setAddressNumber($addressNumber);
+
         if (isset($_SESSION['updateEnterprise'])) {
 
             $newEnterprise->setIdEnterprise($_SESSION['updateEnterprise']->getIdEnterprise());
@@ -65,14 +100,14 @@ class EnterpriseController
         $enterpriseList = $this->enterpriseDAO->getAll();
         $_GET['getIn'] = 1;
         $_SESSION['similarArray'] = array();
-        foreach ($enterpriseList as $enterprise){
+        foreach ($enterpriseList as $enterprise) {
 
-            if (stripos($enterprise->getName(),$name)!==false){
+            if (stripos($enterprise->getName(), $name) !== false) {
 
-                array_push($_SESSION['similarArray'],$enterprise);
+                array_push($_SESSION['similarArray'], $enterprise);
             }
         }
-        require_once (VIEWS_PATH.'studentEnterpriseList.php');
+        require_once(VIEWS_PATH . 'studentEnterpriseList.php');
     }
 
     public function EnterpriseDetails($name)
@@ -82,10 +117,5 @@ class EnterpriseController
             $_GET['enterpriseForDetail'] = $enterprise;
             require_once(VIEWS_PATH . "enterpriseDetails.php");
         }
-    }
-
-    public function AddProcess()
-    {
-        require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
     }
 }
