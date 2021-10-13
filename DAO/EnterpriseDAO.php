@@ -51,9 +51,14 @@ class EnterpriseDAO implements IEnterpriseDAO
 
     public function addEnterprise(Enterprise $enterprise)
     {
-        $this->loadData();
-        array_push($this->enterpriseList, $enterprise);
-        $this->saveData();
+        $confirm = $this->cuitExists($enterprise->getCuit());
+        if (!$confirm) {
+
+            array_push($this->enterpriseList, $enterprise);
+            $this->saveData();
+            $confirm = true;
+        }
+        return $confirm;
     }
 
     public function getAll()

@@ -38,7 +38,7 @@ use Controllers\EnterpriseController as EnterpriseController;
             <label for="addressNumber">AddressNumber</label><br>
             <input type="text" name="addressNumber" value="" required
                    placeholder="<?php echo $message = (isset($_GET['update'])) ? $_GET['update']->getAddressNumber() : '123' ?>"><br>
-            <button class="enterpriseButton" type="submit"><?php echo $message = ($_GET['update']) ? 'Update' : 'Create'; ?></button>
+            <button class="enterpriseButton" type="submit"><?php if(isset($_GET['update'])){echo 'Update';}else{ echo 'Create';} ?></button>
             <button class="enterpriseButton" type="reset">Reset</button>
             </ul>
         </form>

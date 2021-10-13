@@ -23,17 +23,12 @@ class EnterpriseController
         return $this->enterpriseDAO->getAll();
     }
 
-    //recivo por get un strin, con barras separando la acción del cuit
-    //rompo el string en un array con explode
-    //me fijo qué acción desea el usuario
-    //según la acción redirijo a donde sea necesario
     public function ActionProcess($action)
     {
         $values=explode('/',$_GET['action']);
         if ($values[0]=='update'){
 
             $this->updateEnterprise($values[1]);
-            die(var_dump($values));
         }elseif($values[0]=='delete'){
 
             $this->deleteEnterprise($values[1]);
@@ -41,17 +36,7 @@ class EnterpriseController
 
             $this->addEnterprise();
         }
-        /*if ($_GET['action'] == 'delete') {
 
-            $this->deleteEnterprise();
-        } elseif ($_GET['action'] == 'update') {
-
-            $_GET['update'] = $this->enterpriseDAO->getSpecificEnterpriseByCuit($_GET['enterpriseCuit']);
-            require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
-        }else{
-
-            require_once (VIEWS_PATH. 'AdminEnterpriseCreate.php');
-        }*/
     }
 
     public function addEnterprise()
