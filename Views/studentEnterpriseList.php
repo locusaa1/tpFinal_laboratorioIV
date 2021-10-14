@@ -47,7 +47,7 @@
                     ?>
                     <button class="detailButton" type="submit">Ver Detalle de empresa</button>
             </form>
-            <a class="backButton" href="<?php echo FRONT_ROOT ?>Student/EnterpriseList">Quitar filtro</a>
+            <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseListStudent">Quitar filtro</a>
 
 
             <?php
