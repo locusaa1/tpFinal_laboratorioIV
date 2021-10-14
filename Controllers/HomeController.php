@@ -1,6 +1,8 @@
 <?php
     namespace Controllers;
 
+    use Controllers\StudentController as StudentController;
+
     class HomeController
     {
         public function Index($message = "")
@@ -10,7 +12,12 @@
         
         public function Login ()
         {
+            if(isset($_SESSION['student'])){
+                $controller = new StudentController();
+                $controller->StudentView();
+            }else{
             require_once (VIEWS_PATH."login.php");
+            }
         }
 
         public function AdminsLogin ()
