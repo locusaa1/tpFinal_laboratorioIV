@@ -49,17 +49,11 @@ class EnterpriseDAO implements IEnterpriseDAO
         file_put_contents($this->fileName, $content);
     }
 
-    public function addEnterprise(Enterprise $enterprise)
+    public function updateEnterprise(Enterprise $enterprise, $position)
     {
         $this->loadData();
-        array_push($this->enterpriseList, $enterprise);
+        array_splice($this->enterpriseList, $position, 1, array($enterprise));
         $this->saveData();
-    }
-
-    public function getAll()
-    {
-        $this->loadData();
-        return $this->enterpriseList;
     }
 
     public function deleteByCuit($cuit)
@@ -77,11 +71,24 @@ class EnterpriseDAO implements IEnterpriseDAO
         return $deleted;
     }
 
-    public function updateEnterprise(Enterprise $enterprise, $position)
+    public function addEnterprise(Enterprise $enterprise)
     {
         $this->loadData();
-        array_splice($this->enterpriseList, $position, 1, array($enterprise));
-        $this->saveData();
+        $confirm = false;
+        $validation = $this->cuitExists($enterprise->getCuit());
+        if ($validation==false) {
+
+            array_push($this->enterpriseList, $enterprise);
+            $this->saveData();
+            $confirm=true;
+        }
+        return $confirm;
+    }
+
+    public function getAll()
+    {
+        $this->loadData();
+        return $this->enterpriseList;
     }
 
     public function getSpecificEnterpriseByCuit($cuit)
@@ -96,6 +103,23 @@ class EnterpriseDAO implements IEnterpriseDAO
             }
         }
         return $value;
+    }
+
+    public function cuitExists($cuit)
+    {
+        $confirm = false;
+        $c = 0;
+        $this->loadData();
+
+        while ($c < count($this->enterpriseList) && $confirm == false) {
+
+            if ($this->enterpriseList[$c]->getCuit() == $cuit) {
+
+                $confirm = true;
+            }
+            $c++;
+        }
+        return $confirm;
     }
 
     public function __construct()

@@ -13,34 +13,46 @@ use Controllers\EnterpriseController as EnterpriseController;
     </section>
     <p>
         <?php
-        if (isset($_SESSION['delete'])) {
+        if (isset($_GET['delete'])) {
+
             echo 'The enterprise where successfully removed';
-            unset($_SESSION['delete']);
-        } elseif (isset($_SESSION['update'])) {
-            echo 'The enterprise where successfully updated';
+        } elseif (isset($_GET['add'])) {
+
+            if ($_GET['add'] == true) {
+
+                echo 'The enterprise was successfully added';
+            } else {
+
+                echo 'The cuit already exists';
+            }
+        } elseif(isset($_GET['delete'])) {
+
+            echo 'The enterprise was successfully updated';
         }
         ?>
     </p>
-    <form action="<?php echo FRONT_ROOT ?>Enterprise/AddProcess" method="post">
-        <button type="submit">create</button>
-    </form>
-    <form action="<?php echo FRONT_ROOT ?>Enterprise/ActionProcess" method="post">
-        <button name="action" value="delete">delete</button>
-        <button name="action" value="update">update</button>
-        <ul>
-            <?php
-            $controller = new EnterpriseController();
-            $list = $controller->getEnterprisesList();
-            foreach ($list as $enterprise) {
-                echo '<li>';
-                echo 'name: ' . $enterprise->getName() . '<br>';
-                echo 'cuit: ' . $enterprise->getCuit() . '<br>';
-                echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
-                echo 'address: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>';
-                echo '</li>'; ?>
-                <input type="radio" name="enterpriseCuit" value="<?= $enterprise->getCuit(); ?>" required>
-                <br>
-            <?php } ?>
-        </ul>
-    </form>
+    <?php require_once('adminAside.php'); ?>
+    <section class="">
+        <form class="container" action="<?php echo FRONT_ROOT ?>Enterprise/actionProcess" method="get">
+            <button class="enterpriseButton" type="submit" name="action" value="create">Create New Enterprise</button>
+            <section class="list-group">
+                <?php
+                foreach ($list as $enterprise) {
+                    echo '<li class="list-group-item">';
+                    echo 'name: ' . $enterprise->getName() . '<br>';
+                    echo 'cuit: ' . $enterprise->getCuit() . '<br>';
+                    echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
+                    echo 'address: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>'; ?>
+                    <button class="enterpriseButton" type="submit" name="action"
+                            value="update/<?php echo $enterprise->getCuit() ?>">Update
+                    </button>
+                    <button class="enterpriseButton" type="submit" name="action"
+                            value="delete/<?php echo $enterprise->getCuit() ?>">Delete
+                    </button>
+                    <?php echo '</li>'; ?>
+                    <br>
+                <?php } ?>
+            </section>
+        </form>
+    </section>
 </main>

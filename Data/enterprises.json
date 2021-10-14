@@ -1,26 +1,26 @@
 [
     {
+        "idEnterprise": "729036673616796a2f32220.03178416",
+        "name": "Logs",
+        "cuit": "3",
+        "phoneNumber": "2",
+        "addressName": "qwe",
+        "addressNumber": "2"
+    },
+    {
         "idEnterprise": 2,
-        "name": "Avalith",
-        "cuit": "321",
-        "phoneNumber": "223example",
-        "addressName": "example",
-        "addressNumber": "1111"
-    },
-    {
-        "idEnterprise": 3,
-        "name": "DelPlata",
-        "cuit": "456",
-        "phoneNumber": "223example",
-        "addressName": "example",
-        "addressNumber": "1111"
-    },
-    {
-        "idEnterprise": 6,
-        "name": "GlobalLogic",
-        "cuit": "1",
+        "name": "Globant",
+        "cuit": "2",
         "phoneNumber": "1",
-        "addressName": "Constitucion",
-        "addressNumber": "5525"
+        "addressName": "Buenos Aires",
+        "addressNumber": "2000"
+    },
+    {
+        "idEnterprise": "729036673616796a2f32220.03178416",
+        "name": "LaN",
+        "cuit": "4",
+        "phoneNumber": "123",
+        "addressName": "StaElena",
+        "addressNumber": "222"
     }
 ]

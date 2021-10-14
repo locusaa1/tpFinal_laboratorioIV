@@ -1,0 +1,109 @@
+.adminAside {
+    margin: 2rem;
+    padding: 3rem;
+    background-color: dimgrey;
+    position: static;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 300px;
+    width: 200px;
+    float: left;
+}
+
+.adminAside a {
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    position: center;
+    text-align: center;
+    border-style: solid;
+    border-width: thin;
+    margin: 2px;
+    border-color: #212121;
+    background-color: #757575;
+    color: white;
+    text-decoration: none;
+}
+
+.adminAside a:hover {
+    transition-duration: 0.4s;
+    background-color: white;
+    color: #000000;
+}
+
+.adminEnterpriseListSection {
+    position: sticky;
+    border-radius: 2rem;
+    background-color: #acaca5;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    font-size: 3rem;
+    width: 1000px;
+    float: left;
+}
+
+.adminEnterpriseListSection ul {
+    padding: 10rem;
+    margin-left: 20px;
+}
+
+.adminEnterpriseListSection ul li {
+    background-color: #4c739e;
+    border-radius: 1.5rem;
+    text-align: center;
+}
+
+.enterpriseButton {
+    padding: 1.5rem;
+    box-sizing: border-box;
+    border-radius: 1.5rem;
+    color: black;
+    background-color: white;
+    height: content-box;
+    width: content-box;
+    position: center;
+}
+
+.enterpriseButton:hover {
+    transition-duration: 0.4s;
+    background-color: black;
+    color: white;
+}
+
+.enterpriseForm {
+    float: left;
+    padding: 50px;
+    border-radius: 1.5rem;
+    background-color: #acaca5;
+    position: center;
+}
+
+.enterpriseForm label{
+    position: static;
+    width: fit-content;
+}
+
+.enterpriseForm input{
+    border-radius: 1.5rem;
+    margin: 2px;
+
+}
+
+.personalInfo{
+    float: left;
+    background-color: #757575;
+    border-radius: 1.5rem;
+    padding: 30px;
+}
+
+.personalInfo label{
+    padding: 2px;
+    color: white;
+}
+
+.listConf{
+    border-color: #757575;
+}
