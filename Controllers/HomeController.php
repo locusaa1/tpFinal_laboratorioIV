@@ -20,7 +20,8 @@
 
         public function LogOut ()
         {
-            require_once (VIEWS_PATH."logout.php");
+            session_destroy();
+            require_once (VIEWS_PATH."index.php");
         }
     }
 ?>
