@@ -88,4 +88,20 @@ class EnterpriseController
     {
         require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
     }
+
+    //ver a qué controladora corresponde (debe ir en enterprise controller)
+    public function EnterpriseListStudent ()
+    {
+        $list = $this->getEnterprisesList();
+        
+        $_SESSION['enterpriseList'] = array();
+
+        foreach ($list as $enterprise)
+        {
+            array_push($_SESSION['enterpriseList'], $enterprise);
+                
+        }
+
+        require_once(VIEWS_PATH . "studentEnterpriseList.php");
+    }
 }

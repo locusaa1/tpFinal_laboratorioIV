@@ -10,6 +10,7 @@
         <div class="rejectionMessaje">
         <?php
         echo "Email no encontrado. Intente nuevamente";
+        unset($_GET['emailInvalid']);
         ?>
         </div>
         <?php
@@ -20,6 +21,7 @@
         <div class="rejectionMessaje">
         <?php
         echo "Ingreso denegado. Usted no se encuentra activo";
+        unset($_GET['notActive']);
         ?>
         </div>
         <?php
