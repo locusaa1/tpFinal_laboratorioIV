@@ -14,7 +14,7 @@
         <?php
         if(!empty($_GET['getIn']))
         {
-            if (empty($_SESSION['similarArray']))
+            if (empty($filterEnterpriseList))
             {?>
              <div class="rejectionMessaje">
                  <?php echo 'No se encontraron resultados'?>
@@ -35,15 +35,15 @@
     </section>
     <section>
     <?php
-        if (!empty($_SESSION['similarArray'])){?>
+        if (!empty($filterEnterpriseList)){?>
             <form action="<?php echo FRONT_ROOT?>Enterprise/EnterpriseDetails" method="get" class="enterpriseStudentListContainer">
                 <?php
-                foreach ($_SESSION['similarArray'] as $enterprise){
+                foreach ($filterEnterpriseList as $enterprise){
                 ?>
                 <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
                 <label for="name"><?php echo $enterprise->getName()?></label><br>
-                    <?php }
-                    unset($_SESSION['similarArray']);
+                    <?php 
+                    }
                     ?>
                     <button class="detailButton" type="submit">Ver Detalle de empresa</button>
             </form>
