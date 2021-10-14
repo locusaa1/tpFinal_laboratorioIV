@@ -91,13 +91,16 @@ class EnterpriseController
     {
         $enterpriseList = $this->enterpriseDAO->getAll();
         $_GET['getIn'] = 1;
-        $_SESSION['similarArray'] = array();
+        $filterEnterpriseList = array();
         foreach ($enterpriseList as $enterprise) {
 
             if (stripos($enterprise->getName(), $name) !== false) {
 
-                array_push($_SESSION['similarArray'], $enterprise);
+                array_push($filterEnterpriseList, $enterprise);
             }
+        }
+        if (empty($filterEnterpriseList)){
+            $list = $enterpriseList;
         }
         require_once(VIEWS_PATH . 'studentEnterpriseList.php');
     }
