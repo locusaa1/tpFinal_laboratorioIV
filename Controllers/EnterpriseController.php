@@ -90,8 +90,11 @@ class EnterpriseController
     public function FilterByName($name)
     {
         $enterpriseList = $this->enterpriseDAO->getAll();
+
         $_GET['getIn'] = 1;
+
         $filterEnterpriseList = array();
+
         foreach ($enterpriseList as $enterprise) {
 
             if (stripos($enterprise->getName(), $name) !== false) {
@@ -99,22 +102,23 @@ class EnterpriseController
                 array_push($filterEnterpriseList, $enterprise);
             }
         }
-        if (empty($filterEnterpriseList)){
+
+        if (empty($filterEnterpriseList))
+        {
             $list = $enterpriseList;
         }
+        
         require_once(VIEWS_PATH . 'studentEnterpriseList.php');
     }
 
     public function EnterpriseDetails($name)
     {
         $enterprise = $this->enterpriseDAO->GetByName($name);
-        if ($enterprise) {
-            $_GET['enterpriseForDetail'] = $enterprise;
-            require_once(VIEWS_PATH . "enterpriseDetails.php");
-        }
+        
+        require_once(VIEWS_PATH . "enterpriseDetails.php");
+        
     }
 
-    //ver a qué controladora corresponde (debe ir en enterprise controller)
     public function EnterpriseListStudent ()
     {
        $list = $this->getEnterprisesList();
