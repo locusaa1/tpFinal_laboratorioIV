@@ -56,7 +56,7 @@
             ?>
             <form action="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails" method="GET" class="enterpriseStudentListContainer">
             <?php
-            foreach ($_SESSION['enterpriseList'] as $enterprise)
+            foreach ($list as $enterprise)
             {
                 ?>
                     <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
