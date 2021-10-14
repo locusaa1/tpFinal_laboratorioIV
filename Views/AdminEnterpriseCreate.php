@@ -2,8 +2,6 @@
 require_once('title.php');
 require_once('nav.php');
 
-use Controllers\EnterpriseController as EnterpriseController;
-
 ?>
 <main class="">
     <section class="ourMision-Bg">
