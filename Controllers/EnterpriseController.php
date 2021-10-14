@@ -48,7 +48,7 @@ class EnterpriseController
     {
 
         $_GET['update'] = $this->enterpriseDAO->getSpecificEnterpriseByCuit($cuit);
-        require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
+        require_once(VIEWS_PATH . 'AdminEnterpriseUpdate.php');
     }
 
     private function deleteEnterprise($cuit)
@@ -61,20 +61,26 @@ class EnterpriseController
     public function enterpriseForm($name, $cuit, $phoneNumber, $addressName, $addressNumber, $action)
     {
         $newEnterprise = new Enterprise();
-        $newEnterprise->setName($name);
-        $newEnterprise->setCuit($cuit);
-        $newEnterprise->setPhoneNumber($phoneNumber);
-        $newEnterprise->setAddressName($addressName);
-        $newEnterprise->setAddressNumber($addressNumber);
 
         if ($action == 'update') {
 
-            $position = array_search($cuit, array_column($this->enterpriseDAO->getAll(), 'cuit'));
-            $newEnterprise->setIdEnterprise($this->enterpriseDAO->getSpecificEnterpriseByCuit($cuit));
+            $oldEnterprise = $this->enterpriseDAO->getSpecificEnterpriseByCuit($cuit);
+            $position = array_search($oldEnterprise, $this->enterpriseDAO->getAll());
+            $newEnterprise->setIdEnterprise($oldEnterprise->getIdEnterprise());
+            $newEnterprise->setCuit($oldEnterprise->getCuit());
+            $newEnterprise->setName($newName = (strcmp('', $name) == 0) ? $oldEnterprise->getName() : $name);
+            $newEnterprise->setPhoneNumber($newPhoneNumber = (strcmp('', $phoneNumber) == 0) ? $oldEnterprise->getPhoneNumber() : $phoneNumber);
+            $newEnterprise->setAddressName($newAddressName = (strcmp('', $addressName) == 0) ? $oldEnterprise->getAddressName() : $addressName);
+            $newEnterprise->setAddressNumber($newAddressNumber = (strcmp('', $addressNumber) == 0) ? $oldEnterprise->getPhoneNumber() : $addressNumber);
             $this->enterpriseDAO->updateEnterprise($newEnterprise, $position);
-            $_GET['update'] = true;
+            $_GET['update'] = 'true';
         } else {
 
+            $newEnterprise->setName($name);
+            $newEnterprise->setCuit($cuit);
+            $newEnterprise->setPhoneNumber($phoneNumber);
+            $newEnterprise->setAddressName($addressName);
+            $newEnterprise->setAddressNumber($addressNumber);
             $_GET['add'] = $this->enterpriseDAO->addEnterprise($newEnterprise);
         }
         $list = $this->enterpriseDAO->getAll();

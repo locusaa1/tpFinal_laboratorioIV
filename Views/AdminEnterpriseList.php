@@ -16,25 +16,25 @@ use Controllers\EnterpriseController as EnterpriseController;
         if (isset($_GET['delete'])) {
 
             echo 'The enterprise where successfully removed';
-        } elseif (isset($_GET['update'])) {
-
-            echo 'The enterprise was successfully updated';
-        } else {
+        } elseif (isset($_GET['add'])) {
 
             if ($_GET['add'] == true) {
 
                 echo 'The enterprise was successfully added';
             } else {
 
-                echo 'The cuit already exist';
+                echo 'The cuit already exists';
             }
+        } elseif(isset($_GET['delete'])) {
+
+            echo 'The enterprise was successfully updated';
         }
         ?>
     </p>
     <?php require_once('adminAside.php'); ?>
     <section class="">
         <form class="container" action="<?php echo FRONT_ROOT ?>Enterprise/actionProcess" method="get">
-            <button class="enterpriseButton" type="submit" name="action" value="creat">Create New Enterprise</button>
+            <button class="enterpriseButton" type="submit" name="action" value="create">Create New Enterprise</button>
             <section class="list-group">
                 <?php
                 foreach ($list as $enterprise) {
@@ -43,7 +43,6 @@ use Controllers\EnterpriseController as EnterpriseController;
                     echo 'cuit: ' . $enterprise->getCuit() . '<br>';
                     echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
                     echo 'address: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>'; ?>
-                    <input type="hidden" name="enterpriseCuit" value="<?= $enterprise->getCuit() ?>" required>
                     <button class="enterpriseButton" type="submit" name="action"
                             value="update/<?php echo $enterprise->getCuit() ?>">Update
                     </button>

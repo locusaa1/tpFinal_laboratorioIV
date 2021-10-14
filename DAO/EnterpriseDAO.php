@@ -73,8 +73,10 @@ class EnterpriseDAO implements IEnterpriseDAO
 
     public function addEnterprise(Enterprise $enterprise)
     {
-        $confirm = $this->cuitExists($enterprise->getCuit());
-        if (!$confirm) {
+        $this->loadData();
+        $confirm = false;
+        $validation = $this->cuitExists($enterprise->getCuit());
+        if ($validation==false) {
 
             array_push($this->enterpriseList, $enterprise);
             $this->saveData();
@@ -108,14 +110,16 @@ class EnterpriseDAO implements IEnterpriseDAO
         $confirm = false;
         $c = 0;
         $this->loadData();
+
         while ($c < count($this->enterpriseList) && $confirm == false) {
 
             if ($this->enterpriseList[$c]->getCuit() == $cuit) {
 
                 $confirm = true;
             }
+            $c++;
         }
-        return true;
+        return $confirm;
     }
 
     public function __construct()
