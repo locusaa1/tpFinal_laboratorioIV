@@ -8,38 +8,11 @@
     {
         private $studentList = array();
 
-        public function Add(Student $student)
-        {
-            $this->RetrieveData();
-            
-            array_push($this->studentList, $student);
-
-            $this->SaveData();
-        }
-
         public function GetAll()
         {
             $this->RetrieveData();
 
             return $this->studentList;
-        }
-
-        private function SaveData()
-        {
-            $arrayToEncode = array();
-
-            foreach($this->studentList as $student)
-            {
-                $valuesArray["recordId"] = $student->getRecordId();
-                $valuesArray["firstName"] = $student->getFirstName();
-                $valuesArray["lastName"] = $student->getLastName();
-
-                array_push($arrayToEncode, $valuesArray);
-            }
-
-            $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-            
-            file_put_contents('Data/students.json', $jsonContent);
         }
 
         public function GetByEmail($email) 
@@ -77,8 +50,6 @@
             $response = curl_exec($ch);
 
             $arrayToDecode = json_decode ($response, true);
-
-           
 
             foreach($arrayToDecode as $valuesArray)
             {

@@ -1,7 +1,7 @@
 <?php
     require_once ('title.php');
     require_once('nav.php');
-    use Controllers\EnterpriseController as EnterpriseController;
+   
 ?>
 <main class="">
   
@@ -21,6 +21,7 @@
              </div>
             <?php
             }
+            unset($_GET['getIn']);
         }
        
         ?>
@@ -51,12 +52,11 @@
 
             <?php
         }else{
-            $companies = new EnterpriseController();
-            $list = $companies->getEnterprisesList();
+            
             ?>
             <form action="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails" method="GET" class="enterpriseStudentListContainer">
             <?php
-            foreach ($list as $enterprise)
+            foreach ($_SESSION['enterpriseList'] as $enterprise)
             {
                 ?>
                     <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
