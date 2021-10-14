@@ -4,6 +4,7 @@ namespace Controllers;
 
 use DAO\StudentDAO as StudentDAO;
 use Models\Student as Student;
+use Controllers\EnterpriseController as EnterpriseController;
 
 class StudentController
 {
@@ -29,7 +30,6 @@ class StudentController
             }
             
         } else {
-            //header("location:Home/Login.php?emailInvalid=1");
             $_GET['emailInvalid'] = 1;
             require_once(VIEWS_PATH . "login.php");
         }
@@ -41,9 +41,21 @@ class StudentController
         require_once(VIEWS_PATH . "studentInformation.php");
     }
 
-    //ver a qué controladora corresponde
+    //ver a qué controladora corresponde (debe ir en enterprise controller)
     public function EnterpriseList ()
     {
+        $companies = new EnterpriseController();
+        
+        $list = $companies->getEnterprisesList();
+        
+        $_SESSION['enterpriseList'] = array();
+
+        foreach ($list as $enterprise)
+        {
+            array_push($_SESSION['enterpriseList'], $enterprise);
+                
+        }
+
         require_once(VIEWS_PATH . "studentEnterpriseList.php");
     }
 
