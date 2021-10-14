@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use DAO\StudentDAO as StudentDAO;
-use Models\Student as Student;
+
 
 class StudentController
 {
@@ -29,7 +29,6 @@ class StudentController
             }
             
         } else {
-            //header("location:Home/Login.php?emailInvalid=1");
             $_GET['emailInvalid'] = 1;
             require_once(VIEWS_PATH . "login.php");
         }
@@ -39,12 +38,6 @@ class StudentController
     public function StudentInfo ()
     {
         require_once(VIEWS_PATH . "studentInformation.php");
-    }
-
-    //ver a qué controladora corresponde
-    public function EnterpriseList ()
-    {
-        require_once(VIEWS_PATH . "studentEnterpriseList.php");
     }
 
     public function StudentView ()

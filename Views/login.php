@@ -1,9 +1,6 @@
 <?php
     require_once ('title.php');
     require_once('nav.php');
-
-    use Controllers\StudentController as StudentController;
-    
 ?>
 <p>
     <?php
@@ -13,6 +10,7 @@
         <div class="rejectionMessaje">
         <?php
         echo "Email no encontrado. Intente nuevamente";
+        unset($_GET['emailInvalid']);
         ?>
         </div>
         <?php
@@ -23,30 +21,22 @@
         <div class="rejectionMessaje">
         <?php
         echo "Ingreso denegado. Usted no se encuentra activo";
+        unset($_GET['notActive']);
         ?>
         </div>
         <?php
     }
         ?>
 </p>
-<?php
-if(isset($_SESSION['student'])){
-        $controller = new StudentController();
-        $controller->StudentView();
-    }else{
-        ?>
-        <form action="<?php echo FRONT_ROOT ?>Student/CheckEmail" method="POST" class="loginForm">
-            <div class="loginContainer">
-                <legend>Ingrese su correo electrónico</legend>
-                <label for="email">Email</label>
-                <input type="email" name="email" class="inputUsername" placeholder="Ej: nombre@gmail.com" required>
-            </div>
-        <button class="loginButton" type="submit">Iniciar Sesión</button>
-        </form>
-        <?php
-    }
-
-
+<form action="<?php echo FRONT_ROOT ?>Student/CheckEmail" method="POST" class="loginForm">
+    <div class="loginContainer">
+        <legend>Ingrese su correo electrónico</legend>
+        <label for="email">Email</label>
+        <input type="email" name="email" class="inputUsername" placeholder="Ej: nombre@gmail.com" required>
+    </div>
+<button class="loginButton" type="submit">Iniciar Sesión</button>
+</form>
+<?php 
 require_once ('companies.php');
 require_once ('contactForm.php');
 ?>
