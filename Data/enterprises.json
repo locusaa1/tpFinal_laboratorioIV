@@ -1,26 +1,42 @@
 [
     {
-        "idEnterprise": "729036673616796a2f32220.03178416",
-        "name": "Logs",
-        "cuit": "3",
-        "phoneNumber": "2",
-        "addressName": "qwe",
-        "addressNumber": "2"
+        "idEnterprise": 1,
+        "name": "Making Sense",
+        "cuit": "34-6958744-8",
+        "phoneNumber": "2234189568",
+        "addressName": "Formosa",
+        "addressNumber": "278"
     },
     {
         "idEnterprise": 2,
         "name": "Globant",
-        "cuit": "2",
-        "phoneNumber": "1",
-        "addressName": "Buenos Aires",
-        "addressNumber": "2000"
+        "cuit": "54-559874125-9",
+        "phoneNumber": "2234698574",
+        "addressName": "Av. Colon",
+        "addressNumber": "1102"
     },
     {
-        "idEnterprise": "729036673616796a2f32220.03178416",
-        "name": "LaN",
-        "cuit": "4",
-        "phoneNumber": "123",
-        "addressName": "StaElena",
-        "addressNumber": "222"
+        "idEnterprise": 3,
+        "name": "Avalith",
+        "cuit": "45-9685559-8",
+        "phoneNumber": "2234789569",
+        "addressName": "Olavarría",
+        "addressNumber": "2838"
+    },
+    {
+        "idEnterprise": 4,
+        "name": "Accenture",
+        "cuit": "45-9985559-8",
+        "phoneNumber": "2234956985",
+        "addressName": "Av. Independencia",
+        "addressNumber": "4250"
+    },
+    {
+        "idEnterprise": 5,
+        "name": "Accenture",
+        "cuit": "45-9985559-8",
+        "phoneNumber": "2234956985",
+        "addressName": "Av. Independencia",
+        "addressNumber": "4250"
     }
 ]
