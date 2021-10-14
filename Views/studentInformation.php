@@ -1,4 +1,9 @@
 <?php
+    if(!isset($_SESSION['student'])){
+        
+        require_once(VIEWS_PATH."index.php");
+    }
+
     require_once ('title.php');
     require_once('nav.php');
 ?>

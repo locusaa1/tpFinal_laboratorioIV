@@ -1,6 +1,11 @@
 <?php
+    if(!isset($_SESSION['student'])){
+        
+        require_once(VIEWS_PATH."index.php");
+    }
+
     require_once ('title.php');
-    require_once('nav.php');
+    require_once('nav.php');  
 ?>
 <main class="">
    <section class="hello-Bg">
