@@ -26,17 +26,15 @@
         </section> 
         <section class="enterpriseStudentContainer">
             <p class="enterprisePicture"></p>
-            <a href="<?php echo FRONT_ROOT ?>Student/EnterpriseList">Empresas</a>  
+            <a href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseListStudent">Empresas</a>  
         </section> 
         <section class="searchStudentContainer">
          <p class="searchPicture"></p>
             <a href="#">Búsquedas abiertas</a>
         </section>            
-
-
     </div>   
 </main>
 <?php
-require_once ('companies.php');
-require_once ('contactForm.php');
+    require_once ('companies.php');
+    require_once ('contactForm.php');
 ?>
