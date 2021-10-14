@@ -2,6 +2,7 @@
     namespace Controllers;
 
     use Controllers\StudentController as StudentController;
+    use Controllers\AdminController as AdminController;
 
     class HomeController
     {
@@ -22,7 +23,12 @@
 
         public function AdminsLogin ()
         {
+            if (isset($_SESSION['admin'])){
+                $controller = new AdminController();
+                $controller->AdminView();
+            }else{
             require_once (VIEWS_PATH."AdminsLogin.php");
+            }
         }
 
         public function LogOut ()

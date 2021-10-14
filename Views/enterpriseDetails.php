@@ -10,9 +10,8 @@
     </section> 
     <section class="enterpriseStudentDetailContainer">
     <?php
-        if(!empty($_GET['enterpriseForDetail']))
+        if($enterprise)
         {
-        $enterprise = $_GET['enterpriseForDetail'];
         ?>
         <legend><?php echo $enterprise->getName()?></legend>
         <p class="data">Cuit</p> 
