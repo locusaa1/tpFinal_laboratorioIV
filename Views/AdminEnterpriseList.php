@@ -1,7 +1,6 @@
 <?php
 require_once('title.php');
 require_once('nav.php');
-
 ?>
 <main class="">
     <section class="ourMision-Bg">
