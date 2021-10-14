@@ -14,13 +14,26 @@ use Controllers\EnterpriseController as EnterpriseController;
     <p>
         <?php
         if (isset($_GET['delete'])) {
+
             echo 'The enterprise where successfully removed';
+        } elseif (isset($_GET['update'])) {
+
+            echo 'The enterprise was successfully updated';
+        } else {
+
+            if ($_GET['add'] == true) {
+
+                echo 'The enterprise was successfully added';
+            } else {
+
+                echo 'The cuit already exist';
+            }
         }
         ?>
     </p>
     <?php require_once('adminAside.php'); ?>
     <section class="">
-        <form class="container" action="<?php echo FRONT_ROOT ?>Enterprise/ActionProcess" method="get">
+        <form class="container" action="<?php echo FRONT_ROOT ?>Enterprise/actionProcess" method="get">
             <button class="enterpriseButton" type="submit" name="action" value="creat">Create New Enterprise</button>
             <section class="list-group">
                 <?php
@@ -31,8 +44,12 @@ use Controllers\EnterpriseController as EnterpriseController;
                     echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
                     echo 'address: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>'; ?>
                     <input type="hidden" name="enterpriseCuit" value="<?= $enterprise->getCuit() ?>" required>
-                    <button class="enterpriseButton" type="submit" name="action" value="update/<?php echo $enterprise->getCuit() ?>">Update</button>
-                    <button class="enterpriseButton" type="submit" name="action" value="delete/<?php echo $enterprise->getCuit() ?>">Delete</button>
+                    <button class="enterpriseButton" type="submit" name="action"
+                            value="update/<?php echo $enterprise->getCuit() ?>">Update
+                    </button>
+                    <button class="enterpriseButton" type="submit" name="action"
+                            value="delete/<?php echo $enterprise->getCuit() ?>">Delete
+                    </button>
                     <?php echo '</li>'; ?>
                     <br>
                 <?php } ?>

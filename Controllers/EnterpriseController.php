@@ -23,16 +23,16 @@ class EnterpriseController
         return $this->enterpriseDAO->getAll();
     }
 
-    public function ActionProcess($action)
+    public function actionProcess($action)
     {
-        $values=explode('/',$_GET['action']);
-        if ($values[0]=='update'){
+        $values = explode('/', $_GET['action']);
+        if ($values[0] == 'update') {
 
             $this->updateEnterprise($values[1]);
-        }elseif($values[0]=='delete'){
+        } elseif ($values[0] == 'delete') {
 
             $this->deleteEnterprise($values[1]);
-        }else{
+        } else {
 
             $this->addEnterprise();
         }
@@ -44,10 +44,11 @@ class EnterpriseController
         require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
     }
 
-    private function updateEnterprise($cuit){
+    private function updateEnterprise($cuit)
+    {
 
-        $_GET['update']=$this->enterpriseDAO->getSpecificEnterpriseByCuit($cuit);
-        require_once (VIEWS_PATH.'AdminEnterpriseCreate.php');
+        $_GET['update'] = $this->enterpriseDAO->getSpecificEnterpriseByCuit($cuit);
+        require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
     }
 
     private function deleteEnterprise($cuit)
@@ -57,7 +58,7 @@ class EnterpriseController
         require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
     }
 
-    public function Add($name, $cuit, $phoneNumber, $addressName, $addressNumber)
+    public function enterpriseForm($name, $cuit, $phoneNumber, $addressName, $addressNumber, $action)
     {
         $newEnterprise = new Enterprise();
         $newEnterprise->setName($name);
@@ -66,17 +67,17 @@ class EnterpriseController
         $newEnterprise->setAddressName($addressName);
         $newEnterprise->setAddressNumber($addressNumber);
 
-        if (isset($_SESSION['updateEnterprise'])) {
+        if ($action == 'update') {
 
-            $newEnterprise->setIdEnterprise($_SESSION['updateEnterprise']->getIdEnterprise());
-            $this->enterpriseDAO->updateEnterprise($newEnterprise, $_SESSION['updatePosition']);
-            unset($_SESSION['updateEnterprise']);
-            unset($_SESSION['updatePosition']);
-            $_SESSION['update'] = true;
+            $position = array_search($cuit, array_column($this->enterpriseDAO->getAll(), 'cuit'));
+            $newEnterprise->setIdEnterprise($this->enterpriseDAO->getSpecificEnterpriseByCuit($cuit));
+            $this->enterpriseDAO->updateEnterprise($newEnterprise, $position);
+            $_GET['update'] = true;
         } else {
 
-            $this->enterpriseDAO->addEnterprise($newEnterprise);
+            $_GET['add'] = $this->enterpriseDAO->addEnterprise($newEnterprise);
         }
+        $list = $this->enterpriseDAO->getAll();
         require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
     }
 

@@ -49,22 +49,11 @@ class EnterpriseDAO implements IEnterpriseDAO
         file_put_contents($this->fileName, $content);
     }
 
-    public function addEnterprise(Enterprise $enterprise)
-    {
-        $confirm = $this->cuitExists($enterprise->getCuit());
-        if (!$confirm) {
-
-            array_push($this->enterpriseList, $enterprise);
-            $this->saveData();
-            $confirm = true;
-        }
-        return $confirm;
-    }
-
-    public function getAll()
+    public function updateEnterprise(Enterprise $enterprise, $position)
     {
         $this->loadData();
-        return $this->enterpriseList;
+        array_splice($this->enterpriseList, $position, 1, array($enterprise));
+        $this->saveData();
     }
 
     public function deleteByCuit($cuit)
@@ -82,11 +71,22 @@ class EnterpriseDAO implements IEnterpriseDAO
         return $deleted;
     }
 
-    public function updateEnterprise(Enterprise $enterprise, $position)
+    public function addEnterprise(Enterprise $enterprise)
+    {
+        $confirm = $this->cuitExists($enterprise->getCuit());
+        if (!$confirm) {
+
+            array_push($this->enterpriseList, $enterprise);
+            $this->saveData();
+            $confirm=true;
+        }
+        return $confirm;
+    }
+
+    public function getAll()
     {
         $this->loadData();
-        array_splice($this->enterpriseList, $position, 1, array($enterprise));
-        $this->saveData();
+        return $this->enterpriseList;
     }
 
     public function getSpecificEnterpriseByCuit($cuit)

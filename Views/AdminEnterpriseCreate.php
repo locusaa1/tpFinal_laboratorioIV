@@ -12,7 +12,7 @@ use Controllers\EnterpriseController as EnterpriseController;
             </div>
         </section>
         <?php require_once('adminAside.php'); ?>
-        <form class="enterpriseForm" action="<?php echo FRONT_ROOT ?>Enterprise/Add" method="post">
+        <form class="enterpriseForm" action="<?php echo FRONT_ROOT ?>Enterprise/enterpriseForm" method="post">
             <label>
                 <?php
                 if (isset($_GET['update'])) {
@@ -38,7 +38,7 @@ use Controllers\EnterpriseController as EnterpriseController;
             <label for="addressNumber">AddressNumber</label><br>
             <input type="text" name="addressNumber" value="" required
                    placeholder="<?php echo $message = (isset($_GET['update'])) ? $_GET['update']->getAddressNumber() : '123' ?>"><br>
-            <button class="enterpriseButton" type="submit"><?php if(isset($_GET['update'])){echo 'Update';}else{ echo 'Create';} ?></button>
+            <button class="enterpriseButton" type="submit" value="<?php if (isset($_GET['update'])){ echo 'update';}else{ echo 'create';} ?>"> <?php if(isset($_GET['update'])){echo 'Update';}else{ echo 'Create';} ?></button>
             <button class="enterpriseButton" type="reset">Reset</button>
             </ul>
         </form>
