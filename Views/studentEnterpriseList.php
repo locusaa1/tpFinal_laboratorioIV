@@ -4,7 +4,6 @@
    
 ?>
 <main class="">
-  
    <section class="hello-Bg">
         <div class="hello">
             <p>Empresas</p>
@@ -22,8 +21,7 @@
             <?php
             }
             unset($_GET['getIn']);
-        }
-       
+        }     
         ?>
     </p>
     <section class="filterByNameContainer">
@@ -34,50 +32,39 @@
         </form>
     </section>
     <section>
-    <?php
-        if (!empty($filterEnterpriseList)){?>
-            <form action="<?php echo FRONT_ROOT?>Enterprise/EnterpriseDetails" method="get" class="enterpriseStudentListContainer">
-                <?php
-                foreach ($filterEnterpriseList as $enterprise){
+        <form action="<?php echo FRONT_ROOT?>Enterprise/EnterpriseDetails" method="get" class="enterpriseStudentListContainer">
+            <?php    
+            if(!empty($filterEnterpriseList)){
+               
+               foreach ($filterEnterpriseList as $enterprise){
                 ?>
                 <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
                 <label for="name"><?php echo $enterprise->getName()?></label><br>
-                    <?php 
-                    }
-                    ?>
-                    <button class="detailButton" type="submit">Ver Detalle de empresa</button>
-            </form>
-            <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseListStudent">Quitar filtro</a>
-
-
+                <?php 
+                }
+                ?>
+                <button class="detailButton" type="submit">Ver Detalle de empresa</button>
+                <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseListStudent">Quitar filtro</a>
             <?php
-        }else{
-            
-            ?>
-            <form action="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails" method="GET" class="enterpriseStudentListContainer">
-            <?php
-            foreach ($list as $enterprise)
-            {
+            }else{
+                foreach ($list as $enterprise)
+                {
                 ?>
                     <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
                     <label for="name"><?php echo $enterprise->getName()?></label>
                     <br>
                 <?php
-
+                }
+                ?>
+                <button class="detailButton" type="submit">Ver detalle de empresa</button>
+                <?php
             }
             ?>
-            <button class="detailButton" type="submit">Ver detalle de empresa</button>
-            </form>
-            <?php
-        }
-
-    ?>
     </section>
     <br>
     <section>
         <a class="backButton" href="<?php echo FRONT_ROOT ?>Student/StudentView">Volver</a>
     </section>   
-
 </main>
 <?php
 require_once ('companies.php');
