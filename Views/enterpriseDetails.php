@@ -27,7 +27,7 @@
     ?>
     </section> 
     <section>
-        <a class="backButton" href="<?php echo FRONT_ROOT ?>Student/EnterpriseList">Volver al listado</a>
+        <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseListStudent">Volver al listado</a>
     </section>    
   
 </main>
