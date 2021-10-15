@@ -39,9 +39,9 @@ require_once('nav.php');
     }
     ?>
     <?php require_once('adminNav.php'); ?>
-    <section class="">
+    <div class="container-lg">
+        <button class="btn btn-primary btn-lg btn-block" type="submit" name="action" value="create">Create New Enterprise</button>
         <form class="container" action="<?php echo FRONT_ROOT ?>Enterprise/actionProcess" method="get">
-            <button class="enterpriseButton" type="submit" name="action" value="create">Create New Enterprise</button>
             <section class="list-group">
                 <?php
                 foreach ($list as $enterprise) {
@@ -61,5 +61,5 @@ require_once('nav.php');
                 <?php } ?>
             </section>
         </form>
-    </section>
+    </div>
 </main>

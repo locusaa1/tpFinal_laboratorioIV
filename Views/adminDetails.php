@@ -10,19 +10,21 @@ if (!isset($_SESSION['admin'])) {
 <main>
     <section class="ourMision-Bg">
         <div class="ourMision">
-            <p>Personal Information</p>
+            <p>Información Personal</p>
         </div>
     </section>
+    <div class="container-lg">
     <?php require_once('adminNav.php') ?>
-    <ul class="list-group personalInfo">
-        <li class="list-group-item">First Name: <?php echo $_SESSION['admin']->getFirstName(); ?></li><br>
-        <li class="list-group-item">Last Name: <?php echo $_SESSION['admin']->getLastName(); ?></li><br>
-        <li class="list-group-item">DNI: <?php echo $_SESSION['admin']->getDni(); ?></li><br>
-        <li class="list-group-item">BirthDate: <?php echo $_SESSION['admin']->getBirthDate(); ?></li><br>
-        <li class="list-group-item">Gender: <?php echo $_SESSION['admin']->getGender(); ?></li><br>
-        <li class="list-group-item">Email: <?php echo $_SESSION['admin']->getEmail(); ?></li><br>
-        <li class="list-group-item">Phone Number: <?php echo $_SESSION['admin']->getPhoneNumber(); ?></li><br>
-        <li class="list-group-item">username: <?php echo $_SESSION['admin']->getUsername(); ?></li><br>
+    <ul class="list-group ">
+        <li class="list-group-item list-group-item-primary">Nombre: <?php echo $_SESSION['admin']->getFirstName(); ?></li><br>
+        <li class="list-group-item list-group-item-primary">Apellido: <?php echo $_SESSION['admin']->getLastName(); ?></li><br>
+        <li class="list-group-item list-group-item-primary">DNI: <?php echo $_SESSION['admin']->getDni(); ?></li><br>
+        <li class="list-group-item list-group-item-primary">Fecha de nacimiento: <?php echo $_SESSION['admin']->getBirthDate(); ?></li><br>
+        <li class="list-group-item list-group-item-primary">Género: <?php echo $_SESSION['admin']->getGender(); ?></li><br>
+        <li class="list-group-item list-group-item-primary">email: <?php echo $_SESSION['admin']->getEmail(); ?></li><br>
+        <li class="list-group-item list-group-item-primary">Télefono: <?php echo $_SESSION['admin']->getPhoneNumber(); ?></li><br>
+        <li class="list-group-item list-group-item-primary">Usuario: <?php echo $_SESSION['admin']->getUsername(); ?></li><br>
     </ul>
+    </div>
 
 </main>
