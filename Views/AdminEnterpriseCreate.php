@@ -30,8 +30,8 @@ require_once('nav.php');
             <label for="addressNumber">Altura:</label><br>
             <input class="form-control form-control-lg" type="text" id="addressNumber" name="addressNumber" value="" required
                    placeholder="altura"><br>
-            <button class="btn btn-outline-primary btn-lg btn-block" type="submit" name="action" value="create">Create</button>
-            <button class="btn btn-outline-dark btn-lg btn-block" type="reset">Reset</button>
+            <button class="btn btn-outline-primary btn-lg btn-block" type="submit" name="action" value="create">Crear</button>
+            <button class="btn btn-outline-dark btn-lg btn-block" type="reset">Refrescar</button>
         </div>
         </ul>
     </form>
