@@ -2,10 +2,9 @@
 require_once('title.php');
 require_once('nav.php');
 
-if (!isset($_SESSION['admin'])) {
-    $_GET['log'] = 'null';
-    require_once (VIEWS_PATH.'AdminsLogin.php');
-}
+use Utility\AdminUtility as AdminUtility;
+
+AdminUtility::checkSessionStatus(isset($_SESSION['admin']));
 ?>
 <main>
     <section class="ourMision-Bg">

@@ -1,3 +1,9 @@
+<?php
+use Utility\AdminUtility as AdminUtility;
+
+AdminUtility::checkSessionStatus(isset($_SESSION['admin']));
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
