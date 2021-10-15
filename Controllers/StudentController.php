@@ -14,6 +14,11 @@ class StudentController
         $this->studentDAO = new StudentDAO();
     }
 
+    /*this function recieves an email from a post form. It calls the StudentDao getByEmail.
+    If finds the student by checkig the email, there are two options: if the student is active, goes
+    to the studentView. If the student is not active, shows a rejection message.
+    If the email is not on the student api, shows another rejection message. */
+    
     public function CheckEmail($email)
     {
 
