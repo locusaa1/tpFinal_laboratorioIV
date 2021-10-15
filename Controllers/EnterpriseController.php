@@ -121,7 +121,7 @@ class EnterpriseController
 
     public function EnterpriseListStudent()
     {
-        $list = $this->getEnterprisesList();
+        $list = $this->enterpriseDAO->getAll();
 
         require_once(VIEWS_PATH . "studentEnterpriseList.php");
     }
