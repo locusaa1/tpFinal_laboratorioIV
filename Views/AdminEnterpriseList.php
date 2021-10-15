@@ -40,9 +40,9 @@ require_once('nav.php');
     ?>
     <?php require_once('adminNav.php'); ?>
     <div class="container-lg">
-        <button class="btn btn-primary btn-lg btn-block" type="submit" name="action" value="create">Create New Enterprise</button>
-        <form class="container" action="<?php echo FRONT_ROOT ?>Enterprise/actionProcess" method="get">
-            <section class="list-group">
+        <form action="<?php echo FRONT_ROOT ?>Enterprise/actionProcess" method="get">
+            <button class="btn btn-primary btn-lg btn-block" type="submit" name="action" value="create">Crear Nueva Empresa</button>
+            <ul class="list-group">
                 <?php
                 foreach ($list as $enterprise) {
                     echo '<li class="list-group-item">';
@@ -50,16 +50,16 @@ require_once('nav.php');
                     echo 'cuit: ' . $enterprise->getCuit() . '<br>';
                     echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
                     echo 'address: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>'; ?>
-                    <button class="enterpriseButton" type="submit" name="action"
-                            value="update/<?php echo $enterprise->getCuit() ?>">Update
+                    <button class="btn btn-outline-success btn-lg btn-block" type="submit" name="action"
+                            value="update/<?php echo $enterprise->getCuit() ?>">Actualizar
                     </button>
-                    <button class="enterpriseButton" type="submit" name="action"
-                            value="delete/<?php echo $enterprise->getCuit() ?>">Delete
+                    <button class="btn btn-outline-danger btn-lg btn-block" type="submit" name="action"
+                            value="delete/<?php echo $enterprise->getCuit() ?>">Borrar
                     </button>
                     <?php echo '</li>'; ?>
                     <br>
                 <?php } ?>
-            </section>
+            </ul>
         </form>
     </div>
 </main>

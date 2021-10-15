@@ -10,29 +10,29 @@ require_once('nav.php');
         </div>
     </section>
     <?php require_once('adminNav.php'); ?>
-    <form class="enterpriseForm" action="<?php echo FRONT_ROOT ?>Enterprise/enterpriseForm" method="post">
-        <label>
-            <?php
-            echo 'All the fields are required';
-            ?>
-        </label><br>
-        <label for="name">Name:</label><br>
-        <input type="text" name="name" value="" required
-               placeholder="example"><br>
-        <label for="cuit">Cuit:</label><br>
-        <input type="number" name="cuit" value="" required
-               placeholder="1111"><br>
-        <label for="phoneNumber">Phone number:</label><br>
-        <input type="number" name="phoneNumber" value="" required
-               placeholder="223-example"><br>
-        <label for="addressName">AddressName</label><br>
-        <input type="text" name="addressName" value="" required
-               placeholder="example"><br>
-        <label for="addressNumber">AddressNumber</label><br>
-        <input type="text" name="addressNumber" value="" required
-               placeholder="123"><br>
-        <button class="enterpriseButton" type="submit" name="action" value="create">Create</button>
-        <button class="enterpriseButton" type="reset">Reset</button>
+    <form action="<?php echo FRONT_ROOT ?>Enterprise/enterpriseForm" method="post">
+        <div class="form-group">
+            <div class="alert alert-primary">
+                <p>Todos los campos son requeridos.</p>
+            </div><br>
+            <label for="name">Nombre:</label><br>
+            <input class="form-control form-control-lg" type="text" id="name" name="name" value="" required
+                   placeholder="nombre"><br>
+            <label for="cuit">Cuit:</label><br>
+            <input class="form-control form-control-lg" type="number" id="cuit" name="cuit" value="" required
+                   placeholder="cuit sin guiones"><br>
+            <label for="phoneNumber">Teléfono:</label><br>
+            <input class="form-control form-control-lg" type="number" id="phoneNumber" name="phoneNumber" value="" required
+                   placeholder="teléfono sin guiones"><br>
+            <label for="addressName">Dirección:</label><br>
+            <input class="form-control form-control-lg" type="text" id="addressName" name="addressName" value="" required
+                   placeholder="calle"><br>
+            <label for="addressNumber">Altura:</label><br>
+            <input class="form-control form-control-lg" type="text" id="addressNumber" name="addressNumber" value="" required
+                   placeholder="altura"><br>
+            <button class="btn btn-outline-primary btn-lg btn-block" type="submit" name="action" value="create">Create</button>
+            <button class="btn btn-outline-dark btn-lg btn-block" type="reset">Reset</button>
+        </div>
         </ul>
     </form>
 </main>
