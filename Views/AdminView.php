@@ -9,7 +9,7 @@ AdminUtility::checkSessionStatus(isset($_SESSION['admin']));
     <main class="">
         <section class="ourMision-Bg">
             <div class="ourMision">
-                <p>Welcome</p>
+                <p>Bienvenido</p>
             </div>
         </section>
         <?php require_once('adminNav.php'); ?>
