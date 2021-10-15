@@ -4,7 +4,6 @@
 namespace Controllers;
 
 use DAO\AdminDAO as AdminDAO;
-use Controllers\EnterpriseController as EnterpriseController;
 
 class AdminController
 {
@@ -49,12 +48,5 @@ class AdminController
     public function details()
     {
         require_once(VIEWS_PATH . "adminDetails.php");
-    }
-
-    public function enterpriseList()
-    {
-        $controller = new EnterpriseController();
-
-
     }
 }
