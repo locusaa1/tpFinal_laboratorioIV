@@ -5,29 +5,39 @@ require_once('nav.php');
 <main class="">
     <section class="ourMision-Bg">
         <div class="ourMision">
-            <p>Listing the enterprises</p>
+            <p>Listado de empresas</p>
         </div>
     </section>
-    <p>
-        <?php
-        if (isset($_GET['delete'])) {
+    <?php
+    if (isset($_GET['delete'])) {
 
-            echo 'The enterprise where successfully removed';
-        } elseif (isset($_GET['add'])) {
+        echo '<div class="alert alert-success" role="alert">';
+        echo '<h4 class="alert-heading">Borrado exitoso!</h4>';
+        echo '<p>La empresa fue exitosamente borrada.</p>';
+        echo '</div>';
+    } elseif (isset($_GET['add'])) {
 
-            if ($_GET['add'] == true) {
+        if ($_GET['add']) {
 
-                echo 'The enterprise was successfully added';
-            } else {
+            echo '<div class="alert alert-success" role="alert">';
+            echo '<h4 class="alert-heading">Agregado exitoso!</h4>';
+            echo '<p>La empresa fue agregada con éxito.</p>';
+            echo '</div>';
+        } else {
 
-                echo 'The cuit already exists';
-            }
-        } elseif(isset($_GET['delete'])) {
-
-            echo 'The enterprise was successfully updated';
+            echo '<div class="alert alert-danger" role="alert">';
+            echo '<h4 class="alert-heading">Hubo un problema!</h4>';
+            echo '<p>El cuit que desea ingresar ya se encuentra cargado.</p>';
+            echo '</div>';
         }
-        ?>
-    </p>
+    } elseif (isset($_GET['update'])) {
+
+        echo '<div class="alert alert-success" role="alert">';
+        echo '<h4 class="alert-heading">Actualización exitosa!</h4>';
+        echo '<p>La empresa fue exitosamente actualizada.</p>';
+        echo '</div>';
+    }
+    ?>
     <?php require_once('adminNav.php'); ?>
     <section class="">
         <form class="container" action="<?php echo FRONT_ROOT ?>Enterprise/actionProcess" method="get">

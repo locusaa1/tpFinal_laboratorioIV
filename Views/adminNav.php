@@ -5,7 +5,7 @@
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>Admin/details">Mi cuenta</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Admin/enterpriseList">Listar empresas</a>
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Enterprise/enterpriseList">Listar empresas</a>
             </li>
         </ul>
     </div>
