@@ -28,7 +28,7 @@ require_once('nav.php');
         }
         ?>
     </p>
-    <?php require_once('adminAside.php'); ?>
+    <?php require_once('adminNav.php'); ?>
     <section class="">
         <form class="container" action="<?php echo FRONT_ROOT ?>Enterprise/actionProcess" method="get">
             <button class="enterpriseButton" type="submit" name="action" value="create">Create New Enterprise</button>

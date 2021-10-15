@@ -54,7 +54,7 @@ class AdminController
     public function enterpriseList()
     {
         $controller = new EnterpriseController();
-        $list = $controller->getEnterprisesList();
-        require_once(VIEWS_PATH . "AdminEnterpriseList.php");
+
+
     }
 }

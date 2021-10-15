@@ -8,7 +8,7 @@ require_once('nav.php');
                 <p>Welcome</p>
             </div>
         </section>
-        <?php require_once('adminAside.php'); ?>
+        <?php require_once('adminNav.php'); ?>
     </main>
 <?php
 require_once('companies.php');

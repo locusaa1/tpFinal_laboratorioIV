@@ -8,9 +8,9 @@ require_once('nav.php');
 <form action="<?php echo FRONT_ROOT ?>Admin/Login" method="post" class="loginForm">
     <div class="loginContainer">
         <legend>Administration login</legend>
-        <label for="username">Email</label>
+        <label for="username">Usuario</label>
         <input type="text" name="username" class="inputUsername" placeholder="example@asd.com" required>
-        <label for="password">Password</label>
+        <label for="password">Contraseña</label>
         <input type="password" name="password" class="inputUsername" placeholder="****">
         <button class="loginButton" type="submit">Login</button>
     </div>

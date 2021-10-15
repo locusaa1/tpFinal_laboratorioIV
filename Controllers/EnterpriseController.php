@@ -18,11 +18,6 @@ class EnterpriseController
         $this->enterpriseDAO = new EnterpriseDAO();
     }
 
-    public function getEnterprisesList()
-    {
-        return $this->enterpriseDAO->getAll();
-    }
-
     public function actionProcess($action)
     {
         $values = explode('/', $_GET['action']);
@@ -49,6 +44,12 @@ class EnterpriseController
 
         $_GET['update'] = $this->enterpriseDAO->getSpecificEnterpriseByCuit($cuit);
         require_once(VIEWS_PATH . 'AdminEnterpriseUpdate.php');
+    }
+
+    public function enterpriseList()
+    {
+        $list = $this->enterpriseDAO->getAll();
+        require_once(VIEWS_PATH . "AdminEnterpriseList.php");
     }
 
     private function deleteEnterprise($cuit)
@@ -103,26 +104,25 @@ class EnterpriseController
             }
         }
 
-        if (empty($filterEnterpriseList))
-        {
+        if (empty($filterEnterpriseList)) {
             $list = $enterpriseList;
         }
-        
+
         require_once(VIEWS_PATH . 'studentEnterpriseList.php');
     }
 
     public function EnterpriseDetails($name)
     {
         $enterprise = $this->enterpriseDAO->GetByName($name);
-        
+
         require_once(VIEWS_PATH . "enterpriseDetails.php");
-        
+
     }
 
-    public function EnterpriseListStudent ()
+    public function EnterpriseListStudent()
     {
-       $list = $this->getEnterprisesList();
-        
-       require_once(VIEWS_PATH . "studentEnterpriseList.php");
+        $list = $this->getEnterprisesList();
+
+        require_once(VIEWS_PATH . "studentEnterpriseList.php");
     }
 }

@@ -8,7 +8,7 @@ require_once('nav.php');
             <p>Creating a new enterprise</p>
         </div>
     </section>
-    <?php require_once('adminAside.php'); ?>
+    <?php require_once('adminNav.php'); ?>
     <form class="enterpriseForm" action="<?php echo FRONT_ROOT ?>Enterprise/enterpriseForm" method="post">
         <label>
             <?php

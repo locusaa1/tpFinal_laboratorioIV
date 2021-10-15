@@ -13,7 +13,7 @@ if (!isset($_SESSION['admin'])) {
             <p>Personal Information</p>
         </div>
     </section>
-    <?php require_once('adminAside.php') ?>
+    <?php require_once('adminNav.php') ?>
     <ul class="list-group personalInfo">
         <li class="list-group-item">First Name: <?php echo $_SESSION['admin']->getFirstName(); ?></li><br>
         <li class="list-group-item">Last Name: <?php echo $_SESSION['admin']->getLastName(); ?></li><br>
