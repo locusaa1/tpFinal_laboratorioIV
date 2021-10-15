@@ -1,4 +1,9 @@
 <?php
+    if(!isset($_SESSION['student'])){
+        
+    require_once(VIEWS_PATH."index.php");
+    }
+
     require_once ('title.php');
     require_once('nav.php');
    
@@ -36,17 +41,16 @@
             <?php    
             if(!empty($filterEnterpriseList)){
                
-               foreach ($filterEnterpriseList as $enterprise){
+               foreach ($filterEnterpriseList as $enterprise)
+               {
                 ?>
                 <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
                 <label for="name"><?php echo $enterprise->getName()?></label><br>
                 <?php 
                 }
-                ?>
-                <button class="detailButton" type="submit">Ver Detalle de empresa</button>
-                <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseListStudent">Quitar filtro</a>
-            <?php
+               
             }else{
+                
                 foreach ($list as $enterprise)
                 {
                 ?>
@@ -55,11 +59,18 @@
                     <br>
                 <?php
                 }
-                ?>
-                <button class="detailButton" type="submit">Ver detalle de empresa</button>
-                <?php
+        
             }
             ?>
+            <button class="detailButton" type="submit">Ver Detalle de empresa</button>
+        </form> 
+        <?php
+        if(!empty($filterEnterpriseList)){
+            ?>
+            <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseListStudent">Quitar filtro</a>
+            <?php
+        }   
+        ?>
     </section>
     <br>
     <section>

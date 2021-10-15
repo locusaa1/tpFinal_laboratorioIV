@@ -8,7 +8,7 @@
 
                         <div class="fields-contactForm-Container">
 
-                            <div class="fields-contactForm"> <!--div forma de agrupar cuando no va un section o header, ect-->
+                            <div class="fields-contactForm">
                                 <label>Nombre</label>
                                 <input class="input-text" type="text" placeholder="Nombre">
                             </div>
@@ -16,8 +16,7 @@
                             <div class="fields-contactForm">
                                 <label>Teléfono</label>
                                 <input class="input-text" type="tel" placeholder="Ingrese su número sin el 15">
-                                <!--type, en el cel, si se pone tel te abre el teclado de número-->
-                                <!--placeholder, pone un texto mientras no haya nada escrito-->
+                                
                             </div>
 
                             <div class="fields-contactForm">
@@ -28,7 +27,7 @@
                             <div class="fields-contactForm">
                                 <label>Mensaje</label>
                                 <textarea class="input-text"></textarea>
-                                <!--text area deja espacion para escribir bastante-->
+                                
                             </div>
 
                         </div>

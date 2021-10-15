@@ -15,6 +15,7 @@
             return $this->studentList;
         }
 
+        /*this function looks for the student in the list, if it finds it returns it*/
         public function GetByEmail($email) 
         {
             $this->RetrieveData();  
@@ -31,6 +32,8 @@
             return $studentFounded;
         }
 
+        /* this function brings the information of the student´s api through a curl handler. Then
+        load the list with the obtained student objects*/
         private function RetrieveData()
         {
             $this->studentList = array();
