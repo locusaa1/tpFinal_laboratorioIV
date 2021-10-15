@@ -12,7 +12,7 @@ require_once('nav.php');
         <input type="text" name="username" class="inputUsername" placeholder="example@asd.com" required>
         <label for="password">Contraseña</label>
         <input type="password" name="password" class="inputUsername" placeholder="****">
-        <button class="loginButton" type="submit">Login</button>
+        <button class="loginButton" type="submit">Iniciar sesión</button>
     </div>
 </form>
 <?php
