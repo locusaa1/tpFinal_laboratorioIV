@@ -5,7 +5,6 @@ namespace Models;
 class Career 
 {
     private $idCareer;
-    private $name;
     private $description;
     private $active;
 
@@ -25,19 +24,7 @@ class Career
 
         return $this;
     }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-    
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-    
+ 
     public function getDescription()
     {
         return $this->description;
