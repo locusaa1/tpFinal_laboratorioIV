@@ -36,5 +36,10 @@
             session_destroy();
             require_once (VIEWS_PATH."index.php");
         }
+
+        #Test function
+        public function test(){
+            require_once(VIEWS_PATH.'test.php');
+        }
     }
 ?>
