@@ -17,7 +17,6 @@ class Administrator extends Person
     public function __construct()
     {
         parent::__construct();
-        $this->idAdmin = random_bytes(10);
     }
 
     /**
