@@ -10,5 +10,5 @@ define("JS_PATH", FRONT_ROOT . VIEWS_PATH . "js/");
 define("DB_HOST", "localhost");
 define("DB_NAME", "final_project");
 define("DB_USER", "root");
-define("DB_PASS", "321456987asd");
+define("DB_PASS", "123654789asd");
 ?>

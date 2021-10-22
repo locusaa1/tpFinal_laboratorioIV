@@ -4,14 +4,15 @@
 namespace Controllers;
 
 use DAO\AdminDAO as AdminDAO;
+use DAO\AdminDB_DAO as AdminDB;
 
 class AdminController
 {
-    private $adminDAO;
+    private $adminDB;
 
     public function __construct()
     {
-        $this->adminDAO = new AdminDAO();
+        $this->adminDB = new AdminDB();
     }
 
     public function AdminView()
@@ -27,7 +28,8 @@ class AdminController
      */
     public function Login($username, $password)
     {
-        $adminList = $this->adminDAO->getAll();
+        $adminList = $this->adminDB->getAll();
+
         foreach ($adminList as $admin) {
 
             if ($admin->getUsername() == $username && $admin->getPassword() == $password) {

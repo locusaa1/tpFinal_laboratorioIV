@@ -47,16 +47,19 @@ class AdminDB_DAO implements IAdminDAO
 
             $query = "select * from " . $this->tableName . ";";
 
-            $this->connection = Connection::GetInsance();
+            $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
 
             foreach ($resultSet as $row) {
 
                 $admin = new Administrator();
+                $admin->setIdAdmin($row['id_admin']);
                 $admin->setFirstName($row['first_name']);
                 $admin->setLastName($row['last_name']);
                 $admin->setDni($row['dni']);
+                $admin->setBirthDate($row['birth_date']);
+                $admin->setGender($row['gender']);
                 $admin->setEmail($row['email']);
                 $admin->setPhoneNumber($row['phone_number']);
                 $admin->setUsername($row['username']);
