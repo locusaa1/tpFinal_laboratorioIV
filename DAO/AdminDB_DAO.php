@@ -39,5 +39,35 @@ class AdminDB_DAO implements IAdminDAO
         }
     }
 
-    
+    public function getAll()
+    {
+        try {
+
+            $adminList = array();
+
+            $query = "select * from " . $this->tableName . ";";
+
+            $this->connection = Connection::GetInsance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            foreach ($resultSet as $row) {
+
+                $admin = new Administrator();
+                $admin->setFirstName($row['first_name']);
+                $admin->setLastName($row['last_name']);
+                $admin->setDni($row['dni']);
+                $admin->setEmail($row['email']);
+                $admin->setPhoneNumber($row['phone_number']);
+                $admin->setUsername($row['username']);
+                $admin->setPassword($row['password']);
+                array_push($adminList, $admin);
+            }
+
+            return $adminList;
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
 }
