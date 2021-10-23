@@ -20,7 +20,7 @@ class CareerController
 
     public function careerList()
     {
-        $list = $this->careerDB_DAO->getAll();
+        return $this->careerDB_DAO->getAll();
     }
 
     public function careersFromApiToDB (){

@@ -20,7 +20,8 @@ class JobPositionController
 
     public function jobPositionList()
     {
-        $list = $this->jobPositionDB_DAO->getAll();
+        return $this->jobPositionDB_DAO->getAll();
+        
     }
 
     public function jobPositionsFromApiToDB (){
