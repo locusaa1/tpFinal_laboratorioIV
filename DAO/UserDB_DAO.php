@@ -34,4 +34,33 @@ class UserDB_DAO implements IUserDao
             throw $exception;
         }
     }
+
+    public function getAll()
+    {
+
+        try {
+
+            $userList = array();
+
+            $query = "select * from " . $this->tableName;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            foreach ($resultSet as $row) {
+
+                $user = new User();
+                $user->setIdUser($row['id_user']);
+                $user->setEmail($row['email']);
+                $user->setPassword($row['name']);
+                $user->setUserType($row['user_type']);
+                array_push($userList, $user);
+            }
+            return $userList;
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
 }
