@@ -18,6 +18,18 @@ require_once('nav.php');
     </div>
     <?php
     }
+
+    if(!empty($_GET['userAlreadyRegistered']))
+    {   
+        ?>
+        <div class="rejectionMessaje">
+        <?php
+        echo "El email ya se encuentra registrado. Inicie sesión";
+        unset($_GET['userAlreadyRegistered']);
+        ?>
+        </div>
+        <?php
+    }
     
     if(!empty($_GET['wrongPassword']))
     {

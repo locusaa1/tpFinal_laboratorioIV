@@ -1,7 +1,16 @@
 <?php
-    if(!isset($_SESSION['student'])){
-        
-    require_once(VIEWS_PATH."index.php");
+    if(!isset($_SESSION['user'])){
+          
+        require_once(VIEWS_PATH."index.php");
+        }
+    
+    if(isset($_SESSION['user'])){
+    
+        if($_SESSION['user']->getUserType()!="student")
+        {
+        require_once(VIEWS_PATH."index.php");
+        }    
+            
     }
 
     require_once ('title.php');

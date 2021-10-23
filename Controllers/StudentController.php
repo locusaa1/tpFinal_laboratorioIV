@@ -36,13 +36,13 @@ class StudentController
                     $user = new User();
                     $user->setEmail($email);
                     $user->setPassword($password);
-                    $user->setName($name);
+                    $user->setName($student->getFirstName());
                     $user->setUserType("student");
 
                     $userDao = new UserDB_DAO();
                     $userDao->add($user);
 
-                    require_once(VIEWS_PATH . "studentView.php");
+                    require_once(VIEWS_PATH . "logInUser.php");
                 }
                 
             }else{

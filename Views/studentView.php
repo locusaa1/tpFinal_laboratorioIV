@@ -1,7 +1,16 @@
 <?php
-    if(!isset($_SESSION['student'])){
+    if(!isset($_SESSION['user'])){
           
     require_once(VIEWS_PATH."index.php");
+    }
+
+    if(isset($_SESSION['user'])){
+
+      if($_SESSION['user']->getUserType()!="student")
+      {
+        require_once(VIEWS_PATH."index.php");
+      }    
+        
     }
 
     require_once ('title.php');
@@ -11,11 +20,11 @@
    <section class="hello-Bg">
         <div class="hello">
             <?php
-                if(isset($_SESSION['student'])){
-                    $loggedUser = $_SESSION['student'];
+                if(isset($_SESSION['user'])){
+                    $loggedUser = $_SESSION['user'];
                 }
             ?>
-            <p>¡Hola <?php echo " " . $loggedUser->getFirstName() ."!"?></p>
+            <p>¡Hola <?php echo " " . $loggedUser->getName() ."!"?></p>
         </div>
     </section> 
     <div class="studentOptions">

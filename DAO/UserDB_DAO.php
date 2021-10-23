@@ -19,13 +19,14 @@ class UserDB_DAO implements IUserDao
 
             $query = "insert into " .
                 $this->tableName .
-                "(email, password, `name`, userType)
-                values (:email, :password, :`name`, :userType)";
-
+                "(email, password, name, user_type)
+                values (:email, :password, :name, :user_type)";
+            
+           
             $parameters['email'] = $user->getEmail();
             $parameters['password'] = $user->getPassword();
             $parameters['name'] = $user->getName();
-            $parameters['userType'] = $user->getUserType();
+            $parameters['user_type'] = $user->getUserType();
 
             $this->connection = Connection::GetInstance();
 
@@ -54,7 +55,8 @@ class UserDB_DAO implements IUserDao
                 $user = new User();
                 $user->setIdUser($row['id_user']);
                 $user->setEmail($row['email']);
-                $user->setPassword($row['name']);
+                $user->setPassword($row['password']);
+                $user->setName($row['name']);
                 $user->setUserType($row['user_type']);
                 array_push($userList, $user);
             }
@@ -70,15 +72,26 @@ class UserDB_DAO implements IUserDao
 
         try {
 
-            $user = new User();
+            $user = null;
 
-            $query = "select * from " . $this->tableName . " where `email` = " . $email . ";";
+            $query = "select * from " . $this->tableName . " where email = '" . $email . "';";
 
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
 
-            return $resultSet;
+            if(!empty($resultSet[0])){
+            $user = new User();
+            $user->setIdUser($resultSet[0]['id_user']);
+            $user->setEmail($resultSet[0]['email']);
+            $user->setPassword($resultSet[0]['password']);
+            $user->setName($resultSet[0]['name']);
+            $user->setUserType($resultSet[0]['user_type']);
+            }
+            
+
+            return $user;
+            
         } catch (Exception $exception) {
 
             throw $exception;
