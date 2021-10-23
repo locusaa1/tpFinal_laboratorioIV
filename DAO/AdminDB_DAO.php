@@ -18,13 +18,15 @@ class AdminDB_DAO implements IAdminDAO
         try {
 
             $query = "insert into " .
-                $this->tableNmae .
-                "(first_name,last_name,dni,email,phone_number,username,password) 
-                values (:first_name, :last_name, :dni, :email, :phone_number, :username, :password);";
+                $this->tableName .
+                "(first_name,last_name,dni,birth_date,gender,email,phone_number,username,password) 
+                values (:first_name,:last_name,:dni,:birth_date,:gender,:email,:phone_number,:username,:password);";
 
             $parameters['first_name'] = $admin->getFirstName();
             $parameters['last_name'] = $admin->getLastName();
             $parameters['dni'] = $admin->getDni();
+            $parameters['birth_date'] = $admin->getBirthDate();
+            $parameters['gender'] = $admin->getGender();
             $parameters['email'] = $admin->getEmail();
             $parameters['phone_number'] = $admin->getPhoneNumber();
             $parameters['username'] = $admin->getUsername();
