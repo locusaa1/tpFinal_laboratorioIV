@@ -13,7 +13,10 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
         </div>
     </section>
     <div class="container-lg">
-    <?php require_once('adminNav.php') ?>
+    <?php
+    require_once('adminNav.php')
+
+    ?>
     <ul class="list-group ">
         <li class="list-group-item list-group-item-primary">Nombre: <?php echo $_SESSION['admin']->getFirstName(); ?></li><br>
         <li class="list-group-item list-group-item-primary">Apellido: <?php echo $_SESSION['admin']->getLastName(); ?></li><br>
