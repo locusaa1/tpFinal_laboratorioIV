@@ -8,8 +8,6 @@ use Models\Person as Person;
 class Administrator extends Person
 {
     private $idAdmin;
-    private $username;
-    private $password;
 
     /**
      * Administrator constructor.
@@ -33,37 +31,5 @@ class Administrator extends Person
     public function setIdAdmin($idAdmin)
     {
         $this->idAdmin = $idAdmin;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * @param mixed $username
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
     }
 }
