@@ -19,8 +19,8 @@ class AdminDB_DAO implements IAdminDAO
 
             $query = "insert into " .
                 $this->tableName .
-                "(first_name,last_name,dni,birth_date,gender,email,phone_number,username,password) 
-                values (:first_name,:last_name,:dni,:birth_date,:gender,:email,:phone_number,:username,:password);";
+                "(first_name,last_name,dni,birth_date,gender,email,phone_number) 
+                values (:first_name,:last_name,:dni,:birth_date,:gender,:email,:phone_number);";
 
             $parameters['first_name'] = $admin->getFirstName();
             $parameters['last_name'] = $admin->getLastName();
@@ -29,8 +29,6 @@ class AdminDB_DAO implements IAdminDAO
             $parameters['gender'] = $admin->getGender();
             $parameters['email'] = $admin->getEmail();
             $parameters['phone_number'] = $admin->getPhoneNumber();
-            $parameters['username'] = $admin->getUsername();
-            $parameters['password'] = $admin->getPassword();
 
             $this->connection = Connection::GetInstance();
 
@@ -64,8 +62,6 @@ class AdminDB_DAO implements IAdminDAO
                 $admin->setGender($row['gender']);
                 $admin->setEmail($row['email']);
                 $admin->setPhoneNumber($row['phone_number']);
-                $admin->setUsername($row['username']);
-                $admin->setPassword($row['password']);
                 array_push($adminList, $admin);
             }
 

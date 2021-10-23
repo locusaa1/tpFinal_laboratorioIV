@@ -63,4 +63,24 @@ class UserDB_DAO implements IUserDao
             throw $exception;
         }
     }
+
+    public function getSpecificEmailUser($email)
+    {
+
+        try {
+
+            $user = new User();
+
+            $query = "select * from " . $this->tableName . " where `email` = " . $email . ";";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            return $resultSet;
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
 }
