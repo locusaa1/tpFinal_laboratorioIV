@@ -4,7 +4,7 @@ require_once('nav.php');
 
 use Utility\AdminUtility as AdminUtility;
 
-AdminUtility::checkSessionStatus(isset($_SESSION['admin']));
+AdminUtility::checkSessionStatus(isset($_SESSION['user']));
 
 ?>
     <main class="">

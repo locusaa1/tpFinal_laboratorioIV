@@ -10,8 +10,12 @@ class AdminUtility
     {
         if (!$sessionStatus) {
 
-            $_GET['log'] = 'null';
-            require_once(VIEWS_PATH . 'AdminsLogin.php');
+            $_GET['adminLog'] = true;
+            require_once(VIEWS_PATH . 'logInUser.php');
+        }elseif ($sessionStatus['user']->getUserType()!='admin'){
+
+            $_GET['adminError'] = true;
+            require_once(VIEWS_PATH . 'logInUser.php');
         }
     }
 }
