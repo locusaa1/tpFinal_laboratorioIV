@@ -12,30 +12,35 @@ class HomeController
         require_once(VIEWS_PATH . "index.php");
     }
 
-    public function Login()
-    {
-        if (isset($_SESSION['student'])) {
-            $controller = new StudentController();
-            $controller->StudentView();
-        } else {
-            require_once(VIEWS_PATH . "login.php");
-        }
-    }
-
-    public function AdminsLogin()
-    {
-        if (isset($_SESSION['admin'])) {
-            $controller = new AdminController();
-            $controller->AdminView();
-        } else {
-            require_once(VIEWS_PATH . "AdminsLogin.php");
-        }
-    }
-
     public function LoginUser()
-    {
+    {   
+        if (isset($_SESSION['user'])) {
+            
+            $user = $_SESSION['user'];
 
-        require_once(VIEWS_PATH . "logInUser.php");
+            $userType = $user->getUserType();
+            
+            switch($userType){
+                case "admin":
+                $controller = new AdminController();
+                $controller->AdminView();  
+                break;
+                case "student":
+                $controller = new StudentController();
+                $controller->StudentView();  
+                break;
+                //default?  
+            } 
+
+        }else{
+            require_once(VIEWS_PATH . "logInUser.php");
+        }
+        
+    }
+
+    public function NewUser()
+    {
+        require_once(VIEWS_PATH . "newUser.php");
     }
 
     public function LogOut()
