@@ -12,6 +12,7 @@ class JobOffer
     private $idUser;
     private $startDate;
     private $limitDate;
+    private $description;
     private $salary;
     private $resume;
     private $coverLetter;
@@ -123,6 +124,22 @@ class JobOffer
     /**
      * @return mixed
      */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getSalary()
     {
         return $this->salary;
@@ -168,5 +185,5 @@ class JobOffer
         $this->coverLetter = $coverLetter;
     }
 
-    
+
 }
