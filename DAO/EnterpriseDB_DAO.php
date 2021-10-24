@@ -6,6 +6,7 @@ namespace DAO;
 use DAO\IEnterpriseDAO as IEnterpriseDAO;
 use Models\Enterprise as Enterprise;
 use DAO\Connection as Connection;
+use Exception as Exception;
 
 class EnterpriseDB_DAO
 {
@@ -31,6 +32,37 @@ class EnterpriseDB_DAO
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
+
+    public function getAll()
+    {
+        try {
+
+            $enterpriseList = array();
+
+            $query = "select * from " . $this->tableName . ";";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            foreach ($resultSet as $row) {
+
+                $enterprise = new Enterprise();
+                $enterprise->setIdEnterprise($row['id_enterprise']);
+                $enterprise->setName($row['name']);
+                $enterprise->setCuit($row['cuit']);
+                $enterprise->setPhoneNumber($row['phone_number']);
+                $enterprise->setAddressName($row['address_name']);
+                $enterprise->setAddressNumber($row['address_number']);
+                array_push($enterpriseList, $enterprise);
+            }
+
+            return $enterpriseList;
         } catch (Exception $exception) {
 
             throw $exception;
