@@ -13,7 +13,7 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
         </div>
     </section>
     <?php
-    if (isset($_GET['delete'])) {
+    if (isset($_GET['delete'])&&$_GET['delete']==true) {
 
         echo '<div class="alert alert-success" role="alert">';
         echo '<h4 class="alert-heading">Borrado exitoso!</h4>';

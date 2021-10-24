@@ -57,8 +57,8 @@ class EnterpriseController
 
     private function deleteEnterprise($cuit)
     {
-        $_GET['delete'] = $this->enterpriseDAO->deleteByCuit($cuit);
-        $list = $this->enterpriseDAO->getAll();
+        $_GET['delete'] = $this->enterpriseDB->deleteByCuit($cuit);
+        $list = $this->enterpriseDB->getAll();
         require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
     }
 
