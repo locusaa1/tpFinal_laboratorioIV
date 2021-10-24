@@ -4,11 +4,13 @@
 namespace Controllers;
 
 use DAO\EnterpriseDAO as EnterpriseDAO;
+use DAO\EnterpriseDB_DAO as EnterpriseDB;
 use Models\Enterprise as Enterprise;
 
 class EnterpriseController
 {
     private $enterpriseDAO;
+    private $enterpriseDB;
 
     /**
      * EnterpriseController constructor.
@@ -16,6 +18,7 @@ class EnterpriseController
     public function __construct()
     {
         $this->enterpriseDAO = new EnterpriseDAO();
+        $this->enterpriseDB = new EnterpriseDB();
     }
 
     public function actionProcess($action)
@@ -48,7 +51,7 @@ class EnterpriseController
 
     public function enterpriseList()
     {
-        $list = $this->enterpriseDAO->getAll();
+        $list = $this->enterpriseDB->getAll();
         require_once(VIEWS_PATH . "AdminEnterpriseList.php");
     }
 
