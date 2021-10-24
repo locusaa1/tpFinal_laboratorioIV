@@ -1,35 +1,31 @@
 <?php
 
-
 namespace Controllers;
 
 use DAO\CareerDAO as CareerDAO;
-use DAO\CareerDB_DAO as CareerDB_DAO;
 use Models\Career as Career;
 
 class CareerController
 {
     private $careerDAO;
-    private $careerDB_DAO;
 
     public function __construct()
     {
         $this->careerDAO = new CareerDAO();
-        $this->careerDB_DAO = new CareerDB_DAO();
     }
 
     public function careerList()
     {
-        return $this->careerDB_DAO->getAll();
+        return $this->careerDAO->getAllFromDB();
     }
 
     public function careersFromApiToDB (){
        
-        $list = $this->careerDAO->GetAll();
+        $list = $this->careerDAO->getAllFromApi();
 
         foreach($list as $career){
 
-            $this->careerDB_DAO->add($career);
+            $this->careerDAO->add($career);
         }
     }
 
