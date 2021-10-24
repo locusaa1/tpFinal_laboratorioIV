@@ -85,7 +85,7 @@ class EnterpriseController
             $newEnterprise->setPhoneNumber($phoneNumber);
             $newEnterprise->setAddressName($addressName);
             $newEnterprise->setAddressNumber($addressNumber);
-            $_GET['add'] = $this->enterpriseDAO->addEnterprise($newEnterprise);
+            $_GET['add'] = $this->enterpriseDB->addEnterprise($newEnterprise);
         }
         $list = $this->enterpriseDAO->getAll();
         require_once(VIEWS_PATH . 'AdminEnterpriseList.php');

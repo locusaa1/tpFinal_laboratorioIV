@@ -3,11 +3,12 @@
 
 namespace DAO;
 
+use DAO\IEnterpriseDAO as IEnterpriseDAO;
 use Models\Enterprise as Enterprise;
 use DAO\Connection as Connection;
 use Exception as Exception;
 
-class EnterpriseDB_DAO
+class EnterpriseDB_DAO implements IEnterpriseDAO
 {
     private $connection;
     private $tableName = "enterprises";
@@ -86,4 +87,23 @@ class EnterpriseDB_DAO
         }
         return $confirm;
     }
+
+    public function updateEnterprise(Enterprise $newEnterprise, $cuit)
+    {
+        try {
+
+            $query = "update " . $this->tableName . " set " .
+                "id_enterprise = " . $newEnterprise->getIdEnterprise() . ",
+                name = " . $newEnterprise->getName() . ",
+                cuit = " . $newEnterprise->getCuit() . ",
+                phone_number = " . $newEnterprise->getPhoneNumber() . ",
+                address_name = " . $newEnterprise->getAddressName() . ",
+                address_number = " . $newEnterprise->getAddressNumber() . "
+                where cuit = '" . $cuit . "';";
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
+    
 }
