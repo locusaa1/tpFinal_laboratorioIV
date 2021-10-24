@@ -5,6 +5,10 @@
 
     interface ICareerDAO
     {
-        function GetAll();
+        function getAllFromApi();
+
+        function getAllFromDB();
+
+        function add(Career $career);
     }
 ?>
