@@ -4,7 +4,7 @@ require_once('nav.php');
 
 use Utility\AdminUtility as AdminUtility;
 
-AdminUtility::checkSessionStatus(isset($_SESSION['admin']));
+AdminUtility::checkSessionStatus($_SESSION['user']);
 ?>
 <main>
     <section class="ourMision-Bg">
@@ -13,7 +13,10 @@ AdminUtility::checkSessionStatus(isset($_SESSION['admin']));
         </div>
     </section>
     <div class="container-lg">
-    <?php require_once('adminNav.php') ?>
+    <?php
+    require_once('adminNav.php')
+
+    ?>
     <ul class="list-group ">
         <li class="list-group-item list-group-item-primary">Nombre: <?php echo $_SESSION['admin']->getFirstName(); ?></li><br>
         <li class="list-group-item list-group-item-primary">Apellido: <?php echo $_SESSION['admin']->getLastName(); ?></li><br>

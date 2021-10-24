@@ -6,6 +6,7 @@ namespace DAO;
 use DAO\IAdminDAO as IAdminDAO;
 use Models\Administrator as Administrator;
 use DAO\Connection as Connection;
+use Exception as Exception;
 
 
 class AdminDB_DAO implements IAdminDAO

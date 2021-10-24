@@ -1,7 +1,7 @@
 <?php
 use Utility\AdminUtility as AdminUtility;
 
-AdminUtility::checkSessionStatus(isset($_SESSION['admin']));
+AdminUtility::checkSessionStatus($_SESSION['user']);
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
