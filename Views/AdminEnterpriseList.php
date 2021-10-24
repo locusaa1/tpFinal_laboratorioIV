@@ -13,7 +13,7 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
         </div>
     </section>
     <?php
-    if (isset($_GET['delete'])) {
+    if (isset($_GET['delete'])&&$_GET['delete']==true) {
 
         echo '<div class="alert alert-success" role="alert">';
         echo '<h4 class="alert-heading">Borrado exitoso!</h4>';
@@ -50,10 +50,10 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                 <?php
                 foreach ($list as $enterprise) {
                     echo '<li class="list-group-item">';
-                    echo 'name: ' . $enterprise->getName() . '<br>';
-                    echo 'cuit: ' . $enterprise->getCuit() . '<br>';
-                    echo 'phone: ' . $enterprise->getPhoneNumber() . '<br>';
-                    echo 'address: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>'; ?>
+                    echo 'Nombre: ' . $enterprise->getName() . '<br>';
+                    echo 'Cuit: ' . $enterprise->getCuit() . '<br>';
+                    echo 'Teléfono: ' . $enterprise->getPhoneNumber() . '<br>';
+                    echo 'Dirección: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>'; ?>
                     <button class="btn btn-outline-success btn-lg btn-block" type="submit" name="action"
                             value="update/<?php echo $enterprise->getCuit() ?>">Actualizar
                     </button>

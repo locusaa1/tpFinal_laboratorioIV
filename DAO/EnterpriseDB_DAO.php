@@ -3,7 +3,6 @@
 
 namespace DAO;
 
-use DAO\IEnterpriseDAO as IEnterpriseDAO;
 use Models\Enterprise as Enterprise;
 use DAO\Connection as Connection;
 use Exception as Exception;
@@ -67,5 +66,24 @@ class EnterpriseDB_DAO
 
             throw $exception;
         }
+    }
+
+    public function deleteByCuit($cuit)
+    {
+        $confirm = false;
+        try {
+
+            $query = "delete from " . $this->tableName . " where cuit = '" . $cuit . "';";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
+
+            $confirm = true;
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+        return $confirm;
     }
 }
