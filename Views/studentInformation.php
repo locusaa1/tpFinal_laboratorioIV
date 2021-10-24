@@ -19,28 +19,28 @@
 <main class="">
    <section class="hello-Bg">
         <div class="hello">
-            <?php
-                if(isset($_SESSION['student'])){
-                    $loggedUser = $_SESSION['student'];
+        <?php
+                if(isset($_SESSION['user'])){
+                    $loggedUser = $_SESSION['user'];
                 }
             ?>
-            <p>¡Hola <?php echo " " . $loggedUser->getFirstName() . "!"?></p>
+            <p>¡Hola <?php echo " " . $loggedUser->getName() ."!"?></p>
         </div>
     </section> 
     <section class="studentInfo">
         <legend>Mis datos</legend>
         <p class="data">Legajo</p> 
-        <p class="dataAnswer"><?php echo $loggedUser->getFileNumber()?></p>
+        <p class="dataAnswer"><?php echo $student->getFileNumber()?></p>
         <p class="data">Nombre completo</p> 
-        <p class="dataAnswer"><?php echo $loggedUser->getFirstName() . " " . $loggedUser->getLastName()?></p>
+        <p class="dataAnswer"><?php echo $student->getFirstName() . " " . $student->getLastName()?></p>
         <p class="data">DNI</p> 
-        <p class="dataAnswer"><?php echo $loggedUser->getDni()?></p>
+        <p class="dataAnswer"><?php echo $student->getDni()?></p>
         <p class="data">Fecha de nacimiento</p> 
-        <p class="dataAnswer"><?php echo $loggedUser->getBirthDate()?></p>
+        <p class="dataAnswer"><?php echo $student->getBirthDate()?></p>
         <p class="data">Email</p> 
-        <p class="dataAnswer"><?php echo $loggedUser->getEmail()?></p>
+        <p class="dataAnswer"><?php echo $student->getEmail()?></p>
         <p class="data">Teléfono</p> 
-        <p class="dataAnswer"><?php echo $loggedUser->getPhoneNumber()?></p>
+        <p class="dataAnswer"><?php echo $student->getPhoneNumber()?></p>
         <p class="data"><br></p>
     </section>   
     <section>

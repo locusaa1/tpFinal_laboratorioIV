@@ -59,6 +59,7 @@ class StudentController
 
     public function StudentInfo ()
     {
+        $student = $this->studentDAO->GetByEmail($_SESSION['user']->getEmail());
         require_once(VIEWS_PATH . "studentInformation.php");
     }
 
