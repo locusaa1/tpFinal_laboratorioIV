@@ -45,7 +45,7 @@ class EnterpriseController
     private function updateEnterprise($cuit)
     {
 
-        $_GET['update'] = $this->enterpriseDAO->getSpecificEnterpriseByCuit($cuit);
+        $_GET['update'] = $this->enterpriseDB->getSpecificEnterpriseByCuit($cuit);
         require_once(VIEWS_PATH . 'AdminEnterpriseUpdate.php');
     }
 
@@ -68,15 +68,14 @@ class EnterpriseController
 
         if ($action == 'update') {
 
-            $oldEnterprise = $this->enterpriseDAO->getSpecificEnterpriseByCuit($cuit);
-            $position = array_search($oldEnterprise, $this->enterpriseDAO->getAll());
+            $oldEnterprise = $this->enterpriseDB->getSpecificEnterpriseByCuit($cuit);
             $newEnterprise->setIdEnterprise($oldEnterprise->getIdEnterprise());
             $newEnterprise->setCuit($oldEnterprise->getCuit());
             $newEnterprise->setName($newName = (strcmp('', $name) == 0) ? $oldEnterprise->getName() : $name);
             $newEnterprise->setPhoneNumber($newPhoneNumber = (strcmp('', $phoneNumber) == 0) ? $oldEnterprise->getPhoneNumber() : $phoneNumber);
             $newEnterprise->setAddressName($newAddressName = (strcmp('', $addressName) == 0) ? $oldEnterprise->getAddressName() : $addressName);
             $newEnterprise->setAddressNumber($newAddressNumber = (strcmp('', $addressNumber) == 0) ? $oldEnterprise->getAddressNumber() : $addressNumber);
-            $this->enterpriseDAO->updateEnterprise($newEnterprise, $position);
+            $this->enterpriseDB->updateEnterprise($newEnterprise, $oldEnterprise->getCuit());
             $_GET['update'] = 'true';
         } else {
 
@@ -85,9 +84,9 @@ class EnterpriseController
             $newEnterprise->setPhoneNumber($phoneNumber);
             $newEnterprise->setAddressName($addressName);
             $newEnterprise->setAddressNumber($addressNumber);
-            $_GET['add'] = $this->enterpriseDB->addEnterprise($newEnterprise);
+            $_GET['add'] = $this->enterpriseDB->add($newEnterprise);
         }
-        $list = $this->enterpriseDAO->getAll();
+        $list = $this->enterpriseDB->getAll();
         require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
     }
 

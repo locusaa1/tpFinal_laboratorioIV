@@ -93,13 +93,17 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
         try {
 
             $query = "update " . $this->tableName . " set " .
-                "id_enterprise = " . $newEnterprise->getIdEnterprise() . ",
-                name = " . $newEnterprise->getName() . ",
-                cuit = " . $newEnterprise->getCuit() . ",
-                phone_number = " . $newEnterprise->getPhoneNumber() . ",
-                address_name = " . $newEnterprise->getAddressName() . ",
-                address_number = " . $newEnterprise->getAddressNumber() . "
+                "id_enterprise = '" . $newEnterprise->getIdEnterprise() . "',
+                name = '" . $newEnterprise->getName() . "',
+                cuit = '" . $newEnterprise->getCuit() . "',
+                phone_number = '" . $newEnterprise->getPhoneNumber() . "',
+                address_name = '" . $newEnterprise->getAddressName() . "',
+                address_number = '" . $newEnterprise->getAddressNumber() . "' 
                 where cuit = '" . $cuit . "';";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
         } catch (Exception $exception) {
 
             throw $exception;
@@ -116,7 +120,17 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
 
             $this->connection = Connection::GetInstance();
 
-            $enterprise = $this->connection->Execute($query);
+            $resultSet = $this->connection->Execute($query);
+
+            if (!empty($resultSet[0])) {
+
+                $enterprise->setIdEnterprise($resultSet[0]['id_enterprise']);
+                $enterprise->setName($resultSet[0]['name']);
+                $enterprise->setCuit($resultSet[0]['cuit']);
+                $enterprise->setPhoneNumber($resultSet[0]['phone_number']);
+                $enterprise->setAddressName($resultSet[0]['address_name']);
+                $enterprise->setAddressNumber($resultSet[0]['address_number']);
+            }
         } catch (Exception $exception) {
 
             throw $exception;
