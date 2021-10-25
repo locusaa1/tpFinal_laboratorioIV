@@ -105,4 +105,35 @@ class JobPositionDAO implements IJobPositionDAO
         }
     }
 
+    public function jobPositionsByCareer ($idCareer)
+    {
+        try {
+
+            $jobPositionByCareerList = array();
+
+            $query = "select * from " . $this->tableName . " where id_career = " . $idCareer . ";";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            foreach ($resultSet as $row) {
+
+                $jobPosition = new JobPosition();
+                $jobPosition->setJobPositionId($row['id_job_position']);
+                $jobPosition->setCareerId($row['id_career']);
+                $jobPosition->setDescription($row['description']);
+                array_push($jobPositionList, $jobPosition);
+            }
+        
+            return $jobPositionByCareerList;
+        
+            
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+
+    }
+
 }
