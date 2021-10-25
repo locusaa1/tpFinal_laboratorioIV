@@ -29,6 +29,20 @@ class CareerController
         }
     }
 
+    public function getCareerById ($careerId)
+    {
+        $careerById = null;
+
+        foreach($this->careerList() as $career)
+        {
+            if($career->getIdCareer()==$careerId)
+            {
+                $careerById = $career;
+            }
+        }
+
+        return $careerById;
+    }
 
 }
 
