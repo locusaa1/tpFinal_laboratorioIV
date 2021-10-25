@@ -105,5 +105,22 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
             throw $exception;
         }
     }
-    
+
+    public function getSpecificEnterpriseByCuit($cuit)
+    {
+        $enterprise = new Enterprise();
+
+        try {
+
+            $query = "select * from " . $this->tableName . " where cuit ='" . $cuit . "';";
+
+            $this->connection = Connection::GetInstance();
+
+            $enterprise = $this->connection->Execute($query);
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+        return $enterprise;
+    }
 }
