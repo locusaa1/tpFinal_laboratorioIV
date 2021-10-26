@@ -72,7 +72,7 @@ class CareerDAO implements ICareerDAO
 
     }
 
-    public function add(Career $career)
+    /*public function add(Career $career)
     {
         try {
 
@@ -84,6 +84,34 @@ class CareerDAO implements ICareerDAO
             $parameters['id_career'] = $career->getIdCareer();
             $parameters['name'] = $career->getDescription();
             $parameters['active'] = $career->getActive();
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }*/
+
+    public function add(Career $career)
+    {
+        try {
+
+            $query = "insert into " .
+                $this->tableName .
+                "(id_career, name, active)
+                values (:id_career, :name, :active)";
+
+            $parameters['id_career'] = $career->getIdCareer();
+            $parameters['name'] = $career->getDescription();
+            if($career->getActive()){
+                $parameters['active'] = 1;
+            }else{
+                $parameters['active'] = 0;
+            }
+
+
 
             $this->connection = Connection::GetInstance();
 
