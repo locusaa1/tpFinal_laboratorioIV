@@ -44,7 +44,7 @@
         </section> 
         <section class="searchStudentContainer">
          <p class="searchPicture"></p>
-            <a href="#">Búsquedas abiertas</a>
+            <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferStudentView">Búsquedas abiertas</a>
         </section>            
     </div>   
 </main>

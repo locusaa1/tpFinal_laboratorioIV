@@ -4,6 +4,8 @@ namespace Controllers;
 
 use DAO\JobOfferDB_DAO as JobOfferDB_DAO;
 use Controllers\JobPositionController as JobPositionController;
+use Controllers\CareerController as CareerController;
+use Controllers\EnterpriseController as EnterpriseController;
 use Models\JobOffer as JobOffer;
 
 class JobOfferController
@@ -117,7 +119,16 @@ class JobOfferController
 
     }
 
+    public function jobOfferStudentView()
+    {
+        $careerController = new CareerController();
+        $careerList = $careerController->careerList();
+        $enterpriseController = new EnterpriseController();
+        $enterpriseList = $enterpriseController->enterpriseListJobOfferFilterStudent();
+        require_once(VIEWS_PATH . "studentOffersView.php");
+    }
 
+    
 }
 
 ?>
