@@ -4,7 +4,9 @@ namespace Controllers;
 
 use DAO\JobOfferDB_DAO as JobOfferDB_DAO;
 use Controllers\JobPositionController as JobPositionController;
+use Controllers\UserController as UserController;
 use Models\JobOffer as JobOffer;
+use DTO\JobOfferDTO as JobOfferDTO;
 
 class JobOfferController
 {
@@ -20,12 +22,6 @@ class JobOfferController
         return $this->jobOfferDAO->getAll();
     }
 
-    public function jobOfferStringList()
-    {
-        return $this->jobOfferDAO->getAllStrings();
-    }
-
-
     //todos los datos de job offer + el id position
     //dentro del metodo hago un new de job position
     //dentro $x = new jobPosition;
@@ -38,24 +34,94 @@ class JobOfferController
 
     public function jobOfferListView()
     {
-        $activeList = $this->jobOfferStringList();
+        $activeList = $this->activeJobOfferDTOList();
+        $appliedList = $this->appliedJobOfferDTOList();
+        $outOfDateList = $this->outOfDateJobOfferDTOList();
         require_once(VIEWS_PATH . 'AdminJobOfferList.php');
     }
 
-    /*llamar al dao para traer todos los datos
-    realizar un filtro para que aquellas que no tengan alumno y tienen que estar en fecha
-    deovler la lista para que la use la vista.
-     * */
-    public function activeJobOfferList()
+    public function outOfDateJobOfferDTOList()
     {
-        $generalList = $this->jobOfferList();
+        $jobOfferList = $this->jobOfferList();
+        $outOfDateList = array();
+        $jobPositionController = new JobPositionController;
+        $userController = new UserController();
+
+        foreach ($jobOfferList as $jobOffer) {
+
+            if ($jobOffer->getIdUser() == null && date('d-m-Y', strtotime($jobOffer->getLimitDate())) < date('d-m-Y')) {
+
+                $jobOfferDTO = new JobOfferDTO();
+                $jobOfferDTO->completeSetter($jobOffer->getIdJobOffer(),
+                    $jobPositionController->getJobPositionCareerByJobPositionId($jobOffer->getIdJobPosition())->getDescription(),
+                    $jobPositionController->getJobPositionDescriptionById($jobOffer->getIdJobPosition()),
+                    $userController->getUserNameById($jobOffer->getIdUser()),
+                    $userController->getUserEmailById($jobOffer->getIdUser()),
+                    date('d-m-Y', strtotime($jobOffer->getStartDate())),
+                    date('d-m-Y', strtotime($jobOffer->getLimitDate())),
+                    $jobOffer->getDescription(),
+                    $jobOffer->getSalary(),
+                    $jobOffer->getResume(),
+                    $jobOffer->getCoverLetter());
+                array_push($outOfDateList, $jobOfferDTO);
+            }
+        }
+        return $outOfDateList;
+    }
+
+    public function appliedJobOfferDTOList()
+    {
+        $jobOfferList = $this->jobOfferList();
+        $appliedList = array();
+        $jobPositionController = new JobPositionController;
+        $userController = new UserController();
+
+        foreach ($jobOfferList as $jobOffer) {
+
+            if ($jobOffer->getIdUser()) {
+
+                $jobOfferDTO = new JobOfferDTO();
+                $jobOfferDTO->completeSetter($jobOffer->getIdJobOffer(),
+                    $jobPositionController->getJobPositionCareerByJobPositionId($jobOffer->getIdJobPosition())->getDescription(),
+                    $jobPositionController->getJobPositionDescriptionById($jobOffer->getIdJobPosition()),
+                    $userController->getUserNameById($jobOffer->getIdUser()),
+                    $userController->getUserEmailById($jobOffer->getIdUser()),
+                    date('d-m-Y', strtotime($jobOffer->getStartDate())),
+                    date('d-m-Y', strtotime($jobOffer->getLimitDate())),
+                    $jobOffer->getDescription(),
+                    $jobOffer->getSalary(),
+                    $jobOffer->getResume(),
+                    $jobOffer->getCoverLetter());
+                array_push($appliedList, $jobOfferDTO);
+            }
+        }
+        return $appliedList;
+    }
+
+    public function activeJobOfferDTOList()
+    {
+        $jobOfferList = $this->jobOfferList();
         $activeList = array();
+        $jobPositionController = new JobPositionController();
+        $userController = new UserController();
 
-        foreach ($generalList as $jobOffer) {
+        foreach ($jobOfferList as $jobOffer) {
 
-            if ($jobOffer->getIdUser() == null && date('d-m-Y', $jobOffer->getLimitDate()) >= date('d-m-Y')) {
+            if ($jobOffer->getIdUser() == null && date('d-m-Y', strtotime($jobOffer->getLimitDate())) >= date('d-m-Y')) {
 
-                array_push($activeList, $jobOffer);
+                $jobOfferDTO = new JobOfferDTO();
+                $jobOfferDTO->completeSetter($jobOffer->getIdJobOffer(),
+                    $jobPositionController->getJobPositionCareerByJobPositionId($jobOffer->getIdJobPosition())->getDescription(),
+                    $jobPositionController->getJobPositionDescriptionById($jobOffer->getIdJobPosition()),
+                    $userController->getUserNameById($jobOffer->getIdUser()),
+                    $userController->getUserEmailById($jobOffer->getIdUser()),
+                    date('d-m-Y', strtotime($jobOffer->getStartDate())),
+                    date('d-m-Y', strtotime($jobOffer->getLimitDate())),
+                    $jobOffer->getDescription(),
+                    $jobOffer->getSalary(),
+                    $jobOffer->getResume(),
+                    $jobOffer->getCoverLetter());
+                array_push($activeList, $jobOfferDTO);
             }
         }
         return $activeList;

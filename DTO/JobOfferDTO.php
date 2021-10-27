@@ -7,6 +7,7 @@ namespace DTO;
 class JobOfferDTO
 {
     private $idJobOffer;
+    private $enterpriseName;
     private $jobPositionDescription;
     private $userName;
     private $userEmail;
@@ -39,6 +40,22 @@ class JobOfferDTO
     public function setIdJobOffer($idJobOffer): void
     {
         $this->idJobOffer = $idJobOffer;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnterpriseName()
+    {
+        return $this->enterpriseName;
+    }
+
+    /**
+     * @param mixed $enterpriseName
+     */
+    public function setEnterpriseName($enterpriseName): void
+    {
+        $this->enterpriseName = $enterpriseName;
     }
 
     /**
@@ -183,5 +200,20 @@ class JobOfferDTO
     public function setCoverLetter($coverLetter): void
     {
         $this->coverLetter = $coverLetter;
+    }
+
+    public function completeSetter($idJobOffer, $enterpriseName, $jobPositionDescription, $userName, $userEmail, $startDate, $limitDate, $description, $salary, $resume, $coverLetter)
+    {
+        $this->setIdJobOffer($idJobOffer);
+        $this->setEnterpriseName($enterpriseName);
+        $this->setJobPositionDescription($jobPositionDescription);
+        $this->setUserName($userName);
+        $this->setUserEmail($userEmail);
+        $this->setStartDate($startDate);
+        $this->setLimitDate($limitDate);
+        $this->setDescription($description);
+        $this->setSalary($salary);
+        $this->setResume($resume);
+        $this->setCoverLetter($coverLetter);
     }
 }
