@@ -88,6 +88,22 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
         return $confirm;
     }
 
+
+    public function GetByName($name)
+    {
+        $enterpriseList = $this->getAll();
+        $enterpriseFounded = null;
+
+        if (!empty($enterpriseList)) {
+            foreach ($enterpriseList as $enterprise) {
+                if ($enterprise->getName() == $name) {
+                    $enterpriseFounded = $enterprise;
+                }
+            }
+        }
+
+        return $enterpriseFounded;
+=======
     public function updateEnterprise(Enterprise $newEnterprise, $cuit)
     {
         try {
@@ -136,5 +152,6 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
             throw $exception;
         }
         return $enterprise;
+
     }
 }
