@@ -9,7 +9,7 @@ interface IEnterpriseDAO
 {
     function getAll();
 
-    function addEnterprise(Enterprise $enterprise);
+    function add(Enterprise $enterprise);
 
     function deleteByCuit($cuit);
 

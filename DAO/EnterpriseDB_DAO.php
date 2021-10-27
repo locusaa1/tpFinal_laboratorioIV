@@ -3,11 +3,12 @@
 
 namespace DAO;
 
+use DAO\IEnterpriseDAO as IEnterpriseDAO;
 use Models\Enterprise as Enterprise;
 use DAO\Connection as Connection;
 use Exception as Exception;
 
-class EnterpriseDB_DAO
+class EnterpriseDB_DAO implements IEnterpriseDAO
 {
     private $connection;
     private $tableName = "enterprises";
@@ -87,6 +88,7 @@ class EnterpriseDB_DAO
         return $confirm;
     }
 
+
     public function GetByName($name)
     {
         $enterpriseList = $this->getAll();
@@ -101,5 +103,55 @@ class EnterpriseDB_DAO
         }
 
         return $enterpriseFounded;
+=======
+    public function updateEnterprise(Enterprise $newEnterprise, $cuit)
+    {
+        try {
+
+            $query = "update " . $this->tableName . " set " .
+                "id_enterprise = '" . $newEnterprise->getIdEnterprise() . "',
+                name = '" . $newEnterprise->getName() . "',
+                cuit = '" . $newEnterprise->getCuit() . "',
+                phone_number = '" . $newEnterprise->getPhoneNumber() . "',
+                address_name = '" . $newEnterprise->getAddressName() . "',
+                address_number = '" . $newEnterprise->getAddressNumber() . "' 
+                where cuit = '" . $cuit . "';";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
+
+    public function getSpecificEnterpriseByCuit($cuit)
+    {
+        $enterprise = new Enterprise();
+
+        try {
+
+            $query = "select * from " . $this->tableName . " where cuit ='" . $cuit . "';";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            if (!empty($resultSet[0])) {
+
+                $enterprise->setIdEnterprise($resultSet[0]['id_enterprise']);
+                $enterprise->setName($resultSet[0]['name']);
+                $enterprise->setCuit($resultSet[0]['cuit']);
+                $enterprise->setPhoneNumber($resultSet[0]['phone_number']);
+                $enterprise->setAddressName($resultSet[0]['address_name']);
+                $enterprise->setAddressNumber($resultSet[0]['address_number']);
+            }
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+        return $enterprise;
+
     }
 }
