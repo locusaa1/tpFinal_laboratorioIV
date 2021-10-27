@@ -83,7 +83,11 @@ class CareerDAO implements ICareerDAO
            
             $parameters['id_career'] = $career->getIdCareer();
             $parameters['name'] = $career->getDescription();
-            $parameters['active'] = $career->getActive();
+            if($career->getActive()){
+                $parameters['active'] = 1;
+            }else{
+                $parameters['active'] = 0;
+            }
 
             $this->connection = Connection::GetInstance();
 

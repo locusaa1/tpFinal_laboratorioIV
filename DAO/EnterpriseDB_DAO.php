@@ -86,4 +86,20 @@ class EnterpriseDB_DAO
         }
         return $confirm;
     }
+
+    public function GetByName($name)
+    {
+        $enterpriseList = $this->getAll();
+        $enterpriseFounded = null;
+
+        if (!empty($enterpriseList)) {
+            foreach ($enterpriseList as $enterprise) {
+                if ($enterprise->getName() == $name) {
+                    $enterpriseFounded = $enterprise;
+                }
+            }
+        }
+
+        return $enterpriseFounded;
+    }
 }
