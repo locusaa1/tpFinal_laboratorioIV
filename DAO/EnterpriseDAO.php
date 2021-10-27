@@ -71,7 +71,7 @@ class EnterpriseDAO implements IEnterpriseDAO
         return $deleted;
     }
 
-    public function addEnterprise(Enterprise $enterprise)
+    public function add(Enterprise $enterprise)
     {
         $this->loadData();
         $confirm = false;

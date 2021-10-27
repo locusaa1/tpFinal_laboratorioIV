@@ -137,8 +137,7 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
         }
         return $enterprise;
     }
-
-
+    
     public function GetByName($name)
     {
         $enterpriseList = $this->getAll();
@@ -154,4 +153,5 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
 
         return $enterpriseFounded;
     }
+
 }

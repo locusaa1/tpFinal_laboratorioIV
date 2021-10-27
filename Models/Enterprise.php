@@ -18,7 +18,7 @@ class Enterprise
      */
     public function __construct()
     {
-        $this->idEnterprise = uniqid(rand(),true);
+
     }
 
     /**
