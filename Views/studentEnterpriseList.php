@@ -45,41 +45,45 @@
             <button class="filterButton" type="submit">Filtrar</button>
         </form>
     </section>
-    <section>
-        <form action="<?php echo FRONT_ROOT?>Enterprise/EnterpriseDetails" method="get" class="enterpriseStudentListContainer">
-            <?php    
-            if(!empty($filterEnterpriseList)){
-               
-               foreach ($filterEnterpriseList as $enterprise)
-               {
+    <section class="enterpriseStudentListContainer">
+        <?php    
+        if(!empty($filterEnterpriseList)){
+            ?>
+            <div class="columnList"> 
+                <?php      
+                foreach ($filterEnterpriseList as $enterprise)
+                {
                 ?>
-                <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
-                <label for="name"><?php echo $enterprise->getName()?></label><br>
+                    <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails?name=<?php echo $enterprise->getName()?>"><?php echo $enterprise->getName()?></a>
                 <?php 
                 }
-               
-            }else{
+                ?>
+            </div> 
+            <?php
                 
+        }else{
+             ?>
+             <div class="columnList">  
+                <?php      
                 foreach ($list as $enterprise)
                 {
                 ?>
-                    <input type="radio" value="<?= $enterprise->getName()?>" name="name" required>
-                    <label for="name"><?php echo $enterprise->getName()?></label>
+                    <a class="" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails?name=<?php echo $enterprise->getName()?>"><?php echo $enterprise->getName()?></a>
                     <br>
                 <?php
                 }
-        
-            }
-            ?>
-            <button class="detailButton" type="submit">Ver Detalle de empresa</button>
-        </form> 
-        <?php
-        if(!empty($filterEnterpriseList)){
-            ?>
-            <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseListStudent">Quitar filtro</a>
+                ?>
+            </div> 
             <?php
-        }   
+        }     
+        
+        if(!empty($filterEnterpriseList)){
         ?>
+            <br><br>
+            <a class="takeOffFilterButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseListStudent">Quitar filtro</a>
+            <?php
+            }   
+            ?>
     </section>
     <br>
     <section>

@@ -92,7 +92,7 @@ class EnterpriseController
 
     public function FilterByName($name)
     {
-        $enterpriseList = $this->enterpriseDAO->getAll();
+        $enterpriseList = $this->enterpriseDB->getAll();
 
         $_GET['getIn'] = 1;
 
@@ -115,7 +115,7 @@ class EnterpriseController
 
     public function EnterpriseDetails($name)
     {
-        $enterprise = $this->enterpriseDAO->GetByName($name);
+        $enterprise = $this->enterpriseDB->GetByName($name);
 
         require_once(VIEWS_PATH . "enterpriseDetails.php");
 
@@ -123,8 +123,13 @@ class EnterpriseController
 
     public function EnterpriseListStudent()
     {
-        $list = $this->enterpriseDAO->getAll();
+        $list = $this->enterpriseDB->getAll();
 
         require_once(VIEWS_PATH . "studentEnterpriseList.php");
+    }
+
+    public function enterpriseListJobOfferFilterStudent()
+    {
+        return $this->enterpriseDB->getAll();
     }
 }
