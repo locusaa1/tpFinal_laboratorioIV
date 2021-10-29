@@ -22,18 +22,18 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
             </div><br>
             <label for="name">Name:</label><br>
             <input class="form-control form-control-lg" type="text" id="name" name="name" value=""
-                   placeholder="<?php echo $_GET['update']->getName() ?>"><br>
+                   placeholder="<?php echo $enterprise->getName() ?>"><br>
             <label for="phoneNumber">Phone number:</label><br>
             <input class="form-control form-control-lg" type="number" id="phoneNumber" name="phoneNumber" value=""
-                   placeholder="<?php echo $_GET['update']->getPhoneNumber() ?>"><br>
-            <input class="form-control form-control-lg" type="hidden" id="cuit" name="cuit" value="<?php echo $_GET['update']->getCuit() ?>" required
+                   placeholder="<?php echo $enterprise->getPhoneNumber() ?>"><br>
+            <input class="form-control form-control-lg" type="hidden" id="cuit" name="cuit" value="<?php echo $enterprise->getCuit() ?>" required
                    placeholder="1111">
             <label for="addressName">AddressName</label><br>
             <input class="form-control form-control-lg" type="text" id="addressName" name="addressName" value=""
-                   placeholder="<?php echo $_GET['update']->getAddressName() ?>"><br>
+                   placeholder="<?php echo $enterprise->getAddressName() ?>"><br>
             <label for="addressNumber">AddressNumber</label><br>
             <input class="form-control form-control-lg" type="text" id="addressNumber" name="addressNumber" value=""
-                   placeholder="<?php echo $_GET['update']->getAddressNumber() ?>"><br>
+                   placeholder="<?php echo $enterprise->getAddressNumber() ?>"><br>
             <button class="btn btn-outline-success btn-lg btn-block" type="submit" name="action" value="update">Actualizar</button>
             <button class="btn btn-outline-dark btn-lg btn-block" type="reset">Refrescar</button>
             </ul>

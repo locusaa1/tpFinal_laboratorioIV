@@ -71,7 +71,6 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
 
     public function deleteByCuit($cuit)
     {
-        $confirm = false;
         try {
 
             $query = "delete from " . $this->tableName . " where cuit = '" . $cuit . "';";
@@ -80,12 +79,10 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
 
             $this->connection->ExecuteNonQuery($query);
 
-            $confirm = true;
         } catch (Exception $exception) {
 
             throw $exception;
         }
-        return $confirm;
     }
 
     public function updateEnterprise(Enterprise $newEnterprise, $cuit)

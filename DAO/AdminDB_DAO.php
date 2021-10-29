@@ -72,4 +72,45 @@ class AdminDB_DAO implements IAdminDAO
             throw $exception;
         }
     }
+
+    public function getAdminByEmail($email)
+    {
+        try {
+
+            $adminFound = null;
+
+            $query = "select * from " . $this->tableName . " where email = '" . $email . "';";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            if (!empty($resultSet[0])) {
+
+                $adminFound = new Administrator();
+                $adminFound->setIdAdmin($resultSet[0]['id_admin']);
+                $adminFound->setFirstName($resultSet[0]['first_name']);
+                $adminFound->setLastName($resultSet[0]['last_name']);
+                $adminFound->setDni($resultSet[0]['dni']);
+                $adminFound->setBirthDate($resultSet[0]['birth_date']);
+                $adminFound->setGender($resultSet[0]['gender']);
+                $adminFound->setEmail($resultSet[0]['email']);
+                $adminFound->setPhoneNumber($resultSet[0]['phone_number']);
+            }
+            return $adminFound;
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+

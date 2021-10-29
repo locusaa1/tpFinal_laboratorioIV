@@ -13,7 +13,9 @@ AdminUtility::checkSessionStatus(isset($_SESSION['user']));
                 <p>Bienvenido</p>
             </div>
         </section>
-        <?php require_once('adminNav.php'); ?>
+        <?php
+        require_once('adminNav.php');
+        ?>
     </main>
 <?php
 require_once('companies.php');

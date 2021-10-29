@@ -4,7 +4,6 @@
 namespace DAO;
 
 use Models\JobOffer as JobOffer;
-use Models\JobOfferStrings as JobOfferStrings;
 use DAO\Connection as Connection;
 use Exception as Exception;
 
@@ -74,6 +73,48 @@ class JobOfferDB_DAO
         } catch (Exception $exception) {
 
             throw $exception;
+        }
+    }
+
+    public function getSpecificJobOfferById($idJobOffer)
+    {
+        try {
+
+            $jobOfferFound = new JobOffer();
+
+            $query = "select * from " . $this->tableName . " where id_job_offer = " . $idJobOffer . ";";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            $jobOfferFound->setIdJobOffer($resultSet[0]['id_job_offer']);
+            $jobOfferFound->setIdJobPosition($resultSet[0]['id_job_position']);
+            $jobOfferFound->setIdEnterprise($resultSet[0]['id_enterprise']);
+            $jobOfferFound->setIdUser($resultSet[0]['id_user']);
+            $jobOfferFound->setStartDate($resultSet[0]['start_date']);
+            $jobOfferFound->setLimitDate($resultSet[0]['limit_date']);
+            $jobOfferFound->setDescription($resultSet[0]['description']);
+            $jobOfferFound->setSalary($resultSet[0]['salary']);
+            $jobOfferFound->setResume($resultSet[0]['resume']);
+            $jobOfferFound->setCoverLetter($resultSet[0]['cover_letter']);
+
+            return $jobOfferFound;
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
+
+    public function updateJobOffer(JobOffer $updateJobOffer)
+    {
+        try {
+
+            $query = "update ". $this->tableName . " set ".
+                "id_job_offer = '".$updateJobOffer->getIdJobOffer() ."',
+                id_job_position = '". $updateJobOffer->getIdJobPosition()."',
+                id_enterprise = '".$updateJobOffer->getIdEnterprise()."',
+                "
         }
     }
 }

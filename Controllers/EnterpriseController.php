@@ -6,11 +6,17 @@ namespace Controllers;
 use DAO\EnterpriseDAO as EnterpriseDAO;
 use DAO\EnterpriseDB_DAO as EnterpriseDB;
 use Models\Enterprise as Enterprise;
+use Exception as Exception;
 
 class EnterpriseController
 {
     private $enterpriseDAO;
     private $enterpriseDB;
+
+    public function getAllEnterprises()
+    {
+        return $this->enterpriseDB->getAll();
+    }
 
     /**
      * EnterpriseController constructor.
@@ -21,31 +27,15 @@ class EnterpriseController
         $this->enterpriseDB = new EnterpriseDB();
     }
 
-    public function actionProcess($action)
-    {
-        $values = explode('/', $_GET['action']);
-        if ($values[0] == 'update') {
-
-            $this->updateEnterprise($values[1]);
-        } elseif ($values[0] == 'delete') {
-
-            $this->deleteEnterprise($values[1]);
-        } else {
-
-            $this->addEnterprise();
-        }
-
-    }
-
     public function addEnterprise()
     {
         require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
     }
 
-    private function updateEnterprise($cuit)
+    public function updateEnterprise()
     {
 
-        $_GET['update'] = $this->enterpriseDB->getSpecificEnterpriseByCuit($cuit);
+        $enterprise = $this->enterpriseDB->getSpecificEnterpriseByCuit($_GET['enterpriseCuit']);
         require_once(VIEWS_PATH . 'AdminEnterpriseUpdate.php');
     }
 
@@ -55,39 +45,60 @@ class EnterpriseController
         require_once(VIEWS_PATH . "AdminEnterpriseList.php");
     }
 
-    private function deleteEnterprise($cuit)
+    public function deleteEnterprise($cuit)
     {
-        $_GET['delete'] = $this->enterpriseDB->deleteByCuit($cuit);
-        $list = $this->enterpriseDB->getAll();
-        require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
+        $message = null;
+        $errorMessage = null;
+        try {
+
+            $this->enterpriseDB->deleteByCuit($cuit);
+            $message = 'La empresa fue exitosamente borrada';
+        } catch (Exception $exception) {
+
+            $errorMessage = 'Hubo un problema, la empresa no fue borrada';
+        } finally {
+
+            $list = $this->enterpriseDB->getAll();
+            require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
+        }
     }
 
     public function enterpriseForm($name, $cuit, $phoneNumber, $addressName, $addressNumber, $action)
     {
         $newEnterprise = new Enterprise();
+        $message = null;
+        $errorMessage = null;
 
-        if ($action == 'update') {
+        try {
+            if ($action == 'update') {
 
-            $oldEnterprise = $this->enterpriseDB->getSpecificEnterpriseByCuit($cuit);
-            $newEnterprise->setIdEnterprise($oldEnterprise->getIdEnterprise());
-            $newEnterprise->setCuit($oldEnterprise->getCuit());
-            $newEnterprise->setName($newName = (strcmp('', $name) == 0) ? $oldEnterprise->getName() : $name);
-            $newEnterprise->setPhoneNumber($newPhoneNumber = (strcmp('', $phoneNumber) == 0) ? $oldEnterprise->getPhoneNumber() : $phoneNumber);
-            $newEnterprise->setAddressName($newAddressName = (strcmp('', $addressName) == 0) ? $oldEnterprise->getAddressName() : $addressName);
-            $newEnterprise->setAddressNumber($newAddressNumber = (strcmp('', $addressNumber) == 0) ? $oldEnterprise->getAddressNumber() : $addressNumber);
-            $this->enterpriseDB->updateEnterprise($newEnterprise, $oldEnterprise->getCuit());
-            $_GET['update'] = 'true';
-        } else {
+                $oldEnterprise = $this->enterpriseDB->getSpecificEnterpriseByCuit($cuit);
+                $newEnterprise->setIdEnterprise($oldEnterprise->getIdEnterprise());
+                $newEnterprise->setCuit($oldEnterprise->getCuit());
+                $newEnterprise->setName($newName = (strcmp('', $name) == 0) ? $oldEnterprise->getName() : $name);
+                $newEnterprise->setPhoneNumber($newPhoneNumber = (strcmp('', $phoneNumber) == 0) ? $oldEnterprise->getPhoneNumber() : $phoneNumber);
+                $newEnterprise->setAddressName($newAddressName = (strcmp('', $addressName) == 0) ? $oldEnterprise->getAddressName() : $addressName);
+                $newEnterprise->setAddressNumber($newAddressNumber = (strcmp('', $addressNumber) == 0) ? $oldEnterprise->getAddressNumber() : $addressNumber);
+                $this->enterpriseDB->updateEnterprise($newEnterprise, $oldEnterprise->getCuit());
+                $message = 'La empresa fue exitosamente actualizada';
+            } else {
 
-            $newEnterprise->setName($name);
-            $newEnterprise->setCuit($cuit);
-            $newEnterprise->setPhoneNumber($phoneNumber);
-            $newEnterprise->setAddressName($addressName);
-            $newEnterprise->setAddressNumber($addressNumber);
-            $_GET['add'] = $this->enterpriseDB->add($newEnterprise);
+                $newEnterprise->setName($name);
+                $newEnterprise->setCuit($cuit);
+                $newEnterprise->setPhoneNumber($phoneNumber);
+                $newEnterprise->setAddressName($addressName);
+                $newEnterprise->setAddressNumber($addressNumber);
+                $this->enterpriseDB->add($newEnterprise);
+                $message = 'La empresa fue agregada con éxito';
+            }
+        } catch (Exception $exception) {
+
+            $errorMessage = 'El cuit o teléfono ya se encuentra cargado';
+        } finally {
+
+            $list = $this->enterpriseDB->getAll();
+            require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
         }
-        $list = $this->enterpriseDB->getAll();
-        require_once(VIEWS_PATH . 'AdminEnterpriseList.php');
     }
 
     public function FilterByName($name)

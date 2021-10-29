@@ -11,7 +11,7 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Admin/details">Mi cuenta</a>
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Admin/details?userEmail=<?php echo $_SESSION['user']->getEmail(); ?>">Mi cuenta</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>Enterprise/enterpriseList">Listar empresas</a>
