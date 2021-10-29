@@ -49,13 +49,11 @@ class JobOfferController
         return $jobOfferByCareerList;
     }
 
-    public function filterJobOffersByWord($word)
+    public function filterJobOffersByWord($word, $jobOfferList)
     {
         $jobPositionController = new JobPositionController();
 
         $jobPositionList = $jobPositionController->getJobPositionsByWord($word);
-
-        $jobOfferList = $this->jobOfferList();
 
         $filterjobOfferByWordList = array();
 
@@ -85,7 +83,7 @@ class JobOfferController
     {
         $jobPositionController = new JobPositionController();
 
-        return $jobPositionController->getJobPositionCareerByJobPositionId ($jobPositionId);
+        return $jobPositionController->getJobPositionCareerByJobPositionId ($idJobPosition);
     }
 
     public function jobOfferById ($jobOfferId)
@@ -104,18 +102,18 @@ class JobOfferController
         return $jobOfferById;
     }
 
-    //ver
+    
     public function jobOfferPresentation ($jobOfferId)
     {
         $jobOffer = $this->jobOfferById($jobOfferId);
 
-        echo "Empresa: "; //pendiente
-        echo "Posición: " . $this->jobOfferJobPositionDescription ($jobOffer->getIdJobPosition());
-        echo "Carrera: " . $this->jobOfferCareer ($jobOffer->getIdJobPosition());
-        echo "Descripción: " . $jobOffer->getDescription(); 
-        echo "Salario: " . $jobOffer->getSalary();
-        echo "Fecha de publicación: " . $jobOffer->getStartDate();
-        echo "Fecha de cierre: " . $jobOffer->getLimitDate();
+        echo "Empresa: " . ($this->jobOfferEnterpriseByEnterpriseId($jobOffer->getIdEnterprise()))->getName() . "<br>";
+        echo "Posición: " . $this->jobOfferJobPositionDescription ($jobOffer->getIdJobPosition()) . "<br>";
+        echo "Carrera: " . ($this->jobOfferCareer ($jobOffer->getIdJobPosition()))->getDescription() . "<br>";
+        echo "Descripción: " . $jobOffer->getDescription() . "<br>"; 
+        echo "Salario: " . settype($jobOffer->getSalary(), 'string') . "<br>";
+        echo "Fecha de publicación: " . $jobOffer->getStartDate() . "<br>";
+        echo "Fecha de cierre: " . $jobOffer->getLimitDate() . "<br>";
 
     }
 
@@ -128,7 +126,87 @@ class JobOfferController
         require_once(VIEWS_PATH . "studentOffersView.php");
     }
 
-    
+    public function jobOfferEnterpriseByEnterpriseId($enterpriseId)
+    {
+        $enterpriseController = new EnterpriseController();
+        $enterpriseList = $enterpriseController->enterpriseListJobOfferFilterStudent();
+
+        $enterpriseFounded=null;
+
+        foreach ($enterpriseList as $enterprise){
+            if($enterprise->getIdEnterprise()==$enterpriseId)
+            {
+                $enterpriseFounded = $enterprise;
+            }
+        }
+        
+        return $enterpriseFounded;
+    }
+
+    public function studentJobOffersFilterList($careerFilter, $enterpriseFilter, $keyWordFilter)
+    {
+        
+        $jobPositionController = new JobPositionController();
+
+        $jobOfferList = $this->jobOfferList();
+
+        $filterList=null;
+
+        if($careerFilter!='')
+        {
+            $iterator = 0;
+            foreach($jobOfferList as $jobOffer)
+            {
+                $career = $jobPositionController->getJobPositionCareerByJobPositionId ($jobOffer->getIdJobPosition());
+                if(strcmp($career->getDescription(), $careerFilter)!=0)
+                {
+                    unset($jobOfferList[$iterator]);
+                }
+                $iterator++;
+            }
+            
+        }
+
+        if($enterpriseFilter!='')
+        {
+            $jobOfferList = array_values($jobOfferList);
+            $iterator = 0;
+            foreach($jobOfferList as $jobOffer)
+            {
+                $enterprise = $this->jobOfferEnterpriseByEnterpriseId($jobOffer->getIdEnterprise());
+                
+                if(strcmp($enterprise->getName(), $enterpriseFilter)!=0)
+                {
+                    unset($jobOfferList[$iterator]);
+                }
+                $iterator++;
+            }
+            
+        }
+
+        if($keyWordFilter!='')
+        {
+            $filterList = $this->filterJobOffersByWord($keyWordFilter, $jobOfferList);
+             
+        }
+        
+        if(empty($filterList))
+        {
+            $filterList = $jobOfferList;
+        }
+
+        if(empty($filterList))
+        {
+            $_GET['noMatchesFounded'] = 1;
+        }
+
+        $careerController = new CareerController();
+        $careerList = $careerController->careerList();
+        $enterpriseController = new EnterpriseController();
+        $enterpriseList = $enterpriseController->enterpriseListJobOfferFilterStudent();
+       
+        require_once(VIEWS_PATH . "studentOffersView.php");
+    }
 }
 
 ?>
