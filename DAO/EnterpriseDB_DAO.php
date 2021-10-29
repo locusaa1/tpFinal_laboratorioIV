@@ -13,7 +13,7 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
     private $connection;
     private $tableName = "enterprises";
 
-    public function addEnterprise(Enterprise $enterprise)
+    public function add(Enterprise $enterprise)
     {
         try {
 

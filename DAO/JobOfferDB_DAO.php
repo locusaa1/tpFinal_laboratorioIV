@@ -10,7 +10,7 @@ use Exception as Exception;
 class JobOfferDB_DAO
 {
     private $connection;
-    private $tableName;
+    private $tableName = "job_offers";
 
     public function add(JobOffer $jobOffer)
     {

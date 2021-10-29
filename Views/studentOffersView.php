@@ -39,11 +39,11 @@
         ?>
     </p>
     <section class="filterJobOffersContainer">
-        <form action="<?php echo FRONT_ROOT ?>Enterprise/FilterByName" method="POST" class="filterForm" >
+        <form action="<?php echo FRONT_ROOT ?>JobOffer/studentJobOffersFilterList" method="POST" class="filterForm" >
             <div class="filterJobOffersSections">
                 <section> 
-                    <label for="career">Carrera</label>
-                    <select name="career" class="career">
+                    <label for="careerFilter">Carrera</label>
+                    <select name="careerFilter" class="career">
                     <?php
                     foreach($careerList as $career)
                     {
@@ -56,8 +56,8 @@
                     </select>
                 </section> 
                 <section> 
-                    <label for="enterprise">Empresa</label>
-                    <select name="enterprise" class="enterprise">
+                    <label for="enterpriseFilter">Empresa</label>
+                    <select name="enterpriseFilter" class="enterprise">
                         <?php
                         foreach($enterpriseList as $enterprise)
                         {
@@ -70,13 +70,32 @@
                     </select>
                 </section>
                 <section> 
-                    <label for="keyWord">Posición o palabra clave</label>
-                    <input type="text" name="keyWord" class="keyWord">
+                    <label for="keyWordFilter">Posición o palabra clave</label>
+                    <input type="text" name="keyWordFilter" class="keyWord">
                 </section>
             </div>
-            <a class="offerButton" href="<?php echo FRONT_ROOT ?>Home/NewUser">Buscar ofertas</a>
+            <button class="offerButton" type="submit">Buscar ofertas</button>
         </form>
     </section>
+    <section class="enterpriseStudentListContainer">
+        <?php    
+        if(!empty($filterList)){
+            ?>
+            <div class="columnList"> 
+                <?php      
+                foreach ($filterList as $jobOffer)
+                {
+                ?>
+                    <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails?name=<?php echo $enterprise->getName()?>"><?php echo $jobOffer->getIdJobOffer()?></a>
+                <?php 
+                }
+                unset($filterList);
+                ?>
+            </div> 
+            <?php
+                
+        }
+        ?>  
     <br><br>
 </main>
 <?php
