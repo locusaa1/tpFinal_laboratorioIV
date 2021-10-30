@@ -261,7 +261,9 @@ class JobOfferController
 
         $jobOfferList = $this->jobOfferList();
 
-        $filterList = null;
+        $filterList = array();
+
+        $jobOfferDTOList=array();
 
         if ($careerFilter != '') {
             $iterator = 0;
@@ -300,6 +302,20 @@ class JobOfferController
 
         if (empty($filterList)) {
             $_GET['noMatchesFounded'] = 1;
+        }else{
+            
+            foreach($filterList as $jobOffer)
+            {
+                $dto = $this->generateJobOfferDTO($jobOffer);
+                array_push($jobOfferDTOList, $dto);
+            }
+
+            if($careerFilter == '' && $enterpriseFilter == '' && $keyWordFilter == '')
+            {
+                $_GET['searchResults'] = "Resultados";
+            }else{
+                $_GET['searchResults'] = "Resultados para " . $careerFilter . " " . $enterpriseFilter . " " . $keyWordFilter;
+            }
         }
 
         $careerController = new CareerController();
