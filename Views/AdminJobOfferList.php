@@ -29,7 +29,8 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                         </li>
                         <li class="nav-item">
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle mr-3" type="button" id="dropdownMenuButton"
+                                <button class="btn btn-secondary dropdown-toggle mr-3" type="button"
+                                        id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-expanded="false">
                                     Empresas
                                 </button>
@@ -42,7 +43,8 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                         </li>
                         <li class="nav-item">
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle mr-3" type="button" id="dropdownMenuButton"
+                                <button class="btn btn-secondary dropdown-toggle mr-3" type="button"
+                                        id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-expanded="false">
                                     Puesto
                                 </button>
@@ -61,6 +63,23 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                    class="btn-link stretched-link text-black-50">Crear
                     nueva oferta</a>
             </button>
+        </div>
+        <div class="row w-100">
+            <?php
+            if (isset($message)) {
+
+                echo '<div class="alert alert-success w-100" role="alert">';
+                echo '<h4 class="alert-heading">Proceso completado!</h4>';
+                echo '<p>' . $message . '</p>';
+                echo '</div>';
+            } elseif (isset($errorMessage)) {
+
+                echo '<div class="alert alert-danger w-100" role="alert">';
+                echo '<h4 class="alert-heading">Algo inesperado sucedió!</h4>';
+                echo '<p>' . $errorMessage . '</p>';
+                echo '</div>';
+            }
+            ?>
         </div>
         <div class="row h-100">
             <div class="col float-left">
@@ -83,10 +102,11 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                                     <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferForm?update=<?php echo $jobOfferDTO->getIdJobOffer() ?>"
                                        class="btn-block btn-link text-black-50 text-decoration-none">Actualizar</a>
                                 </button>
-                                <button class="btn btn-outline-danger btn-lg btn-block">
-                                    <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferForm"
-                                       class="btn-link text-black-50 text-decoration-none">Eliminar</a>
-                                </button></li><br>
+                                <form action="<?php echo FRONT_ROOT ?>JobOffer/deleteJobOffer">
+                                    <button class="btn btn-outline-danger btn-lg btn-block" type="submit" name="idJobOffer" value="<?php echo $jobOfferDTO->getIdJobOffer() ?>">
+                                        Eliminar
+                                    </button>
+                                </form></li><br>
                                 <?php
                             }
                             ?>
@@ -109,9 +129,11 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                                 <button class="btn btn-outline-info btn-lg btn-block">
                                     <a href="" class="btn-link text-black-50 text-decoration-none">Ver Detalles</a>
                                 </button>
-                                <button class="btn btn-outline-danger btn-lg btn-block">
-                                    <a href="#" class="btn-link text-black-50 text-decoration-none">Eliminar</a>
-                                </button></li><br>
+                                <form action="<?php echo FRONT_ROOT ?>JobOffer/deleteJobOffer">
+                                    <button class="btn btn-outline-danger btn-lg btn-block" type="submit" name="idJobOffer" value="<?php echo $jobOfferDTO->getIdJobOffer() ?>">
+                                        Eliminar
+                                    </button>
+                                </form></li><br>
                                 <?php
                             }
                             ?>
@@ -132,11 +154,15 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                                 echo 'Descripcion de oferta: ' . $jobOfferDTO->getDescription() . '<br>';
                                 echo 'Salario: ' . $jobOfferDTO->getSalary() . '<br></li>'; ?>
                                 <button class="btn btn-outline-success btn-lg btn-block">
-                                    <a href="" class="btn-link text-black-50 text-decoration-none">Actualizar</a>
+                                    <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferForm?update=<?php echo $jobOfferDTO->getIdJobOffer() ?>"
+                                       class="btn-block btn-link text-black-50 text-decoration-none">Actualizar</a>
                                 </button>
-                                <button class="btn btn-outline-danger btn-lg btn-block">
-                                    <a href="#" class="btn-link text-black-50 text-decoration-none">Eliminar</a>
-                                </button></li><br>
+                                <form action="<?php echo FRONT_ROOT ?>JobOffer/deleteJobOffer">
+                                    <button class="btn btn-outline-danger btn-lg btn-block" type="submit" name="idJobOffer" value="<?php echo $jobOfferDTO->getIdJobOffer() ?>">
+                                        Eliminar
+                                    </button>
+                                </form>
+                                </li><br>
                                 <?php
                             }
                             ?>

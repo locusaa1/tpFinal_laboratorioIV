@@ -10,7 +10,6 @@ use Exception as Exception;
 
 class EnterpriseController
 {
-    private $enterpriseDAO;
     private $enterpriseDB;
 
     public function getAllEnterprises()
@@ -23,7 +22,6 @@ class EnterpriseController
      */
     public function __construct()
     {
-        $this->enterpriseDAO = new EnterpriseDAO();
         $this->enterpriseDB = new EnterpriseDB();
     }
 
@@ -130,6 +128,11 @@ class EnterpriseController
 
         require_once(VIEWS_PATH . "enterpriseDetails.php");
 
+    }
+
+    public function getEnterpriseByCuit($id)
+    {
+        return $this->enterpriseDB->getById($id);
     }
 
     public function EnterpriseListStudent()

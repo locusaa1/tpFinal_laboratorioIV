@@ -35,7 +35,7 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
             <br>
             <label for="name">Nombre de la empresa: </label>
             <select <?php if(!isset($jobOfferDTO)){echo 'required';} ?> name="idEnterprise">
-                <option value="" disabled selected><?php echo $message = (isset($jobOfferDTO))? $jobOfferDTO->getEnterpriseName() : 'nombre'; ?></option>
+                <option value="<?php echo $idEnterprise = (isset($jobOffer))? $jobOffer->getIdEnterprise() : ''; ?>" readonly="readonly" selected><?php echo $message = (isset($jobOfferDTO))? $jobOfferDTO->getEnterpriseName() : 'nombre'; ?></option>
                 <?php
                 foreach ($enterpriseList as $enterprise){
                     ?>
@@ -46,7 +46,7 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
             </select><br><br>
             <label for="jobPositionDescription">Descripción del puesto: </label><br>
             <select <?php if(!isset($jobOfferDTO)){echo 'required';} ?> name="idJobPosition">
-                <option value="" disabled selected><?php echo $message = (isset($jobOfferDTO))? $jobOfferDTO->getJobPositionDescription() : 'descripción' ?></option>
+                <option value="<?php echo $idEnterprise = (isset($jobOffer))? $jobOffer->getIdJobPosition() : ''; ?>" readonly="readonly" selected><?php echo $message = (isset($jobOfferDTO))? $jobOfferDTO->getJobPositionDescription() : 'descripción' ?></option>
                 <?php
                 foreach ($jobPositionList as $jobPosition){
                     ?>
@@ -56,7 +56,7 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                 ?>
             </select><br><br>
             <label for="startDate">Start date: </label>
-            <input value="<?php echo $date = (isset($jobOfferDTO))? $jobOfferDTO->getStartDate(): date('d-m-Y')?>" disabled name="startDate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="<?php echo $message = (isset($jobOfferDTO))? $jobOfferDTO->getStartDate(): date('Y-m-d')?>">
+            <input value="<?php echo $date = (isset($jobOfferDTO))? $jobOfferDTO->getStartDate(): date('d-m-Y')?>" readonly="readonly" name="startDate" type="text" placeholder="<?php echo $message = (isset($jobOfferDTO))? $jobOfferDTO->getStartDate(): date('Y-m-d')?>">
             <label for="limitDate">Limit date: </label>
             <input <?php if(!isset($jobOfferDTO)){echo 'required';} ?> name="limitDate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="<?php echo $message = (isset($jobOfferDTO))? $jobOfferDTO->getLimitDate():''?>">
             <br>

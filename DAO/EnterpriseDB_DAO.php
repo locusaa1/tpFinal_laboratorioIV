@@ -134,7 +134,24 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
         }
         return $enterprise;
     }
-    
+
+    public function getById($id)
+    {
+        $enterpriseList = $this->getAll();
+        $enterpriseFound = null;
+        if (!empty($enterpriseList)){
+
+            foreach ($enterpriseList as $enterprise){
+
+                if ($enterprise->getIdEnterprise() == $id){
+
+                    $enterpriseFound = $enterprise;
+                }
+            }
+        }
+        return $enterpriseFound;
+    }
+
     public function GetByName($name)
     {
         $enterpriseList = $this->getAll();

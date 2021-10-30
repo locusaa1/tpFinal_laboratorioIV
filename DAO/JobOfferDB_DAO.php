@@ -22,11 +22,11 @@ class JobOfferDB_DAO
                 values (:id_job_offer, :id_job_position, :id_enterprise, :id_user, :start_date, :limit_date, :description, :salary, :resume, :cover_letter);";
 
             $parameters['id_job_offer'] = $jobOffer->getIdJobOffer();
-            $parameters['id_job_position'] = $jobOffer->getIdJobPosition(); //jobOffer->getPosition()->getId();
+            $parameters['id_job_position'] = $jobOffer->getIdJobPosition();
             $parameters['id_enterprise'] = $jobOffer->getIdEnterprise();
             $parameters['id_user'] = $jobOffer->getIdUser();
-            $parameters['start_date'] = $jobOffer->getStartDate();
-            $parameters['limit_date'] = $jobOffer->getLimitDate();
+            $parameters['start_date'] = date('Y-m-d',strtotime($jobOffer->getStartDate()));
+            $parameters['limit_date'] = date('Y-m-d',strtotime($jobOffer->getLimitDate()));
             $parameters['description'] = $jobOffer->getDescription();
             $parameters['salary'] = $jobOffer->getSalary();
             $parameters['resume'] = $jobOffer->getResume();
@@ -110,11 +110,36 @@ class JobOfferDB_DAO
     {
         try {
 
-            $query = "update ". $this->tableName . " set ".
-                "id_job_offer = '".$updateJobOffer->getIdJobOffer() ."',
-                id_job_position = '". $updateJobOffer->getIdJobPosition()."',
-                id_enterprise = '".$updateJobOffer->getIdEnterprise()."',
-                "
+            $query = "update " . $this->tableName . " set " .
+                "id_job_offer = " . $updateJobOffer->getIdJobOffer() . ",
+                id_job_position = " . $updateJobOffer->getIdJobPosition() . ",
+                id_enterprise = " . $updateJobOffer->getIdEnterprise() . ",
+                start_date = '" . date('Y-m-d', strtotime($updateJobOffer->getStartDate())) . "',
+                limit_date = '" . date('Y-m-d', strtotime($updateJobOffer->getLimitDate())) . "',
+                description = '" . $updateJobOffer->getDescription() . "',
+                salary = '" . $updateJobOffer->getSalary() . "' where id_job_offer = '" . $updateJobOffer->getIdJobOffer() . "';";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
+
+    public function deleteJobOffer($idJobOffer)
+    {
+        try {
+
+            $query = "delete from " . $this->tableName . " where id_job_offer ='" . $idJobOffer . "';";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
+        } catch (Exception $exception) {
+
+            throw $exception;
         }
     }
 }
