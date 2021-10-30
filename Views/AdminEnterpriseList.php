@@ -13,57 +13,47 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
         </div>
     </section>
     <?php
-    if (isset($_GET['delete'])&&$_GET['delete']==true) {
+    if (isset($message)) {
 
         echo '<div class="alert alert-success" role="alert">';
-        echo '<h4 class="alert-heading">Borrado exitoso!</h4>';
-        echo '<p>La empresa fue exitosamente borrada.</p>';
+        echo '<h4 class="alert-heading">Proceso completado!</h4>';
+        echo '<p>' . $message . '</p>';
         echo '</div>';
-    } elseif (isset($_GET['add'])) {
+    } elseif (isset($errorMessage)) {
 
-        if ($_GET['add']) {
-
-            echo '<div class="alert alert-success" role="alert">';
-            echo '<h4 class="alert-heading">Agregado exitoso!</h4>';
-            echo '<p>La empresa fue agregada con éxito.</p>';
-            echo '</div>';
-        } else {
-
-            echo '<div class="alert alert-danger" role="alert">';
-            echo '<h4 class="alert-heading">Hubo un problema!</h4>';
-            echo '<p>El cuit que desea ingresar ya se encuentra cargado.</p>';
-            echo '</div>';
-        }
-    } elseif (isset($_GET['update'])) {
-
-        echo '<div class="alert alert-success" role="alert">';
-        echo '<h4 class="alert-heading">Actualización exitosa!</h4>';
-        echo '<p>La empresa fue exitosamente actualizada.</p>';
+        echo '<div class="alert alert-danger" role="alert">';
+        echo '<h4 class="alert-heading">Algo inesperado sucedió!</h4>';
+        echo '<p>' . $errorMessage . '</p>';
         echo '</div>';
     }
     ?>
     <?php require_once('adminNav.php'); ?>
     <div class="container-lg">
-        <form action="<?php echo FRONT_ROOT ?>Enterprise/actionProcess" method="get">
-            <button class="btn btn-primary btn-lg btn-block" type="submit" name="action" value="create">Crear Nueva Empresa</button>
-            <ul class="list-group">
-                <?php
-                foreach ($list as $enterprise) {
-                    echo '<li class="list-group-item">';
-                    echo 'Nombre: ' . $enterprise->getName() . '<br>';
-                    echo 'Cuit: ' . $enterprise->getCuit() . '<br>';
-                    echo 'Teléfono: ' . $enterprise->getPhoneNumber() . '<br>';
-                    echo 'Dirección: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>'; ?>
-                    <button class="btn btn-outline-success btn-lg btn-block" type="submit" name="action"
-                            value="update/<?php echo $enterprise->getCuit() ?>">Actualizar
+        <button class="btn btn-primary btn-lg btn-block" style="transform: rotate(0)" type="button" name="action">
+            <a class="btn-link stretched-link text-black-50 text-decoration-none"
+               href="<?php echo FRONT_ROOT ?>Enterprise/addEnterprise"> Crear nueva empresa</a>
+        </button>
+        <ul class="list-group">
+            <?php
+            foreach ($list as $enterprise) {
+                echo '<li class="list-group-item">';
+                echo 'Nombre: ' . $enterprise->getName() . '<br>';
+                echo 'Cuit: ' . $enterprise->getCuit() . '<br>';
+                echo 'Teléfono: ' . $enterprise->getPhoneNumber() . '<br>';
+                echo 'Dirección: ' . $enterprise->getAddressName() . ' ' . $enterprise->getAddressNumber() . '<br>'; ?>
+                <button class="btn btn-outline-success btn-lg btn-block" style="transform: rotate(0)" type="submit"
+                        name="action">
+                    <a class="btn-link stretched-link text-black-50 text-decoration-none"
+                       href="<?php echo FRONT_ROOT ?>/Enterprise/updateEnterprise?enterpriseCuit=<?php echo $enterprise->getCuit(); ?>">Actualizar</a>
+                </button>
+                <form action="<?php echo FRONT_ROOT ?>Enterprise/deleteEnterprise" method="post">
+                    <button class="btn btn-outline-danger btn-lg btn-block" type="submit" name="cuit"
+                            value="<?php echo $enterprise->getCuit() ?>">Borrar
                     </button>
-                    <button class="btn btn-outline-danger btn-lg btn-block" type="submit" name="action"
-                            value="delete/<?php echo $enterprise->getCuit() ?>">Borrar
-                    </button>
-                    <?php echo '</li>'; ?>
-                    <br>
-                <?php } ?>
-            </ul>
-        </form>
+                </form>
+                <?php echo '</li>'; ?>
+                <br>
+            <?php } ?>
+        </ul>
     </div>
 </main>

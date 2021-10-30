@@ -5,6 +5,7 @@ namespace Controllers;
 
 use DAO\AdminDAO as AdminDAO;
 use DAO\AdminDB_DAO as AdminDB;
+use Models\Administrator;
 
 class AdminController
 {
@@ -17,7 +18,7 @@ class AdminController
 
     public function AdminView()
     {
-        require_once (VIEWS_PATH.'AdminView.php');
+        require_once(VIEWS_PATH . 'AdminView.php');
     }
 
     /*
@@ -49,6 +50,8 @@ class AdminController
 
     public function details()
     {
+        $admin = new Administrator();
+        $admin = $this->adminDB->getAdminByEmail($_GET['userEmail']);
         require_once(VIEWS_PATH . "adminDetails.php");
     }
 }
