@@ -113,7 +113,7 @@
                     <p class="offerData">Fecha de cierre</p> 
                     <p class="offerDataAnswer"><?php echo $jobOffer->getLimitDate()?></p>
                     <p class="offerData"><br></p>
-                    <a class="applyButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails?name=<?php echo $enterprise->getName()?>">Aplicar</a>
+                    <a class="applyButton" href="<?php echo FRONT_ROOT ?>JobOffer/JobOfferApplyForm?id=<?php echo $jobOffer->getIdJobOffer()?>">Aplicar</a>
                     <br>
                 </div> 
                <?php 

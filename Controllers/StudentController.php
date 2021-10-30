@@ -68,6 +68,15 @@ class StudentController
         require_once(VIEWS_PATH . "studentView.php");
     }
 
+    public function StudentCareerId ($email)
+    {
+        $student = $this->studentDAO->GetByEmail($email);
+        
+        $careerId = $student->getCareerId();
+        
+        return $careerId;
+    }
+
 }
 
 ?>

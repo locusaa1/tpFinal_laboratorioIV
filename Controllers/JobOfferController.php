@@ -7,6 +7,7 @@ use Controllers\JobPositionController as JobPositionController;
 use Controllers\EnterpriseController as EnterpriseController;
 use Controllers\UserController as UserController;
 use Controllers\CareerController as CareerController;
+use Controllers\StudentController as StudentController;
 use Models\JobOffer as JobOffer;
 use DTO\JobOfferDTO as JobOfferDTO;
 
@@ -324,6 +325,31 @@ class JobOfferController
         $enterpriseList = $enterpriseController->enterpriseListJobOfferFilterStudent();
 
         require_once(VIEWS_PATH . "studentOffersView.php");
+    }
+
+    public function JobOfferApplyForm ($id)
+    {
+        $jobOffer = $this->jobOfferById($id);
+        $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+        require_once(VIEWS_PATH . "studentApplyView.php");
+    }
+
+    public function JobOfferAppling ($email, $jobOfferId, $userId, $coverLetter, $resume)
+    {
+        $studentController = new StudentController();
+        $studentCareerId = $studentController->StudentCareerId($email);
+        
+        $jobOffer = $this->jobOfferById($jobOfferId);
+        $jobOfferCareer = $this->jobOfferCareer($jobOffer->getIdJobPosition());
+
+        if($jobOfferCareer->getIdCareer()==$studentCareerId){
+            $this->jobOfferDAO->updateJobOfferByAnApply($jobOfferId, $userId, $coverLetter, $resume);
+        }else{
+            $_GET['noCareerCoincidence'] = 1;
+        }
+
+        require_once(VIEWS_PATH . "studentApplyView.php");
+
     }
 }
 
