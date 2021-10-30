@@ -7,6 +7,7 @@ use Controllers\JobPositionController as JobPositionController;
 use Controllers\EnterpriseController as EnterpriseController;
 use Controllers\UserController as UserController;
 use Controllers\CareerController as CareerController;
+use Controllers\StudentController as StudentController;
 use Models\JobOffer as JobOffer;
 use DTO\JobOfferDTO as JobOfferDTO;
 
@@ -261,7 +262,9 @@ class JobOfferController
 
         $jobOfferList = $this->jobOfferList();
 
-        $filterList = null;
+        $filterList = array();
+
+        $jobOfferDTOList=array();
 
         if ($careerFilter != '') {
             $iterator = 0;
@@ -300,6 +303,20 @@ class JobOfferController
 
         if (empty($filterList)) {
             $_GET['noMatchesFounded'] = 1;
+        }else{
+            
+            foreach($filterList as $jobOffer)
+            {
+                $dto = $this->generateJobOfferDTO($jobOffer);
+                array_push($jobOfferDTOList, $dto);
+            }
+
+            if($careerFilter == '' && $enterpriseFilter == '' && $keyWordFilter == '')
+            {
+                $_GET['searchResults'] = "Resultados";
+            }else{
+                $_GET['searchResults'] = "Resultados para " . $careerFilter . " " . $enterpriseFilter . " " . $keyWordFilter;
+            }
         }
 
         $careerController = new CareerController();
@@ -308,6 +325,31 @@ class JobOfferController
         $enterpriseList = $enterpriseController->enterpriseListJobOfferFilterStudent();
 
         require_once(VIEWS_PATH . "studentOffersView.php");
+    }
+
+    public function JobOfferApplyForm ($id)
+    {
+        $jobOffer = $this->jobOfferById($id);
+        $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+        require_once(VIEWS_PATH . "studentApplyView.php");
+    }
+
+    public function JobOfferAppling ($email, $jobOfferId, $userId, $coverLetter, $resume)
+    {
+        $studentController = new StudentController();
+        $studentCareerId = $studentController->StudentCareerId($email);
+        
+        $jobOffer = $this->jobOfferById($jobOfferId);
+        $jobOfferCareer = $this->jobOfferCareer($jobOffer->getIdJobPosition());
+
+        if($jobOfferCareer->getIdCareer()==$studentCareerId){
+            $this->jobOfferDAO->updateJobOfferByAnApply($jobOfferId, $userId, $coverLetter, $resume);
+        }else{
+            $_GET['noCareerCoincidence'] = 1;
+        }
+
+        require_once(VIEWS_PATH . "studentApplyView.php");
+
     }
 }
 

@@ -71,16 +71,16 @@ if (!empty($_GET['notActiveStudent'])) {
 }
 ?>
     </p>
-    <div class="loginForm">
-        <form action="<?php echo FRONT_ROOT ?>User/LoginUser" method="post">
+    <div >
+        <form action="<?php echo FRONT_ROOT ?>User/LoginUser" method="post" class="loginForm">
             <div class="loginContainer">
-                <legend>Ingreso</legend>
+                <legend>Iniciar Sesión</legend>
                 <label for="email">Email</label>
                 <input type="text" name="email" class="inputUsername" placeholder="example@asd.com" required>
                 <label for="password">Contraseña</label>
                 <input type="password" name="password" class="inputUsername" placeholder="****">
-                <button class="loginButton" type="submit">Iniciar sesión</button>
             </div>
+            <button class="offerButton" type="submit">Iniciar sesión</button>
         </form>
         <section>
             <a class="backButton" href="<?php echo FRONT_ROOT ?>Home/NewUser">Registrarme</a>

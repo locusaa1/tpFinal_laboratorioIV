@@ -142,4 +142,22 @@ class JobOfferDB_DAO
             throw $exception;
         }
     }
+
+    public function updateJobOfferByAnApply($idJobOffer, $userId, $coverLetter, $resume)
+    {
+        try {
+
+            $query = "update " . $this->tableName . " set " .
+                "id_user = " . $userId . ",
+                resume = " . $resume . ",
+                cover_letter = " . $coverLetter . "' where id_job_offer = '" . $idJobOffer . "';";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
 }

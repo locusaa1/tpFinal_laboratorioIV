@@ -23,21 +23,7 @@
             <p>Ofertas Laborales</p>
         </div>
     </section>
-    <p>
-        <?php
-        if(!empty($_GET['getIn']))
-        {
-            if (empty($filterEnterpriseList))
-            {?>
-             <div class="rejectionMessaje">
-                 <?php echo 'No se encontraron resultados'?>
-             </div>
-            <?php
-            }
-            unset($_GET['getIn']);
-        }     
-        ?>
-    </p>
+   
     <section class="filterJobOffersContainer">
         <form action="<?php echo FRONT_ROOT ?>JobOffer/studentJobOffersFilterList" method="POST" class="filterForm" >
             <div class="filterJobOffersSections">
@@ -77,26 +63,70 @@
             <button class="offerButton" type="submit">Buscar ofertas</button>
         </form>
     </section>
-    <section class="enterpriseStudentListContainer">
+    <p>
+        <?php
+        if(!empty($_GET['noMatchesFounded']))
+        {
+        ?>
+            <div class="OffersMessajes">
+            <?php echo 'No se encontraron resultados'?>
+            </div>
+            <?php
+            unset($_GET['noMatchesFounded']);
+        } 
+        
+        if(!empty($_GET['searchResults']))
+        {
+        ?>
+            <div class="OffersMessajes">
+            <?php echo $_GET['searchResults']?>
+            </div>
+            <?php
+            unset($_GET['searchResults']);
+        } 
+        ?>
+    </p>
+    <section class="">
         <?php    
-        if(!empty($filterList)){
+        if(!empty($jobOfferDTOList)){
             ?>
-            <div class="columnList"> 
+             
                 <?php      
-                foreach ($filterList as $jobOffer)
+                foreach ($jobOfferDTOList as $jobOffer)
                 {
                 ?>
-                    <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails?name=<?php echo $enterprise->getName()?>"><?php echo $jobOffer->getIdJobOffer()?></a>
-                <?php 
+                <br>
+                <div class="studentOffersListContainer">
+                    <br>
+                    <p class="offerData">Empresa</p> 
+                    <p class="offerDataAnswer"><?php echo $jobOffer->getEnterpriseName()?></p>
+                    <p class="offerData">Posición</p> 
+                    <p class="offerDataAnswer"><?php echo $jobOffer->getJobPositionDescription()?></p>
+                    <p class="offerData">Carrera</p> 
+                    <p class="offerDataAnswer"><?php echo "pendiente"?></p>
+                    <p class="offerData">Descripción</p> 
+                    <p class="offerDataAnswer"><?php echo $jobOffer->getDescription()?></p>
+                    <p class="offerData">Salario</p> 
+                    <p class="offerDataAnswer"><?php echo $jobOffer->getSalary()?></p>
+                    <p class="offerData">Fecha de publicación</p> 
+                    <p class="offerDataAnswer"><?php echo $jobOffer->getStartDate()?></p>
+                    <p class="offerData">Fecha de cierre</p> 
+                    <p class="offerDataAnswer"><?php echo $jobOffer->getLimitDate()?></p>
+                    <p class="offerData"><br></p>
+                    <a class="applyButton" href="<?php echo FRONT_ROOT ?>JobOffer/JobOfferApplyForm?id=<?php echo $jobOffer->getIdJobOffer()?>">Aplicar</a>
+                    <br>
+                </div> 
+               <?php 
                 }
-                unset($filterList);
+                unset($jobOfferDTOList);
                 ?>
-            </div> 
+            
             <?php
                 
         }
         ?>  
     <br><br>
+    </section>
 </main>
 <?php
 require_once ('companies.php');
