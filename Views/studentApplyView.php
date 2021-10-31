@@ -41,7 +41,7 @@
         <?php    
         if(!empty($jobOfferDTO)){
             ?>
-            <form action="<?php echo FRONT_ROOT ?>JobOffer/JobOfferAppling" method="POST" class="ApplyForm" >
+            <form action="<?php echo FRONT_ROOT ?>JobOffer/JobOfferAppling" method="POST" enctype="multipart/form-data" class="ApplyForm" >
                 <div class="studentApplyContainer">
                     <br>
                     <p class="offerData">Empresa</p> 
