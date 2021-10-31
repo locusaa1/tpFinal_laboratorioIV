@@ -262,16 +262,26 @@ class JobOfferController
 
         $jobOfferList = $this->jobOfferList();
 
+        $availableList = array();
+
+        foreach($jobOfferList as $jobOffer)
+        {
+            if ($jobOffer->getIdUser() == null && $jobOffer->getLimitDate() >= date('Y-m-d')) 
+            {
+                array_push($availableList, $jobOffer);
+            }
+        }
+
         $filterList = array();
 
         $jobOfferDTOList=array();
 
         if ($careerFilter != '') {
             $iterator = 0;
-            foreach ($jobOfferList as $jobOffer) {
+            foreach ($availableList as $jobOffer) {
                 $career = $jobPositionController->getJobPositionCareerByJobPositionId($jobOffer->getIdJobPosition());
                 if (strcmp($career->getDescription(), $careerFilter) != 0) {
-                    unset($jobOfferList[$iterator]);
+                    unset($availableList[$iterator]);
                 }
                 $iterator++;
             }
@@ -279,13 +289,13 @@ class JobOfferController
         }
 
         if ($enterpriseFilter != '') {
-            $jobOfferList = array_values($jobOfferList);
+            $availableList = array_values($availableList);
             $iterator = 0;
-            foreach ($jobOfferList as $jobOffer) {
+            foreach ($availableList as $jobOffer) {
                 $enterprise = $this->jobOfferEnterpriseByEnterpriseId($jobOffer->getIdEnterprise());
 
                 if (strcmp($enterprise->getName(), $enterpriseFilter) != 0) {
-                    unset($jobOfferList[$iterator]);
+                    unset($availableList[$iterator]);
                 }
                 $iterator++;
             }
@@ -293,12 +303,12 @@ class JobOfferController
         }
 
         if ($keyWordFilter != '') {
-            $filterList = $this->filterJobOffersByWord($keyWordFilter, $jobOfferList);
+            $filterList = $this->filterJobOffersByWord($keyWordFilter, $availableList);
 
         }
 
         if (empty($filterList)) {
-            $filterList = $jobOfferList;
+            $filterList = $availableList;
         }
 
         if (empty($filterList)) {
@@ -336,6 +346,7 @@ class JobOfferController
 
     public function JobOfferAppling ($email, $jobOfferId, $userId, $coverLetter, $resume)
     {
+        
         $studentController = new StudentController();
         $studentCareerId = $studentController->StudentCareerId($email);
         
