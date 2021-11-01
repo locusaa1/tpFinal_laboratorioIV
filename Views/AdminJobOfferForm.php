@@ -74,3 +74,7 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
         </ul>
     </form>
 </main>
+<?php
+require_once ('companies.php');
+require_once ('contactForm.php');
+?>

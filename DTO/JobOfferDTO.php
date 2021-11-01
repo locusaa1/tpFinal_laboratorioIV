@@ -8,6 +8,7 @@ class JobOfferDTO
 {
     private $idJobOffer;
     private $enterpriseName;
+    private $careerName;
     private $jobPositionDescription;
     private $userName;
     private $userEmail;
@@ -56,6 +57,22 @@ class JobOfferDTO
     public function setEnterpriseName($enterpriseName): void
     {
         $this->enterpriseName = $enterpriseName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCareerName()
+    {
+        return $this->careerName;
+    }
+
+    /**
+     * @param mixed $careerName
+     */
+    public function setCareerName($careerName): void
+    {
+        $this->careerName = $careerName;
     }
 
     /**
@@ -202,10 +219,11 @@ class JobOfferDTO
         $this->coverLetter = $coverLetter;
     }
 
-    public function completeSetter($idJobOffer, $enterpriseName, $jobPositionDescription, $userName, $userEmail, $startDate, $limitDate, $description, $salary, $resume, $coverLetter)
+    public function completeSetter($idJobOffer, $enterpriseName, $careerName, $jobPositionDescription, $userName, $userEmail, $startDate, $limitDate, $description, $salary, $resume, $coverLetter)
     {
         $this->setIdJobOffer($idJobOffer);
         $this->setEnterpriseName($enterpriseName);
+        $this->setCareerName($careerName);
         $this->setJobPositionDescription($jobPositionDescription);
         $this->setUserName($userName);
         $this->setUserEmail($userEmail);

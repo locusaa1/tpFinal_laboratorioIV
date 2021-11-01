@@ -44,6 +44,7 @@ class JobOfferController
         $jobOfferDTO = new JobOfferDTO();
         $jobOfferDTO->completeSetter($jobOffer->getIdJobOffer(),
             $enterpriseController->getEnterpriseByCuit($jobOffer->getIdEnterprise())->getName(),
+            $jobPositionController->getJobPositionCareerByJobPositionId($jobOffer->getIdJobPosition())->getDescription(),
             $jobPositionController->getJobPositionDescriptionById($jobOffer->getIdJobPosition()),
             $userController->getUserNameById($jobOffer->getIdUser()),
             $userController->getUserEmailById($jobOffer->getIdUser()),
