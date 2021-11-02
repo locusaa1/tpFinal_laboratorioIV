@@ -145,12 +145,13 @@ class JobOfferDB_DAO
 
     public function updateJobOfferByAnApply($idJobOffer, $userId, $coverLetter, $resume)
     {
+        
         try {
-
+            
             $query = "update " . $this->tableName . " set " .
-                "id_user = " . $userId . ",
-                resume = " . $resume . ",
-                cover_letter = " . $coverLetter . "' where id_job_offer = '" . $idJobOffer . "';";
+                "id_user = " . $userId . ", " .
+                "resume = '" . $resume . "', " .
+                "cover_letter = '" . $coverLetter .  "' where id_job_offer = " . $idJobOffer . ";";
 
             $this->connection = Connection::GetInstance();
 

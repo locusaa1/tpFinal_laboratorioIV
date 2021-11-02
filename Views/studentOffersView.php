@@ -103,7 +103,7 @@
                     <p class="offerData">Posición</p> 
                     <p class="offerDataAnswer"><?php echo $jobOffer->getJobPositionDescription()?></p>
                     <p class="offerData">Carrera</p> 
-                    <p class="offerDataAnswer"><?php echo "pendiente"?></p>
+                    <p class="offerDataAnswer"><?php echo $jobOffer->getCareerName()?></p>
                     <p class="offerData">Descripción</p> 
                     <p class="offerDataAnswer"><?php echo $jobOffer->getDescription()?></p>
                     <p class="offerData">Salario</p> 

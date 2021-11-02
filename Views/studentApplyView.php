@@ -1,74 +1,56 @@
 <?php
-    if(!isset($_SESSION['user'])){
+   if(!isset($_SESSION['user'])){
           
-        require_once(VIEWS_PATH."index.php");
-        }
-    
+    require_once(VIEWS_PATH."index.php");
+    }
+
     if(isset($_SESSION['user'])){
-    
-        if($_SESSION['user']->getUserType()!="student")
-        {
+
+      if($_SESSION['user']->getUserType()!="student")
+      {
         require_once(VIEWS_PATH."index.php");
-        }    
-            
+      }    
+        
     }
 
     require_once ('title.php');
     require_once('nav.php');
-   
 ?>
 <main class="">
-   <section class="hello-Bg">
+<section class="hello-Bg">
         <div class="hello">
-            <p>Aplicación</p>
+            <p>Mis Aplicaciones</p>
         </div>
-    </section>
-    <p>
+</section>
+<section class="studentInfo">
+    <?php
+    if(!empty(($application)))
+    {
+        ?>
+        <legend>Aplicación actual</legend>
+        <p class="offerData">Empresa</p> 
+        <p class="offerDataAnswer"><?php echo $application->getEnterpriseName()?></p>
+        <p class="offerData">Posición</p> 
+        <p class="offerDataAnswer"><?php echo $application->getJobPositionDescription()?></p>
+        <p class="offerData">Descripción</p> 
+        <p class="offerDataAnswer"><?php echo $application->getDescription()?></p>
+        <p class="offerData">Salario</p> 
+        <p class="offerDataAnswer"><?php echo $application->getSalary()?></p>
+        <br>
         <?php
-        if(!empty($_GET['noCareerCoincidence']))
-        {
+    }else{
         ?>
-            <div class="rejectionMessaje">
-                <?php echo 'Su carrera no está autorizada para aplicar a la oferta'?>
-            </div>
-            <?php
-            unset($_GET['noCareerCoincidence']);
-        } 
-        
-        ?>
-    </p>
-    <section class="">
-        <?php    
-        if(!empty($jobOfferDTO)){
-            ?>
-            <form action="<?php echo FRONT_ROOT ?>JobOffer/JobOfferAppling" method="POST" enctype="multipart/form-data" class="ApplyForm" >
-                <div class="studentApplyContainer">
-                    <br>
-                    <p class="offerData">Empresa</p> 
-                    <p class="offerDataAnswer"><?php echo $jobOfferDTO->getEnterpriseName()?></p>
-                    <p class="offerData">Posición</p> 
-                    <p class="offerDataAnswer"><?php echo $jobOfferDTO->getJobPositionDescription()?></p>
-                    <br>
-                    <input type="hidden" name="userId" value="<?= $_SESSION['user']->getIdUser()?>">
-                    <input type="hidden" name="email" value="<?= $_SESSION['user']->getEmail()?>">
-                    <input type="hidden" name="jobOfferId" value="<?= $jobOfferDTO->getIdJobOffer()?>">
-                    <label for="coverLetter" class="offerData">Escribí una breve presentación</label>
-                    <textarea name="coverLetter" class="inputApply" required></textarea>
-                    <br>
-                    <label for="resume" class="offerData">Subí tu CV</label>
-                    <input type="file" name="resume" class="inputUsername" required>
-                </div> 
-                <button class="offerButton" type="submit">Aplicar</button>
-            </form> 
-            
-            <?php
-                
-        }
-        ?>  
-    </section>
-    <section>
-        <a class="backButton" href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferStudentView">Volver</a>
-    </section>   
+        <div class="rejectionMessaje">
+            <?php echo 'Usted no tiene aplicaciones por el momento'?>
+        </div>
+        <?php
+    } 
+    ?>
+</section>   
+<section>
+    <a class="backButton" href="<?php echo FRONT_ROOT ?>Student/StudentView">Volver</a>
+</section>     
+  
 </main>
 <?php
 require_once ('companies.php');

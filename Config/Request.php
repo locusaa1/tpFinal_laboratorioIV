@@ -33,8 +33,8 @@
 
                 if(!empty($_GET))
                 {                    
-                    foreach($_GET as $key => $value)                    
-                        array_push($this->parameters, $value);
+                    foreach($_GET as $key => $value)      
+                        $this->parameters[$key] = $value;
                 }
                 else
                     $this->parameters = $urlArray;
@@ -46,12 +46,13 @@
             {
                 unset($this->parameters["button"]);
                 
-                foreach($_FILES as $file)
+                foreach($_FILES as $key => $file)
                 {
-                    array_push($this->parameters, $file);
+                    $this->parameters[$key] = $file;
                 }
             }
         }
+
 
         private static function getMethodRequest()
         {
