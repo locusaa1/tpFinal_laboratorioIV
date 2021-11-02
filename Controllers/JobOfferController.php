@@ -26,11 +26,6 @@ class JobOfferController
         return $this->jobOfferDAO->getAll();
     }
 
-    //todos los datos de job offer + el id position
-    //dentro del metodo hago un new de job position
-    //dentro $x = new jobPosition;
-    // $x->setId($idJobPosition);
-    // $jobOffer->setJobPosition($x);
     public function newJobOffer($jobOffer)
     {
         $this->jobOfferDAO->add($jobOffer);
@@ -59,6 +54,15 @@ class JobOfferController
         return $jobOfferDTO;
     }
 
+    public function jobOfferDetails($details)
+    {
+
+        $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($details);
+        $jobOfferDTO = new JobOfferDTO();
+        $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+        require_once(VIEWS_PATH . 'AdminJobOfferDetails.php');
+    }
+
     public function jobOfferListView($errorMessage = null, $message = null)
     {
         $jobOfferList = $this->jobOfferList();
@@ -66,24 +70,12 @@ class JobOfferController
         $enterpriseList = $enterpriseController->getAllEnterprises();
         $jobPositionController = new JobPositionController();
         $jobPositionList = $jobPositionController->jobPositionList();
-        $outOfDateList = array();
-        $availableList = array();
-        $appliedList = array();
+        $jobOfferDTOList = array();
 
         foreach ($jobOfferList as $jobOffer) {
 
             $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
-
-            if ($jobOffer->getIdUser() == null && $jobOffer->getLimitDate() <= date('Y-m-d')) {
-
-                array_push($outOfDateList, $jobOfferDTO);
-            } elseif ($jobOffer->getIdUser()) {
-
-                array_push($appliedList, $jobOfferDTO);
-            } else {
-
-                array_push($availableList, $jobOfferDTO);
-            }
+            array_push($jobOfferDTOList, $jobOfferDTO);
         }
         require_once(VIEWS_PATH . 'AdminJobOfferList.php');
     }
@@ -94,7 +86,7 @@ class JobOfferController
         $this->jobOfferListView();
     }
 
-    public function jobOfferForm()
+    public function jobOfferForm($update)
     {
         $jobOffer = null;
         $jobOfferDTO = null;
@@ -102,11 +94,10 @@ class JobOfferController
         $enterpriseList = $enterpriseController->getAllEnterprises();
         $jobPositionController = new JobPositionController();
         $jobPositionList = $jobPositionController->jobPositionList();
-        if (isset($_GET['update'])) {
 
-            $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($_GET['update']);
-            $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
-        }
+        $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($update);
+        $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+
 
         require_once(VIEWS_PATH . 'AdminJobOfferForm.php');
     }
@@ -142,11 +133,11 @@ class JobOfferController
                 $this->jobOfferDAO->add($newJobOffer);
                 $message = 'La oferta laboral fue creada con éxito';
             }
-            $this->jobOfferListView(null,$message);
+            $this->jobOfferListView(null, $message);
         } else {
 
             $errorMessage = 'La fecha limite para crear una oferta laboral debe ser como mínimo hoy!';
-            $this->jobOfferListView($errorMessage,null);
+            $this->jobOfferListView($errorMessage, null);
         }
     }
 
@@ -267,17 +258,15 @@ class JobOfferController
 
         $availableList = array();
 
-        foreach($jobOfferList as $jobOffer)
-        {
-            if ($jobOffer->getIdUser() == null && $jobOffer->getLimitDate() >= date('Y-m-d')) 
-            {
+        foreach ($jobOfferList as $jobOffer) {
+            if ($jobOffer->getIdUser() == null && $jobOffer->getLimitDate() >= date('Y-m-d')) {
                 array_push($availableList, $jobOffer);
             }
         }
 
         $filterList = array();
 
-        $jobOfferDTOList=array();
+        $jobOfferDTOList = array();
 
         if ($careerFilter != '') {
             $iterator = 0;
@@ -315,19 +304,17 @@ class JobOfferController
 
         if (empty($filterList)) {
             $_GET['noMatchesFounded'] = 1;
-        }else{
-            
-            foreach($filterList as $jobOffer)
-            {
+        } else {
+
+            foreach ($filterList as $jobOffer) {
                 $dto = $this->generateJobOfferDTO($jobOffer);
                 array_push($jobOfferDTOList, $dto);
             }
 
-            if($careerFilter == '' && $enterpriseFilter == '' && $keyWordFilter == '')
-            {
+            if ($careerFilter == '' && $enterpriseFilter == '' && $keyWordFilter == '') {
                 $_GET['searchResults'] = "Resultados";
 
-            }else{
+            } else {
                 $_GET['searchResults'] = "Resultados para " . $careerFilter . " " . $enterpriseFilter . " " . $keyWordFilter;
             }
         }
@@ -340,80 +327,72 @@ class JobOfferController
         require_once(VIEWS_PATH . "studentOffersView.php");
     }
 
-    public function JobOfferApplyForm ($id)
+    public function JobOfferApplyForm($id)
     {
         $jobOffer = $this->jobOfferById($id);
         $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
         require_once(VIEWS_PATH . "studentApplyFormView.php");
     }
 
-    public function JobOfferApplying ($email, $jobOfferId, $userId, $coverLetter, $resume)
+    public function JobOfferApplying($email, $jobOfferId, $userId, $coverLetter, $resume)
     {
-        
+
         $studentController = new StudentController();
         $studentCareerId = $studentController->StudentCareerId($email);
-        
+
         $jobOffer = $this->jobOfferById($jobOfferId);
         $jobOfferCareer = $this->jobOfferCareer($jobOffer->getIdJobPosition());
 
         $studentApplication = $studentController->VerifyStudentApplication($userId);
 
-        if($jobOfferCareer->getIdCareer()==$studentCareerId && $studentApplication==null)
-        {
-            try
-            {
+        if ($jobOfferCareer->getIdCareer() == $studentCareerId && $studentApplication == null) {
+            try {
                 $fileName = $resume["name"];
                 $file = $resume["tmp_name"];
                 $type = $resume["type"];
-                
-                $fileName = uniqid("doc").$fileName;
-                $route = UPLOADS_PATH.basename($fileName);
-                
-                if(!file_exists(UPLOADS_PATH))
-                {
+
+                $fileName = uniqid("doc") . $fileName;
+                $route = UPLOADS_PATH . basename($fileName);
+
+                if (!file_exists(UPLOADS_PATH)) {
                     mkdir(UPLOADS_PATH, 0777, true);
-                    if(file_exists(UPLOADS_PATH))
-                    {
+                    if (file_exists(UPLOADS_PATH)) {
                         move_uploaded_file($file, $route);
                         $this->jobOfferDAO->updateJobOfferByAnApply($jobOfferId, $userId, $coverLetter, $route);
                         $_GET['successfulApplication'] = 1;
                     }
-                }else{
+                } else {
                     move_uploaded_file($file, $route);
                     $this->jobOfferDAO->updateJobOfferByAnApply($jobOfferId, $userId, $coverLetter, $route);
                     $_GET['successfulApplication'] = 1;
-                }      
-             
-            }
-            catch(Exception $ex)
-            {
+                }
+
+            } catch (Exception $ex) {
                 $message = $ex->getMessage();
             }
 
-            
-        }else{
-            if($jobOfferCareer->getIdCareer()==$studentCareerId){
+
+        } else {
+            if ($jobOfferCareer->getIdCareer() == $studentCareerId) {
                 $_GET['noCareerCoincidence'] = 1;
-            }else{
+            } else {
                 $_GET['alreadyApplied'] = 1;
             }
-            
+
         }
 
         require_once(VIEWS_PATH . "studentApplyFormView.php");
 
     }
 
-    public function GetJobOfferByUserId ($userId)
+    public function GetJobOfferByUserId($userId)
     {
         $jobOfferList = $this->jobOfferList();
 
         $studentApplication = null;
 
-        foreach ($jobOfferList as $jobOffer)
-        {
-            if($jobOffer->getIdUser()==$userId)
-            {
+        foreach ($jobOfferList as $jobOffer) {
+            if ($jobOffer->getIdUser() == $userId) {
                 $studentApplication = $this->generateJobOfferDTO($jobOffer);
             }
         }
