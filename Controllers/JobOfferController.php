@@ -357,7 +357,7 @@ class JobOfferController
         $jobOfferCareer = $this->jobOfferCareer($jobOffer->getIdJobPosition());
 
         $studentApplication = $studentController->VerifyStudentApplication($userId);
-
+        
         if($jobOfferCareer->getIdCareer()==$studentCareerId && $studentApplication==null)
         {
             try
@@ -392,7 +392,7 @@ class JobOfferController
 
             
         }else{
-            if($jobOfferCareer->getIdCareer()==$studentCareerId){
+            if($jobOfferCareer->getIdCareer()!=$studentCareerId){
                 $_GET['noCareerCoincidence'] = 1;
             }else{
                 $_GET['alreadyApplied'] = 1;
