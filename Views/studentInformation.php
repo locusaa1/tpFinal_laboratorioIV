@@ -36,7 +36,7 @@
         <p class="data">DNI</p> 
         <p class="dataAnswer"><?php echo $student->getDni()?></p>
         <p class="data">Fecha de nacimiento</p> 
-        <p class="dataAnswer"><?php echo $student->getBirthDate()?></p>
+        <p class="dataAnswer"><?php echo date('d-m-Y', strtotime($student->getBirthDate()))?></p>
         <p class="data">Email</p> 
         <p class="dataAnswer"><?php echo $student->getEmail()?></p>
         <p class="data">Teléfono</p> 
