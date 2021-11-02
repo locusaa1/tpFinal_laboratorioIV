@@ -5,6 +5,8 @@ namespace Controllers;
 use DAO\StudentDAO as StudentDAO;
 use Models\User as User;
 use DAO\UserDB_DAO as UserDB_DAO;
+use Controllers\JobOfferController as JobOfferController;
+use Controllers\CareerController as CareerController;
 
 
 class StudentController
@@ -75,6 +77,33 @@ class StudentController
         $careerId = $student->getCareerId();
         
         return $careerId;
+    }
+
+    public function StudentApplyView($userId)
+    {
+        $jobOfferController = new JobOfferController();
+        $application = $jobOfferController->GetJobOfferByUserId ($userId);
+
+        require_once(VIEWS_PATH . "studentApplyView.php");
+    }
+
+    public function VerifyStudentApplication($userId)
+    {
+        $jobOfferController = new JobOfferController();
+        $application = $jobOfferController->GetJobOfferByUserId ($userId);
+
+       return $application;
+    }
+
+    public function StudentAcademicInformation ()
+    {
+        $student = $this->studentDAO->GetByEmail($_SESSION['user']->getEmail());
+
+        $careerController = new CareerController();
+        $career = $careerController->getCareerById ($student->getCareerId());
+
+        require_once(VIEWS_PATH . "studentAcademicInformation.php");
+
     }
 
 }

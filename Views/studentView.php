@@ -33,9 +33,9 @@
             <p class="profilePicture"></p>
             <a href="<?php echo FRONT_ROOT ?>Student/StudentInfo">Mis datos</a>
             <br>
-            <a href="#">Información académica</a>
+            <a href="<?php echo FRONT_ROOT ?>Student/StudentAcademicInformation">Información académica</a>
             <br>
-            <a href="#">Mis postulaciones</a>  
+            <a href="<?php echo FRONT_ROOT ?>Student/StudentApplyView?userId=<?php echo  $loggedUser->getIdUser()?>">Mis postulaciones</a>  
             <br>
         </section> 
         <section class="enterpriseStudentContainer">
