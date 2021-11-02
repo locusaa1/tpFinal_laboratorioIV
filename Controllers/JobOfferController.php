@@ -10,6 +10,7 @@ use Controllers\CareerController as CareerController;
 use Controllers\StudentController as StudentController;
 use Models\JobOffer as JobOffer;
 use DTO\JobOfferDTO as JobOfferDTO;
+use Exception as Exception;
 
 class JobOfferController
 {
@@ -342,10 +343,10 @@ class JobOfferController
     {
         $jobOffer = $this->jobOfferById($id);
         $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
-        require_once(VIEWS_PATH . "studentApplyView.php");
+        require_once(VIEWS_PATH . "studentApplyFormView.php");
     }
 
-    public function JobOfferAppling ($email, $jobOfferId, $userId, $coverLetter, $resume)
+    public function JobOfferApplying ($email, $jobOfferId, $userId, $coverLetter, $resume)
     {
         
         $studentController = new StudentController();
@@ -354,14 +355,69 @@ class JobOfferController
         $jobOffer = $this->jobOfferById($jobOfferId);
         $jobOfferCareer = $this->jobOfferCareer($jobOffer->getIdJobPosition());
 
-        if($jobOfferCareer->getIdCareer()==$studentCareerId){
-            $this->jobOfferDAO->updateJobOfferByAnApply($jobOfferId, $userId, $coverLetter, $resume);
+        $studentApplication = $studentController->VerifyStudentApplication($userId);
+
+        if($jobOfferCareer->getIdCareer()==$studentCareerId && $studentApplication==null)
+        {
+            try
+            {
+                $fileName = $resume["name"];
+                $file = $resume["tmp_name"];
+                $type = $resume["type"];
+                
+                $fileName = uniqid("doc").$fileName;
+                $route = UPLOADS_PATH.basename($fileName);
+                
+                if(!file_exists(UPLOADS_PATH))
+                {
+                    mkdir(UPLOADS_PATH, 0777, true);
+                    if(file_exists(UPLOADS_PATH))
+                    {
+                        move_uploaded_file($file, $route);
+                        $this->jobOfferDAO->updateJobOfferByAnApply($jobOfferId, $userId, $coverLetter, $route);
+                        $_GET['successfulApplication'] = 1;
+                    }
+                }else{
+                    move_uploaded_file($file, $route);
+                    $this->jobOfferDAO->updateJobOfferByAnApply($jobOfferId, $userId, $coverLetter, $route);
+                    $_GET['successfulApplication'] = 1;
+                }      
+             
+            }
+            catch(Exception $ex)
+            {
+                $message = $ex->getMessage();
+            }
+
+            
         }else{
-            $_GET['noCareerCoincidence'] = 1;
+            if($jobOfferCareer->getIdCareer()==$studentCareerId){
+                $_GET['noCareerCoincidence'] = 1;
+            }else{
+                $_GET['alreadyApplied'] = 1;
+            }
+            
         }
 
-        require_once(VIEWS_PATH . "studentApplyView.php");
+        require_once(VIEWS_PATH . "studentApplyFormView.php");
 
+    }
+
+    public function GetJobOfferByUserId ($userId)
+    {
+        $jobOfferList = $this->jobOfferList();
+
+        $studentApplication = null;
+
+        foreach ($jobOfferList as $jobOffer)
+        {
+            if($jobOffer->getIdUser()==$userId)
+            {
+                $studentApplication = $this->generateJobOfferDTO($jobOffer);
+            }
+        }
+
+        return $studentApplication;
     }
 }
 
