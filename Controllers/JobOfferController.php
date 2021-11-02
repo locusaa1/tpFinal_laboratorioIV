@@ -250,7 +250,7 @@ class JobOfferController
 
     public function studentJobOffersFilterList($careerFilter, $enterpriseFilter, $keyWordFilter)
     {
-       
+
 
         $jobPositionController = new JobPositionController();
 
@@ -345,8 +345,10 @@ class JobOfferController
 
         $studentApplication = $studentController->VerifyStudentApplication($userId);
 
+
         if ($jobOfferCareer->getIdCareer() == $studentCareerId && $studentApplication == null) {
             try {
+
                 $fileName = $resume["name"];
                 $file = $resume["tmp_name"];
                 $type = $resume["type"];
@@ -373,7 +375,8 @@ class JobOfferController
 
 
         } else {
-            if ($jobOfferCareer->getIdCareer() == $studentCareerId) {
+            if ($jobOfferCareer->getIdCareer() != $studentCareerId) {
+
                 $_GET['noCareerCoincidence'] = 1;
             } else {
                 $_GET['alreadyApplied'] = 1;
