@@ -259,6 +259,7 @@ class JobOfferController
 
     public function studentJobOffersFilterList($careerFilter, $enterpriseFilter, $keyWordFilter)
     {
+       
 
         $jobPositionController = new JobPositionController();
 
@@ -306,10 +307,9 @@ class JobOfferController
 
         if ($keyWordFilter != '') {
             $filterList = $this->filterJobOffersByWord($keyWordFilter, $availableList);
-
         }
 
-        if (empty($filterList)) {
+        if (empty($filterList) && $keyWordFilter == '') {
             $filterList = $availableList;
         }
 
@@ -326,6 +326,7 @@ class JobOfferController
             if($careerFilter == '' && $enterpriseFilter == '' && $keyWordFilter == '')
             {
                 $_GET['searchResults'] = "Resultados";
+
             }else{
                 $_GET['searchResults'] = "Resultados para " . $careerFilter . " " . $enterpriseFilter . " " . $keyWordFilter;
             }
