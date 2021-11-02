@@ -133,7 +133,7 @@ class CareerDAO implements ICareerDAO
 
             $careerList = array();
 
-            $query = "select * from " . $this->tableName;
+            $query = "select * from " . $this->tableName . " order by name;";
 
             $this->connection = Connection::GetInstance();
 

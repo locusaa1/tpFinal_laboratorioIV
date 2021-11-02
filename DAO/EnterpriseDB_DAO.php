@@ -44,7 +44,7 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
 
             $enterpriseList = array();
 
-            $query = "select * from " . $this->tableName . ";";
+            $query = "select * from " . $this->tableName . " order by name;";
 
             $this->connection = Connection::GetInstance();
 
