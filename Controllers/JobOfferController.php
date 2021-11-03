@@ -58,8 +58,10 @@ class JobOfferController
     {
 
         $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($details);
+        $studentController = new StudentController();
         $jobOfferDTO = new JobOfferDTO();
         $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+        $student = $studentController->getStudentByEmail($jobOfferDTO->getUserEmail());
         require_once(VIEWS_PATH . 'AdminJobOfferDetails.php');
     }
 
@@ -86,7 +88,7 @@ class JobOfferController
         $this->jobOfferListView();
     }
 
-    public function jobOfferForm($update)
+    public function jobOfferForm($update = null)
     {
         $jobOffer = null;
         $jobOfferDTO = null;
@@ -95,10 +97,11 @@ class JobOfferController
         $jobPositionController = new JobPositionController();
         $jobPositionList = $jobPositionController->jobPositionList();
 
-        $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($update);
-        $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+        if ($update != null){
 
-
+            $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($update);
+            $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+        }
         require_once(VIEWS_PATH . 'AdminJobOfferForm.php');
     }
 

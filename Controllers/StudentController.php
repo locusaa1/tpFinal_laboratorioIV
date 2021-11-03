@@ -22,19 +22,19 @@ class StudentController
     If finds the student by checkig the email, there are two options: if the student is active, goes
     to the studentView. If the student is not active, shows a rejection message.
     If the email is not on the student api, shows another rejection message. */
-    
+
     public function CheckEmail($email, $user, $password)
     {
 
         $student = $this->studentDAO->GetByEmail($email);
 
         if ($student) {
-            if($student->getActive()){
-                if($user){
+            if ($student->getActive()) {
+                if ($user) {
                     $_SESSION ['user'] = $user;
-                require_once(VIEWS_PATH . "studentView.php");
-                }else{
-                    
+                    require_once(VIEWS_PATH . "studentView.php");
+                } else {
+
                     $user = new User();
                     $user->setEmail($email);
                     $user->setPassword($password);
@@ -46,12 +46,12 @@ class StudentController
 
                     require_once(VIEWS_PATH . "logInUser.php");
                 }
-                
-            }else{
+
+            } else {
                 $_GET['notActiveStudent'] = 1;
                 require_once(VIEWS_PATH . "logInUser.php");
             }
-            
+
         } else {
             $_GET['emailInvalidStudent'] = 1;
             require_once(VIEWS_PATH . "logInUser.php");
@@ -59,30 +59,30 @@ class StudentController
 
     }
 
-    public function StudentInfo ()
+    public function StudentInfo()
     {
         $student = $this->studentDAO->GetByEmail($_SESSION['user']->getEmail());
         require_once(VIEWS_PATH . "studentInformation.php");
     }
 
-    public function StudentView ()
+    public function StudentView()
     {
         require_once(VIEWS_PATH . "studentView.php");
     }
 
-    public function StudentCareerId ($email)
+    public function StudentCareerId($email)
     {
         $student = $this->studentDAO->GetByEmail($email);
-        
+
         $careerId = $student->getCareerId();
-        
+
         return $careerId;
     }
 
     public function StudentApplyView($userId)
     {
         $jobOfferController = new JobOfferController();
-        $application = $jobOfferController->GetJobOfferByUserId ($userId);
+        $application = $jobOfferController->GetJobOfferByUserId($userId);
 
         require_once(VIEWS_PATH . "studentApplyView.php");
     }
@@ -90,22 +90,26 @@ class StudentController
     public function VerifyStudentApplication($userId)
     {
         $jobOfferController = new JobOfferController();
-        $application = $jobOfferController->GetJobOfferByUserId ($userId);
+        $application = $jobOfferController->GetJobOfferByUserId($userId);
 
-       return $application;
+        return $application;
     }
 
-    public function StudentAcademicInformation ()
+    public function StudentAcademicInformation()
     {
         $student = $this->studentDAO->GetByEmail($_SESSION['user']->getEmail());
 
         $careerController = new CareerController();
-        $career = $careerController->getCareerById ($student->getCareerId());
+        $career = $careerController->getCareerById($student->getCareerId());
 
         require_once(VIEWS_PATH . "studentAcademicInformation.php");
 
     }
 
+    public function getStudentByEmail($email)
+    {
+        return $this->studentDAO->GetByEmail($email);
+    }
 }
 
 ?>

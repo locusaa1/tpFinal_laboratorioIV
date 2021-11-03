@@ -8,10 +8,10 @@ include_once('nav.php');
             <p>Detalle de oferta laboral</p>
         </div>
     </section>
-    <div class="container">
-        <div class="row">
-            <div class="col w-50">
-                <div class="card w-100">
+    <div class="w-100">
+        <div class="row mr-3 ml-3">
+            <div class="col w-25">
+                <div class="card">
                     <img src="#" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Detalle</h5>
@@ -35,10 +35,11 @@ include_once('nav.php');
                     </div>
                 </div>
             </div>
-            <div class="col w-50">
+            <div class="col w-75">
                 <div class="card mb-3 w-100">
                     <div class="row no-gutters">
                         <div class="col-md-4">
+                            <!-- Aca en la imagen tiene que ir la lógica del resume de jobOfferDTO -->
                             <img class="card-img" src="../samples/qwe.PNG" alt="...">
 
                         </div>
@@ -49,10 +50,22 @@ include_once('nav.php');
                                 <ul class="list-group list-group-flush">
                                     <?php
                                     echo '
-                                    <li class="list-group-item">Email:' . $jobOfferDTO->getUserEmail() . '</li>
-                                    <li class="list-group-item">Nombre:' . $jobOfferDTO->getUserName() . '</li>'
+                                    <li class="list-group-item">Email: ' . $jobOfferDTO->getUserEmail() . '</li>
+                                    <li class="list-group-item">Nombre: ' . $student->getFirstName() . '</li>
+                                    <li class="list-group-item">Apellido: ' . $student->getLastName() . '</li>
+                                    <li class="list-group-item">Carrera: ' . $jobOfferDTO->getCareerName() . '</li>
+                                    <li class="list-group-item">DNI: ' . $student->getDni() . '</li>
+                                    <li class="list-group-item">Fecha de nacimiento: ' . $student->getBirthDate() . '</li>
+                                    <li class="list-group-item">Género: ' . $student->getGender() . '</li>
+                                    <li class="list-group-item">Teléfono: ' . $student->getPhoneNumber() . '</li>';
                                     ?>
                                 </ul>
+                                <div class="card-body">
+                                    <?php
+                                    echo '<h4>Carta de presentación</h4>
+                                    <p>' . $jobOfferDTO->getCoverLetter() . '</p>';
+                                    ?>
+                                </div>
                                 <a class="btn btn-primary">Descargar CV</a>
                             </div>
                         </div>
