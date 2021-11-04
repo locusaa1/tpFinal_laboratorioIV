@@ -44,6 +44,52 @@ class CareerController
         return $careerById;
     }
 
+    public function updateCareerDB ()
+    {
+        $apiList = $this->careerDAO->getAllFromApi();
+
+        $dBList = $this->careerDAO->getAllFromDB();
+
+        foreach($apiList as $apiCareer){
+
+            foreach($dBList as $dbCareer){
+
+                if($apiCareer->getIdCareer()==$dbCareer->getIdCareer())
+                {
+                    if(strcmp($apiCareer->getDescription(), $dbCareer->getDescription())!=0)
+                    {
+                        $this->careerDAO->updateCareerDescription($apiCareer->getDescription(), $apiCareer->getIdCareer());
+                    }
+
+                    if($apiCareer->getActive())
+                    {
+                        if($dbCareer->getActive()==0)
+                        {
+                            $this->careerDAO->updateCareerActiveStatus(1, $apiCareer->getIdCareer());
+                        }   
+                    }else{
+                        if($dbCareer->getActive()==1)
+                        {
+                            $this->careerDAO->updateCareerActiveStatus(0, $apiCareer->getIdCareer());
+                        } 
+                    }
+                }
+
+            }
+        }
+
+        if(sizeof($apiList)>sizeof($dBList))
+        {
+            
+            for($i=sizeof($dBList); $i<=sizeof($apiList); $i++)
+            {
+                $this->careerDAO->add($apiList[$i]);
+            }
+            
+        }
+
+    }
+
 }
 
 ?>

@@ -2,6 +2,22 @@
 require_once('title.php');
 require_once('nav.php');
 
+use Utility\UpdateDbUtility as UpdateDbUtility;
+
+if(empty($_GET['alreadyUpdated']))
+{
+    $_GET['alreadyUpdated'] = false;
+    UpdateDbUtility::DailyUpdate($_GET['alreadyUpdated']);
+}
+
+$actualTime = strtotime(date(('d M Y H:i:s')));
+$updateTime = strtotime(date('d M Y' . ' 06:59:59'));
+
+if(($_GET['alreadyUpdated']==true) && ($actualTime <= $updateTime))
+{
+    unset($_GET['alreadyUpdated']);
+}
+
 if (!empty($_GET['adminError'])) {
     ?>
     <div class="rejectionMessaje">
