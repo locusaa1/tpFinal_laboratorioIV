@@ -72,28 +72,27 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                         echo '<td>' . $jobOfferDTO->getLimitDate() . '</td>';
                         echo '<td>' . $jobOfferDTO->getSalary() . '</td>'; ?>
                         <td>
-                            <button class="btn btn-outline-success btn-lg">
+                            <button class="btn btn-outline-success btn-lg" style="transform: rotate(0)">
                                 <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferForm?update=<?php echo $jobOfferDTO->getIdJobOffer() ?>"
-                                   class="btn-block btn-link text-black-50 text-decoration-none">Actualizar</a>
+                                   class="stretched-link btn-block btn-link text-black-50 text-decoration-none">Actualizar</a>
                             </button>
                         </td>
                         <td>
                             <form action="<?php echo FRONT_ROOT ?>JobOffer/deleteJobOffer">
-                                <button class="btn btn-outline-danger btn-lg" type="submit" name="idJobOffer"
+                                <button class="btn btn-outline-danger btn-lg" style="transform: rotate(0)" type="submit" name="idJobOffer"
                                         value="<?php echo $jobOfferDTO->getIdJobOffer() ?>">
                                     Eliminar
                                 </button>
                             </form>
                         </td>
                         <td>
-                            <button class="btn btn-outline-primary btn-lg">
+                            <button class="btn btn-outline-primary btn-lg" style="transform: rotate(0)">
                                 <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferDetails?details=<?php echo $jobOfferDTO->getIdJobOffer() ?>"
-                                   class="btn-block btn-link text-black-50 text-decoration-none">Ver Detalle</a>
+                                   class="stretched-link btn-block btn-link text-black-50 text-decoration-none">Ver Detalle</a>
                             </button>
                         </td></tr>
                         <?php
                     }
-                    ?>
                     ?>
                     </tbody>
                 </table>

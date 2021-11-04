@@ -19,8 +19,8 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
 
             $query = "insert into " .
                 $this->tableName .
-                "(id_enterprise, name, cuit, phone_number, address_name, address_number)
-                values (:id_enterprise, :name, :cuit, :phone_number, :address_name, :address_number);";
+                "(id_enterprise, name, cuit, phone_number, address_name, address_number, image)
+                values (:id_enterprise, :name, :cuit, :phone_number, :address_name, :address_number, :image);";
 
             $parameters['id_enterprise'] = $enterprise->getIdEnterprise();
             $parameters['name'] = $enterprise->getName();
@@ -28,6 +28,7 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
             $parameters['phone_number'] = $enterprise->getPhoneNumber();
             $parameters['address_name'] = $enterprise->getAddressName();
             $parameters['address_number'] = $enterprise->getAddressNumber();
+            $parameters['image'] = $enterprise->getImagePath();
 
             $this->connection = Connection::GetInstance();
 
@@ -59,6 +60,7 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
                 $enterprise->setPhoneNumber($row['phone_number']);
                 $enterprise->setAddressName($row['address_name']);
                 $enterprise->setAddressNumber($row['address_number']);
+                $enterprise->setImagePath($row['image']);
                 array_push($enterpriseList, $enterprise);
             }
 
@@ -95,7 +97,8 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
                 cuit = '" . $newEnterprise->getCuit() . "',
                 phone_number = '" . $newEnterprise->getPhoneNumber() . "',
                 address_name = '" . $newEnterprise->getAddressName() . "',
-                address_number = '" . $newEnterprise->getAddressNumber() . "' 
+                address_number = '" . $newEnterprise->getAddressNumber() . "', 
+                image = '" . $newEnterprise->getImagePath() . "'
                 where cuit = '" . $cuit . "';";
 
             $this->connection = Connection::GetInstance();
@@ -127,6 +130,7 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
                 $enterprise->setPhoneNumber($resultSet[0]['phone_number']);
                 $enterprise->setAddressName($resultSet[0]['address_name']);
                 $enterprise->setAddressNumber($resultSet[0]['address_number']);
+                $enterprise->setImagePath($resultSet[0]['image']);
             }
         } catch (Exception $exception) {
 

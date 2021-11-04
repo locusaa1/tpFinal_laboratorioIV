@@ -12,6 +12,7 @@ class Enterprise
     private $phoneNumber;
     private $addressName;
     private $addressNumber;
+    private $imagePath;
 
     /**
      * Enterprise constructor.
@@ -115,5 +116,21 @@ class Enterprise
     public function setAddressNumber($addressNumber): void
     {
         $this->addressNumber = $addressNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImagePath()
+    {
+        return $this->imagePath;
+    }
+
+    /**
+     * @param mixed $imagePath
+     */
+    public function setImagePath($imagePath): void
+    {
+        $this->imagePath = $imagePath;
     }
 }

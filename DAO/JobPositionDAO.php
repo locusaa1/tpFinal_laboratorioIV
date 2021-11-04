@@ -30,7 +30,7 @@ class JobPositionDAO implements IJobPositionDAO
 
         $url = "https://utn-students-api.herokuapp.com/api/JobPosition";
 
-        $header = array 
+        $header = array
         (
             'x-api-key: 4f3bceed-50ba-4461-a910-518598664c08'
         );
@@ -41,15 +41,14 @@ class JobPositionDAO implements IJobPositionDAO
 
         $response = curl_exec($ch);
 
-        $arrayToDecode = json_decode ($response, true);
+        $arrayToDecode = json_decode($response, true);
 
-        foreach($arrayToDecode as $valuesArray)
-        {
-            $jobPosition= new JobPosition();
+        foreach ($arrayToDecode as $valuesArray) {
+            $jobPosition = new JobPosition();
             $jobPosition->setJobPositionId($valuesArray["jobPositionId"]);
             $jobPosition->setCareerId($valuesArray["careerId"]);
             $jobPosition->setDescription($valuesArray["description"]);
-                
+
             array_push($this->jobPositionList, $jobPosition);
         }
 
@@ -62,8 +61,8 @@ class JobPositionDAO implements IJobPositionDAO
             $query = "insert into " .
                 $this->tableName .
                 "(id_job_position, id_career, description)
-                values (:id_job_position, :id_career, :description)";           
-           
+                values (:id_job_position, :id_career, :description)";
+
             $parameters['id_job_position'] = $jobPosition->getJobPositionId();
             $parameters['id_career'] = $jobPosition->getCareerId();
             $parameters['description'] = $jobPosition->getDescription();
@@ -84,7 +83,8 @@ class JobPositionDAO implements IJobPositionDAO
 
             $jobPositionList = array();
 
-            $query = "select * from " . $this->tableName;
+            $query = "select j.id_job_position, j.id_career, j.description from " . $this->tableName . " j inner join
+            careers c on j.id_career = c.id_career where c.active = 1";
 
             $this->connection = Connection::GetInstance();
 
@@ -105,7 +105,7 @@ class JobPositionDAO implements IJobPositionDAO
         }
     }
 
-    public function jobPositionsByCareer ($idCareer)
+    public function jobPositionsByCareer($idCareer)
     {
         try {
 
@@ -125,10 +125,10 @@ class JobPositionDAO implements IJobPositionDAO
                 $jobPosition->setDescription($row['description']);
                 array_push($jobPositionList, $jobPosition);
             }
-        
+
             return $jobPositionByCareerList;
-        
-            
+
+
         } catch (Exception $exception) {
 
             throw $exception;

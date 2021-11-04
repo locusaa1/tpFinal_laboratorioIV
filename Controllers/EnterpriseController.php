@@ -30,10 +30,10 @@ class EnterpriseController
         require_once(VIEWS_PATH . 'AdminEnterpriseCreate.php');
     }
 
-    public function updateEnterprise()
+    public function updateEnterprise($enterpriseCuit)
     {
 
-        $enterprise = $this->enterpriseDB->getSpecificEnterpriseByCuit($_GET['enterpriseCuit']);
+        $enterprise = $this->enterpriseDB->getSpecificEnterpriseByCuit($enterpriseCuit);
         require_once(VIEWS_PATH . 'AdminEnterpriseUpdate.php');
     }
 
@@ -53,7 +53,7 @@ class EnterpriseController
             $message = 'La empresa fue exitosamente borrada';
         } catch (Exception $exception) {
 
-            $errorMessage = 'Hubo un problema, la empresa no fue borrada';
+            $errorMessage = 'Hubo un problema, la empresa no fue borrada, posiblemente existan ofertas abiertas de la empresa';
         } finally {
 
             $list = $this->enterpriseDB->getAll();
@@ -61,19 +61,36 @@ class EnterpriseController
         }
     }
 
-    public function enterpriseForm($name, $cuit, $phoneNumber, $addressName, $addressNumber, $action)
+    public function enterpriseForm($name, $enterpriseImage, $cuit, $phoneNumber, $addressName, $addressNumber, $action)
     {
         $newEnterprise = new Enterprise();
         $message = null;
         $errorMessage = null;
 
         try {
+
+            $fileName = $enterpriseImage["name"];
+            $file = null;
+            $route = null;
+            if (strcmp('',$enterpriseImage['name'])!=0){
+
+                $file = $enterpriseImage["tmp_name"];
+                $type = $enterpriseImage["type"];
+                $fileName = uniqid("doc") . $fileName;
+                $route = UPLOADS_PATH . basename($fileName);
+                if (!file_exists(UPLOADS_PATH)) {
+                    mkdir(UPLOADS_PATH, 0777, true);
+                }
+                move_uploaded_file($file, $route);
+            }
+
             if ($action == 'update') {
 
                 $oldEnterprise = $this->enterpriseDB->getSpecificEnterpriseByCuit($cuit);
                 $newEnterprise->setIdEnterprise($oldEnterprise->getIdEnterprise());
                 $newEnterprise->setCuit($oldEnterprise->getCuit());
                 $newEnterprise->setName($newName = (strcmp('', $name) == 0) ? $oldEnterprise->getName() : $name);
+                $newEnterprise->setImagePath($newImagePath = (strcmp('', $enterpriseImage['name']) == 0) ? $oldEnterprise->getImagePath() : $route);
                 $newEnterprise->setPhoneNumber($newPhoneNumber = (strcmp('', $phoneNumber) == 0) ? $oldEnterprise->getPhoneNumber() : $phoneNumber);
                 $newEnterprise->setAddressName($newAddressName = (strcmp('', $addressName) == 0) ? $oldEnterprise->getAddressName() : $addressName);
                 $newEnterprise->setAddressNumber($newAddressNumber = (strcmp('', $addressNumber) == 0) ? $oldEnterprise->getAddressNumber() : $addressNumber);
@@ -82,6 +99,7 @@ class EnterpriseController
             } else {
 
                 $newEnterprise->setName($name);
+                $newEnterprise->setImagePath($route);
                 $newEnterprise->setCuit($cuit);
                 $newEnterprise->setPhoneNumber($phoneNumber);
                 $newEnterprise->setAddressName($addressName);

@@ -57,10 +57,12 @@ class JobOfferController
     public function jobOfferDetails($details)
     {
 
-        $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($details);
         $studentController = new StudentController();
         $jobOfferDTO = new JobOfferDTO();
+        $enterpriseController = new EnterpriseController();
+        $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($details);
         $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+        $enterprise = $enterpriseController->getEnterpriseByCuit($jobOffer->getIdEnterprise());
         $student = $studentController->getStudentByEmail($jobOfferDTO->getUserEmail());
         require_once(VIEWS_PATH . 'AdminJobOfferDetails.php');
     }
@@ -84,8 +86,17 @@ class JobOfferController
 
     public function deleteJobOffer($idJobOffer)
     {
-        $this->jobOfferDAO->deleteJobOffer($idJobOffer);
-        $this->jobOfferListView();
+        try {
+
+            $this->jobOfferDAO->deleteJobOffer($idJobOffer);
+            $message = 'La oferta fue eliminada con éxito';
+            $this->jobOfferListView(null, $message);
+        } catch (Exception $exception) {
+
+            $message = 'El proceso no fue completado';
+            throw $exception;
+        }
+
     }
 
     public function jobOfferForm($update = null)
@@ -97,7 +108,7 @@ class JobOfferController
         $jobPositionController = new JobPositionController();
         $jobPositionList = $jobPositionController->jobPositionList();
 
-        if ($update != null){
+        if ($update != null) {
 
             $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($update);
             $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);

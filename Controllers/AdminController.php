@@ -48,10 +48,10 @@ class AdminController
         }
     }
 
-    public function details()
+    public function details($userEmail)
     {
         $admin = new Administrator();
-        $admin = $this->adminDB->getAdminByEmail($_GET['userEmail']);
+        $admin = $this->adminDB->getAdminByEmail($userEmail);
         require_once(VIEWS_PATH . "adminDetails.php");
     }
 }

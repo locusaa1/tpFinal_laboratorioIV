@@ -13,11 +13,13 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
         </div>
     </section>
     <?php require_once('adminNav.php'); ?>
-    <form action="<?php echo FRONT_ROOT ?>Enterprise/enterpriseForm" method="post">
+    <form action="<?php echo FRONT_ROOT ?>Enterprise/enterpriseForm" enctype="multipart/form-data" method="post">
         <div class="form-group">
             <div class="alert alert-primary">
                 <p>Todos los campos son requeridos.</p>
             </div><br>
+            <label>Suba una imagen de la empresa:</label>
+            <input type="file" name="enterpriseImage"><br>
             <label for="name">Nombre:</label><br>
             <input class="form-control form-control-lg" type="text" id="name" name="name" value="" required
                    placeholder="nombre"><br>
@@ -39,3 +41,7 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
         </ul>
     </form>
 </main>
+<?php
+include_once('companies.php');
+include_once('footer.php');
+?>

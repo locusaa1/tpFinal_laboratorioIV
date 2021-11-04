@@ -1,6 +1,7 @@
 <?php
 include_once('title.php');
 include_once('nav.php');
+
 ?>
 <main class="">
     <section class="ourMision-Bg">
@@ -8,11 +9,14 @@ include_once('nav.php');
             <p>Detalle de oferta laboral</p>
         </div>
     </section>
+    <?php
+    include_once ('adminNav.php');
+    ?>
     <div class="w-100">
         <div class="row mr-3 ml-3">
             <div class="col w-25">
                 <div class="card">
-                    <img src="#" class="card-img-top" alt="...">
+                    <img src="../<?php echo $enterprise->getImagePath() ?>" class="card-img-top" width="100" height="400" alt="..." >
                     <div class="card-body">
                         <h5 class="card-title">Detalle</h5>
                         <p class="card-text">Datos de la empresa que ofrece el puesto.</p>
@@ -39,14 +43,16 @@ include_once('nav.php');
                 <div class="card mb-3 w-100">
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <!-- Aca en la imagen tiene que ir la lógica del resume de jobOfferDTO -->
-                            <img class="card-img" src="../samples/qwe.PNG" alt="...">
+                            <img class="card-img img-thumbnail" src="../<?php echo $jobOffer->getResume()?>" width="100" height="400" alt="...">
 
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">Detalle</h5>
                                 <p class="card-text">Datos del alumno que se postula.</p>
+                                <?php
+                                if (isset($student)){
+                                ?>
                                 <ul class="list-group list-group-flush">
                                     <?php
                                     echo '
@@ -66,7 +72,15 @@ include_once('nav.php');
                                     <p>' . $jobOfferDTO->getCoverLetter() . '</p>';
                                     ?>
                                 </div>
-                                <a class="btn btn-primary">Descargar CV</a>
+                                    <a href="../<?php echo $jobOffer->getResume()?> ?>" class="btn btn-primary" download="">Descargar CV</a>
+                                <?php
+                                }else{
+                                    echo '
+                                    <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">No aplica ningún alumno todavía</li>
+                                    </ul>';
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
