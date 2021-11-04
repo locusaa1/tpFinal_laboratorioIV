@@ -136,5 +136,39 @@ class JobPositionDAO implements IJobPositionDAO
 
     }
 
+    public function updateJobPositionDescription($newDescription, $idJobposition)
+    {
+        
+        try {
+            
+            $query = "update " . $this->tableName . " set " .
+                "description = '" . $newDescription . "' where id_job_position = " . $idJobposition . ";";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
+
+    public function updateJobPositionCareer($newCareer, $idJobposition)
+    {
+        
+        try {
+            
+            $query = "update " . $this->tableName . " set " .
+                "id_career = " . $newCareer . " where id_job_position = " . $idJobposition . ";";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
+
 
 }

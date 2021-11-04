@@ -88,6 +88,44 @@ class JobPositionController
         return $jobPositionCareer;
     }
 
+    public function updateJobPositionDB ()
+    {
+        $apiList = $this->jobPositionDAO->getAllFromApi();
+
+        $dBList = $this->jobPositionDAO->getAllFromDB();
+
+        foreach($apiList as $apiJobPosition){
+
+            foreach($dBList as $dbJobPosition){
+
+                if($apiJobPosition->getJobPositionId()==$dbJobPosition->getJobPositionId())
+                {
+                    if(strcmp($apiJobPosition->getDescription(), $dbJobPosition->getDescription())!=0)
+                    {
+                        $this->jobPositionDAO->updateJobPositionDescription($apiJobPosition->getDescription(), $apiJobPosition->getJobPositionId());
+                    }
+
+                    if($apiJobPosition->getCareerId()!=$dbJobPosition->getCareerId())
+                    {
+                        $this->jobPositionDAO->updateJobPositionCareer($apiJobPosition->getCareerId(), $apiJobPosition->getJobPositionId());
+                    }
+                }
+
+            }
+        }
+
+        if(sizeof($apiList)>sizeof($dBList))
+        {
+            
+            for($i=sizeof($dBList); $i<=sizeof($apiList); $i++)
+            {
+                $this->jobPositionDAO->add($apiList[$i]);
+            }
+            
+        }
+
+    }
+
 
 }
 

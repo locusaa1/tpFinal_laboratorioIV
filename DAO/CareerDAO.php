@@ -154,4 +154,38 @@ class CareerDAO implements ICareerDAO
         }
     }
 
+    public function updateCareerDescription($newDescription, $idCareer)
+    {
+        
+        try {
+            
+            $query = "update " . $this->tableName . " set " .
+                "name = '" . $newDescription . "' where id_career = " . $idCareer . ";";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
+
+    public function updateCareerActiveStatus($newStatus, $idCareer)
+    {
+        
+        try {
+            
+            $query = "update " . $this->tableName . " set " .
+                "active = " . $newStatus . " where id_career = " . $idCareer . ";";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
+
 }
