@@ -54,7 +54,7 @@
                 foreach ($filterEnterpriseList as $enterprise)
                 {
                 ?>
-                    <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails?name=<?php echo $enterprise->getName()?>"><?php echo $enterprise->getName()?></a>
+                   <a class="" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails?name=<?php echo $enterprise->getName()?>"><img src="../<?php echo $enterprise->getImagePath() ?>" class="img-thumbnail" alt="..."></a>
                 <?php 
                 }
                 ?>
@@ -68,7 +68,8 @@
                 foreach ($list as $enterprise)
                 {
                 ?>
-                    <a class="" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails?name=<?php echo $enterprise->getName()?>"><?php echo $enterprise->getName()?></a>
+                    
+                    <a class="" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseDetails?name=<?php echo $enterprise->getName()?>"><img src="../<?php echo $enterprise->getImagePath() ?>" class="img-thumbnail" alt="..."></a>
                     <br>
                 <?php
                 }
@@ -77,16 +78,19 @@
             <?php
         }     
         
-        if(!empty($filterEnterpriseList)){
+        ?>
+    </section>
+    <br>
+    <section>
+        <?php
+    if(!empty($filterEnterpriseList)){
         ?>
             <br><br>
             <a class="takeOffFilterButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseListStudent">Quitar filtro</a>
             <?php
             }   
             ?>
-    </section>
-    <br>
-    <section>
+            <br><br>
         <a class="backButton" href="<?php echo FRONT_ROOT ?>Student/StudentView">Volver</a>
     </section>   
 </main>

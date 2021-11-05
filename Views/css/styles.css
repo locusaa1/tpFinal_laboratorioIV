@@ -611,7 +611,7 @@ align-items: center;
 {
     margin-left: 3rem;
     margin-right: 3rem;
-    background-color: var(--blue);
+    background-color: var(--white);
     color: var(--white);
     padding: 1rem;
     border-radius: 1.5rem;
@@ -626,11 +626,15 @@ align-items: center;
 
 .enterpriseStudentDetailContainer
 {
-    background-color: var(--grey);
+    background-color: var(--white);
     border-radius: 1.5rem;
     margin: auto;
     width: 600px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .enterpriseStudentDetailContainer legend
@@ -641,6 +645,20 @@ align-items: center;
     color: var(--blue);
     text-align: center;
 
+}
+
+.dataDetail
+{
+    font-size: 2rem;
+    color: var(--blue);
+    text-align: center;
+}
+
+.dataAnswerDetail
+{
+    font-size: 2rem;
+    color: var(--black);
+    text-align: center;
 }
 
 .backButton, .detailButton
@@ -783,6 +801,8 @@ align-items: center;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
+    margin-left: 80rem;
+    margin-right: 80rem;
 }
 
 
