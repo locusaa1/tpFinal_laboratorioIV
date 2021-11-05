@@ -28,13 +28,17 @@
         {
         ?>
         <legend><?php echo $enterprise->getName()?></legend>
-        <p class="data">Cuit</p> 
-        <p class="dataAnswer"><?php echo $enterprise->getCuit()?></p>
-        <p class="data">Teléfono</p> 
-        <p class="dataAnswer"><?php echo $enterprise->getPhoneNumber()?></p>
-        <p class="data">Dirección</p> 
-        <p class="dataAnswer"><?php echo $enterprise->getAddressName() . " " . $enterprise->getAddressNumber()?></p>
-         <p class="data"><br></p>
+        <br>
+        <img src="../<?php echo $enterprise->getImagePath() ?>" class="img-thumbnail" alt="...">
+        <br>
+        <br>
+        <p class="dataDetail">Cuit</p> 
+        <p class="dataAnswerDetail"><?php echo $enterprise->getCuit()?></p>
+        <p class="dataDetail">Teléfono</p> 
+        <p class="dataAnswerDetail"><?php echo $enterprise->getPhoneNumber()?></p>
+        <p class="dataDetail">Dirección</p> 
+        <p class="dataAnswerDetail"><?php echo $enterprise->getAddressName() . " " . $enterprise->getAddressNumber()?></p>
+         <p class="dataDetail"><br></p>
          <?php
         }
     ?>
