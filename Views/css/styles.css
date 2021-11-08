@@ -918,3 +918,47 @@ align-items: center;
     margin-top: 2rem;
 }
 
+.questionContainer
+{
+background-color: var(--grey);
+width: 700px;
+padding: 2rem;
+border-radius: 1rem;
+margin: 0 auto;
+margin-top: 3rem;
+margin-bottom: 3rem;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+.IamButton
+{
+    text-decoration: none;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background-color: var(--blue);
+    color: var(--white);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    
+}
+
+.postulatesPicture
+{
+    background-image: url(../img/candidatos.jpg);
+    background-repeat: no-repeat;
+    height: 350px;
+    width: 350px;
+    background-position: center;
+    border-radius: 1.5rem;
+    border-color: var(--blue);
+   
+
+}

@@ -19,7 +19,7 @@
 <main class="">
 <section class="hello-Bg">
         <div class="hello">
-            <p>Mis Aplicaciones</p>
+            <p>Mis postulaciones</p>
         </div>
 </section>
 <section class="studentInfo">
@@ -27,7 +27,7 @@
     if(!empty(($application)))
     {
         ?>
-        <legend>Aplicación actual</legend>
+        <legend>Postulación actual</legend>
         <p class="offerData">Empresa</p> 
         <p class="offerDataAnswer"><?php echo $application->getEnterpriseName()?></p>
         <p class="offerData">Posición</p> 

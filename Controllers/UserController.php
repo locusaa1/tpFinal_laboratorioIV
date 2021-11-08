@@ -5,6 +5,7 @@ namespace Controllers;
 
 use DAO\UserDB_DAO as UserDB_DAO;
 use Controllers\StudentController as StudentController;
+use Controllers\EnterpriseController as EnterpriseController;
 use Models\User as User;
 
 class UserController
@@ -34,7 +35,11 @@ class UserController
                         $controller = new StudentController();
                         $controller->CheckEmail($email, $user, $password);
                         break;
-                    //default?
+                    case "company":
+                        $_SESSION ['user'] = $user;
+                        $controller = new EnterpriseController();
+                        $controller->companyView();
+                        break;
                 }
             } else {
                 $_GET['wrongPassword'] = 1;
@@ -46,7 +51,7 @@ class UserController
         }
     }
 
-    public function NewUser($email, $password, $repeatedPassword)
+    public function NewUserStudent($email, $password, $repeatedPassword)
     {
 
         $user = $this->userDB->getSpecificEmailUser($email);
@@ -55,13 +60,32 @@ class UserController
             $_GET['userAlreadyRegistered'] = 1;
             require_once(VIEWS_PATH . "logInUser.php");
         }
-
+        
         if ($password == $repeatedPassword) {
             $controller = new StudentController();
             $controller->CheckEmail($email, $user, $password);
         } else {
             $_GET['wrongRepeatedPassword'] = 1;
-            require_once(VIEWS_PATH . "newUser.php");
+            require_once(VIEWS_PATH . "newUserStudent.php");
+        }
+    }
+
+    public function NewUserCompany($email, $password, $repeatedPassword, $cuit)
+    {
+
+        $user = $this->userDB->getSpecificEmailUser($email);
+
+        if ($user) {
+            $_GET['userAlreadyRegistered'] = 1;
+            require_once(VIEWS_PATH . "logInUser.php");
+        }
+        
+        if ($password == $repeatedPassword) {
+            $controller = new EnterpriseController();
+            $controller->checkEnterpriseForRegistration($email, $password, $cuit);
+        } else {
+            $_GET['wrongRepeatedPassword'] = 1;
+            require_once(VIEWS_PATH . "newUserCompany.php");
         }
     }
 
@@ -92,5 +116,10 @@ class UserController
             }
         }
         return $email;
+    }
+
+    public function AddNewUser (User $user)
+    {
+        $this->userDB->add($user);
     }
 }

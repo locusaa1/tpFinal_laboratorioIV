@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Controllers\StudentController as StudentController;
 use Controllers\AdminController as AdminController;
+use Controllers\EnterpriseController as EnterpriseController;
 
 class HomeController
 {
@@ -29,7 +30,10 @@ class HomeController
                 $controller = new StudentController();
                 $controller->StudentView();  
                 break;
-                //default?  
+                case "company":
+                $controller = new EnterpriseController();
+                $controller->companyView();  
+                break; 
             } 
 
         }else{
@@ -38,9 +42,19 @@ class HomeController
         
     }
 
-    public function NewUser()
+    public function UserTypeQuestion ()
     {
-        require_once(VIEWS_PATH . "newUser.php");
+        require_once(VIEWS_PATH . "userTypeQuestion.php");
+    }
+
+    public function NewUserStudent()
+    {
+        require_once(VIEWS_PATH . "newUserStudent.php");
+    }
+
+    public function NewUserCompany()
+    {
+        require_once(VIEWS_PATH . "newUserCompany.php");
     }
 
     public function LogOut()
