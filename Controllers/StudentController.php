@@ -4,9 +4,9 @@ namespace Controllers;
 
 use DAO\StudentDAO as StudentDAO;
 use Models\User as User;
-use DAO\UserDB_DAO as UserDB_DAO;
 use Controllers\JobOfferController as JobOfferController;
 use Controllers\CareerController as CareerController;
+use Controllers\UserController as UserController;
 
 
 class StudentController
@@ -41,8 +41,8 @@ class StudentController
                     $user->setName($student->getFirstName());
                     $user->setUserType("student");
 
-                    $userDao = new UserDB_DAO();
-                    $userDao->add($user);
+                    $userController = new UserController();
+                    $userController->AddNewUser($user);
 
                     require_once(VIEWS_PATH . "logInUser.php");
                 }

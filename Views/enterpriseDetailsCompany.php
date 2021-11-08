@@ -6,7 +6,7 @@
     
     if(isset($_SESSION['user'])){
     
-        if($_SESSION['user']->getUserType()!="student")
+        if($_SESSION['user']->getUserType()!="company")
         {
         require_once(VIEWS_PATH."index.php");
         }    
@@ -32,6 +32,8 @@
         <img src="../<?php echo $enterprise->getImagePath() ?>" class="img-thumbnail" alt="...">
         <br>
         <br>
+        <p class="dataDetail">Cuit</p> 
+        <p class="dataAnswerDetail"><?php echo $enterprise->getCuit()?></p>
         <p class="dataDetail">Teléfono</p> 
         <p class="dataAnswerDetail"><?php echo $enterprise->getPhoneNumber()?></p>
         <p class="dataDetail">Dirección</p> 
@@ -42,7 +44,7 @@
     ?>
     </section> 
     <section>
-        <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/EnterpriseListStudent">Volver al listado</a>
+        <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/companyView">Volver</a>
     </section>    
   
 </main>

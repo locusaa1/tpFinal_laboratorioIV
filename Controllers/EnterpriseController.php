@@ -3,10 +3,11 @@
 
 namespace Controllers;
 
-use DAO\EnterpriseDAO as EnterpriseDAO;
 use DAO\EnterpriseDB_DAO as EnterpriseDB;
 use Models\Enterprise as Enterprise;
 use Exception as Exception;
+use Models\User as User;
+use Controllers\UserController as UserController;
 
 class EnterpriseController
 {
@@ -163,5 +164,46 @@ class EnterpriseController
     public function enterpriseListJobOfferFilterStudent()
     {
         return $this->enterpriseDB->getAll();
+    }
+
+    public function getEnterpriseByCuitNumber($cuit)
+    {
+        return $this->enterpriseDB->getSpecificEnterpriseByCuit($cuit);
+    }
+
+    public function checkEnterpriseForRegistration($email, $password, $cuit)
+    {
+        $enterprise = $this->getEnterpriseByCuitNumber($cuit);
+        
+        if ($enterprise->getIdEnterprise()!=null) {
+
+            $user = new User();
+            $user->setEmail($email);
+            $user->setPassword($password);
+            $user->setName($enterprise->getName());
+            $user->setUserType("company");
+
+            $userController = new UserController();
+            $userController->AddNewUser($user);
+
+            require_once(VIEWS_PATH . "logInUser.php");
+        }else{
+            $_GET['notActiveEnterprise'] = 1;
+            require_once(VIEWS_PATH . "logInUser.php");
+        }
+    }
+
+    public function companyView ()
+    {
+        $enterprise = $this->enterpriseDB->GetByName($_SESSION['user']->getName());
+        require_once(VIEWS_PATH . "companyView.php");
+    }
+
+    public function EnterpriseDetailsCompany($name)
+    {
+        $enterprise = $this->enterpriseDB->GetByName($name);
+
+        require_once(VIEWS_PATH . "enterpriseDetailsCompany.php");
+
     }
 }

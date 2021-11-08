@@ -59,6 +59,17 @@ if (!empty($_GET['emailInvalidStudent'])) {
     <?php
 }
 
+if (!empty($_GET['notActiveEnterprise'])) {
+    ?>
+    <div class="rejectionMessaje">
+        <?php
+        echo "Empresa no registrada en la UTN. Intente nuevamente o comuniquesé con la universidad";
+        unset($_GET['notActiveEnterprise']);
+        ?>
+    </div>
+    <?php
+}
+
 if (!empty($_GET['notActiveStudent'])) {
     ?>
     <div class="rejectionMessaje">
@@ -76,14 +87,14 @@ if (!empty($_GET['notActiveStudent'])) {
             <div class="loginContainer">
                 <legend>Iniciar Sesión</legend>
                 <label for="email">Email</label>
-                <input type="text" name="email" class="inputUsername" placeholder="example@asd.com" required>
+                <input type="email" name="email" class="inputUsername" placeholder="example@asd.com" required>
                 <label for="password">Contraseña</label>
                 <input type="password" name="password" class="inputUsername" placeholder="****">
             </div>
             <button class="offerButton" type="submit">Iniciar sesión</button>
         </form>
         <section>
-            <a class="backButton" href="<?php echo FRONT_ROOT ?>Home/NewUser">Registrarme</a>
+            <a class="backButton" href="<?php echo FRONT_ROOT ?>Home/UserTypeQuestion">Registrarme</a>
         </section>
     </div>
 <?php
