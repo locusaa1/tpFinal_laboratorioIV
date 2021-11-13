@@ -79,20 +79,12 @@ class StudentController
         return $careerId;
     }
 
-    public function StudentApplyView($userId)
+    public function StudentApplyView()
     {
         $jobOfferController = new JobOfferController();
         $applications = $jobOfferController->GetJobOffersByUserApplications();
 
         require_once(VIEWS_PATH . "studentApplyView.php");
-    }
-
-    public function VerifyStudentApplication($userId)
-    {
-        $jobOfferController = new JobOfferController();
-        $applications = $jobOfferController->GetJobOffersByUserApplications();
-
-        return $applications;
     }
 
     public function StudentAcademicInformation()

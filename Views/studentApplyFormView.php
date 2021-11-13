@@ -39,7 +39,7 @@
         {
         ?>
             <div class="rejectionMessaje">
-                <?php echo 'Usted ya aplicó a otra oferta laboral. Solo puede aplicar a una.'?>
+                <?php echo 'Usted ya aplicó a esta oferta laboral.'?>
             </div>
             <?php
             unset($_GET['alreadyApplied']);
