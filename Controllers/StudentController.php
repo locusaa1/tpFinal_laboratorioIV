@@ -82,7 +82,7 @@ class StudentController
     public function StudentApplyView($userId)
     {
         $jobOfferController = new JobOfferController();
-        $application = $jobOfferController->GetJobOfferByUserId($userId);
+        $applications = $jobOfferController->GetJobOffersByUserApplications();
 
         require_once(VIEWS_PATH . "studentApplyView.php");
     }
