@@ -90,9 +90,9 @@ class StudentController
     public function VerifyStudentApplication($userId)
     {
         $jobOfferController = new JobOfferController();
-        $application = $jobOfferController->GetJobOfferByUserId($userId);
+        $applications = $jobOfferController->GetJobOffersByUserApplications();
 
-        return $application;
+        return $applications;
     }
 
     public function StudentAcademicInformation()
