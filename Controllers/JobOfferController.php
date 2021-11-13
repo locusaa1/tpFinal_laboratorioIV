@@ -8,7 +8,9 @@ use Controllers\EnterpriseController as EnterpriseController;
 use Controllers\UserController as UserController;
 use Controllers\CareerController as CareerController;
 use Controllers\StudentController as StudentController;
+use Controllers\ApplyController as ApplyController;
 use Models\JobOffer as JobOffer;
+use Models\Apply as Apply;
 use DTO\JobOfferDTO as JobOfferDTO;
 use Exception as Exception;
 
@@ -357,29 +359,36 @@ class JobOfferController
         $jobOffer = $this->jobOfferById($jobOfferId);
         $jobOfferCareer = $this->jobOfferCareer($jobOffer->getIdJobPosition());
 
-        $studentApplication = $studentController->VerifyStudentApplication($userId);
+        $applyController = new ApplyController();
+        $applicationFlag = $applyController->verifyIfStudentAlreadyApplyToOffer($userId, $jobOfferId);
 
-
-        if ($jobOfferCareer->getIdCareer() == $studentCareerId && $studentApplication == null) {
+        if ($jobOfferCareer->getIdCareer() == $studentCareerId && $applicationFlag==false) {
             try {
 
                 $fileName = $resume["name"];
                 $file = $resume["tmp_name"];
-                $type = $resume["type"];
 
                 $fileName = uniqid("doc") . $fileName;
                 $route = UPLOADS_PATH . basename($fileName);
+
+                $apply = new Apply ();
+                $apply->setIdUser($userId);
+                $apply->setIdJobOffer($jobOfferId);
+                $apply->setCoverLetter($coverLetter);
+                $apply->setResume($route);
+                $apply->setBanStatus(0);
+        
+                
+                $applyController->generateNewApply($apply);
 
                 if (!file_exists(UPLOADS_PATH)) {
                     mkdir(UPLOADS_PATH, 0777, true);
                     if (file_exists(UPLOADS_PATH)) {
                         move_uploaded_file($file, $route);
-                        $this->jobOfferDAO->updateJobOfferByAnApply($jobOfferId, $userId, $coverLetter, $route);
                         $_GET['successfulApplication'] = 1;
                     }
                 } else {
                     move_uploaded_file($file, $route);
-                    $this->jobOfferDAO->updateJobOfferByAnApply($jobOfferId, $userId, $coverLetter, $route);
                     $_GET['successfulApplication'] = 1;
                 }
 
@@ -390,7 +399,6 @@ class JobOfferController
 
         } else {
             if ($jobOfferCareer->getIdCareer() != $studentCareerId) {
-
                 $_GET['noCareerCoincidence'] = 1;
             } else {
                 $_GET['alreadyApplied'] = 1;
@@ -402,19 +410,26 @@ class JobOfferController
 
     }
 
-    public function GetJobOfferByUserId($userId)
+    public function GetJobOffersByUserApplications()
     {
         $jobOfferList = $this->jobOfferList();
 
-        $studentApplication = null;
+        $applyController = new ApplyController();
+        $jobOfferIdList= $applyController->getJobOffersIdByStudentApplications ();
+
+        $studentApplications = array();
 
         foreach ($jobOfferList as $jobOffer) {
-            if ($jobOffer->getIdUser() == $userId) {
-                $studentApplication = $this->generateJobOfferDTO($jobOffer);
+
+            foreach($jobOfferIdList as $id){
+                
+                if ($jobOffer->getIdJobOffer() == $id) {
+                    array_push($studentApplications, $this->generateJobOfferDTO($jobOffer));
+                }
             }
         }
 
-        return $studentApplication;
+        return $studentApplications;
     }
 }
 
