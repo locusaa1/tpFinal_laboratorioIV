@@ -26,7 +26,7 @@
     <?php
     if(!empty(($applications)))
     {
-        foreach ($application as $jobOffer){
+        foreach ($applications as $jobOffer){
         ?>
         <legend>Postulación</legend>
         <p class="offerData">Empresa</p> 
