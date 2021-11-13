@@ -24,20 +24,22 @@
 </section>
 <section class="studentInfo">
     <?php
-    if(!empty(($application)))
+    if(!empty(($applications)))
     {
+        foreach ($application as $jobOffer){
         ?>
-        <legend>Postulación actual</legend>
+        <legend>Postulación</legend>
         <p class="offerData">Empresa</p> 
-        <p class="offerDataAnswer"><?php echo $application->getEnterpriseName()?></p>
+        <p class="offerDataAnswer"><?php echo $jobOffer->getEnterpriseName()?></p>
         <p class="offerData">Posición</p> 
-        <p class="offerDataAnswer"><?php echo $application->getJobPositionDescription()?></p>
+        <p class="offerDataAnswer"><?php echo $jobOffer->getJobPositionDescription()?></p>
         <p class="offerData">Descripción</p> 
-        <p class="offerDataAnswer"><?php echo $application->getDescription()?></p>
+        <p class="offerDataAnswer"><?php echo $jobOffer->getDescription()?></p>
         <p class="offerData">Salario</p> 
-        <p class="offerDataAnswer"><?php echo $application->getSalary()?></p>
+        <p class="offerDataAnswer"><?php echo $jobOffer->getSalary()?></p>
         <br>
         <?php
+        }
     }else{
         ?>
         <div class="rejectionMessaje">
