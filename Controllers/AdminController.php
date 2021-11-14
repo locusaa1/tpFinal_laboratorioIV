@@ -54,4 +54,11 @@ class AdminController
         $admin = $this->adminDB->getAdminByEmail($userEmail);
         require_once(VIEWS_PATH . "adminDetails.php");
     }
+
+    public function newAdminForm()
+    {
+        require_once(VIEWS_PATH . "newAdminForm.php");
+    }
+
+    
 }
