@@ -6,6 +6,8 @@ namespace Controllers;
 use DAO\AdminDAO as AdminDAO;
 use DAO\AdminDB_DAO as AdminDB;
 use Models\Administrator;
+use Exception as Exception;
+use Controllers\UserController;
 
 class AdminController
 {
@@ -14,6 +16,22 @@ class AdminController
     public function __construct()
     {
         $this->adminDB = new AdminDB();
+    }
+
+    public function addNewAdmin(Administrator $admin)
+    {
+        $message = null;
+        try {
+
+            $this->adminDB->add($admin);
+            $message = 'El registro se almacenó con éxito en la base de datos';
+        } catch (Exception $exception) {
+
+            $message = 'Algo inseperado sucedió y el registro no fue almacenado';
+        } finally {
+
+            return $message;
+        }
     }
 
     public function AdminView()

@@ -7,6 +7,7 @@ use DAO\UserDB_DAO as UserDB_DAO;
 use Controllers\StudentController as StudentController;
 use Controllers\EnterpriseController as EnterpriseController;
 use Models\User as User;
+use Exception as Exception;
 
 class UserController
 {
@@ -60,7 +61,7 @@ class UserController
             $_GET['userAlreadyRegistered'] = 1;
             require_once(VIEWS_PATH . "logInUser.php");
         }
-        
+
         if ($password == $repeatedPassword) {
             $controller = new StudentController();
             $controller->CheckEmail($email, $user, $password);
@@ -79,7 +80,7 @@ class UserController
             $_GET['userAlreadyRegistered'] = 1;
             require_once(VIEWS_PATH . "logInUser.php");
         }
-        
+
         if ($password == $repeatedPassword) {
             $controller = new EnterpriseController();
             $controller->checkEnterpriseForRegistration($email, $password, $cuit);
@@ -118,8 +119,19 @@ class UserController
         return $email;
     }
 
-    public function AddNewUser (User $user)
+    public function AddNewUser(User $user)
     {
-        $this->userDB->add($user);
+        $message = null;
+        try {
+
+            $this->userDB->add($user);
+            $message = 'El registro se almacenó con éxito en la base de datos';
+        } catch (Exception $exception) {
+
+            $message = 'Algo inesperado sucedió y el registro no fue almacenado';
+        } finally {
+
+            return $message;
+        }
     }
 }
