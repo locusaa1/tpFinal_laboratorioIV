@@ -8,6 +8,7 @@ use DAO\AdminDB_DAO as AdminDB;
 use Models\Administrator;
 use Exception as Exception;
 use Controllers\UserController;
+use Models\User;
 
 class AdminController
 {
@@ -78,5 +79,25 @@ class AdminController
         require_once(VIEWS_PATH . "newAdminForm.php");
     }
 
-    
+    public function newAdminFormAction($firstName, $lastName, $dni, $gender, $birthDate, $phoneNumber, $email)
+    {
+        $userController = new UserController;
+        $admin = new Administrator();
+        $admin->setFirstName($firstName);
+        $admin->setLastName($lastName);
+        $admin->setDni($dni);
+        $admin->setGender($gender);
+        $admin->setBirthDate($birthDate);
+        $admin->setPhoneNumber($phoneNumber);
+        $admin->setEmail($email);
+        $message = $this->addNewAdmin($admin);
+        if(strcmp($message,'El registro se almacenó con éxito en la base de datos')==0){
+            $newUser = new User();
+            $newUser->setName($admin->getFirstName());
+            $newUser->setEmail($admin->getEmail());
+            $newUser->setPassword($admin->getDni());
+            $newUser->setUserType('admin');
+            $message = $userController->AddNewUser($newUser);
+        }
+    }
 }
