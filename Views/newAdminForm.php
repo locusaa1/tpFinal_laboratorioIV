@@ -5,7 +5,25 @@ include_once('adminNav.php');
 ?>
 <main>
     <div class="w-100">
-        <div class="row mr-3 ml-3">
+        <?php
+        if (isset($message)) {
+            if (strcmp($message, 'El registro se almacenó con éxito en la base de datos') == 0) {
+
+                echo '<div class="alert-success w-100" role="alert">
+                      <h5 class="alert-heading">Completado</h5>
+                      <p>' . $message . '</p>
+                      </div>';
+            } else {
+
+                echo '<div class="alert-danger w-100" role="alert">
+                      <h5 class="alert-heading">Error</h5>
+                      <p>' . $message . '</p><br>
+                      <p>Posiblemente el dni, email o teléfono están repetidos.</p>
+                      </div>';
+            }
+        }
+        ?>
+        <div class="row mr-3 ml-3 mt-3">
             <div class="col w-100">
                 <div class="card bg-info">
                     <div class="card-body">
@@ -15,11 +33,11 @@ include_once('adminNav.php');
                                   method="post">
                                 <label>Nombre</label><br>
                                 <input type="text" name="firstName" placeholder="Nombre del administrador" class="w-50"
-                                       required><br>
-                                <label>Apellido</label><br><br>
+                                       required><br><br>
+                                <label>Apellido</label><br>
                                 <input type="text" name="lastName" placeholder="Apellido del administrador" class="w-50"
-                                       required><br>
-                                <label>DNI</label><br><br>
+                                       required><br><br>
+                                <label>DNI</label><br>
                                 <label>(será la contraseña inicialmente)</label><br>
                                 <input type="text" name="dni"><br><br>
                                 <label>Genero</label><br>

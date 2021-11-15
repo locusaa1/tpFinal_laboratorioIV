@@ -74,7 +74,7 @@ class AdminController
         require_once(VIEWS_PATH . "adminDetails.php");
     }
 
-    public function newAdminForm()
+    public function newAdminForm($message = null)
     {
         require_once(VIEWS_PATH . "newAdminForm.php");
     }
@@ -92,12 +92,24 @@ class AdminController
         $admin->setEmail($email);
         $message = $this->addNewAdmin($admin);
         if(strcmp($message,'El registro se almacenó con éxito en la base de datos')==0){
+
             $newUser = new User();
             $newUser->setName($admin->getFirstName());
             $newUser->setEmail($admin->getEmail());
             $newUser->setPassword($admin->getDni());
             $newUser->setUserType('admin');
             $message = $userController->AddNewUser($newUser);
+            if(strcmp($message, 'El registro se almacenó con éxito en la base de datos')==0){
+
+                $subject = 'Registro de administrador';
+                $emailMessage = 'Felicidades: '.$admin->getFirstName().', tu usuario dentro del a plataforma
+                de la Universidad Tecnológica Nacional ha sido creado con éxito.\r\n Una vez dentro de ella asgurate
+                de actualizar la contraseña actual por una más segura.\r\n
+                Los datos para ingresar son tu email('.$admin->getEmail().') como usuario y tu dni ('.$admin->getDni().') como contraseña';
+                wordwrap($emailMessage,70,"\r\n");
+                $confirm =mail($admin->getEmail(),$subject,$emailMessage);
+            }
         }
+        $this->newAdminForm($message);
     }
 }
