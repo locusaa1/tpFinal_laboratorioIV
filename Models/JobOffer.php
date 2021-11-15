@@ -9,13 +9,11 @@ class JobOffer
     private $idJobOffer;
     private $idJobPosition;
     private $idEnterprise;
-    private $idUser;
     private $startDate;
     private $limitDate;
     private $description;
     private $salary;
-    private $resume;
-    private $coverLetter;
+    private $flyer;
 
     /**
      * JobOffer constructor.
@@ -71,22 +69,6 @@ class JobOffer
     public function setIdEnterprise($idEnterprise): void
     {
         $this->idEnterprise = $idEnterprise;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdUser()
-    {
-        return $this->idUser;
-    }
-
-    /**
-     * @param mixed $idUser
-     */
-    public function setIdUser($idUser): void
-    {
-        $this->idUser = $idUser;
     }
 
     /**
@@ -153,37 +135,27 @@ class JobOffer
         $this->salary = $salary;
     }
 
+
+
+
+
     /**
-     * @return mixed
-     */
-    public function getResume()
+     * Get the value of flyer
+     */ 
+    public function getFlyer()
     {
-        return $this->resume;
+        return $this->flyer;
     }
 
     /**
-     * @param mixed $resume
-     */
-    public function setResume($resume): void
+     * Set the value of flyer
+     *
+     * @return  self
+     */ 
+    public function setFlyer($flyer)
     {
-        $this->resume = $resume;
+        $this->flyer = $flyer;
+
+        return $this;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getCoverLetter()
-    {
-        return $this->coverLetter;
-    }
-
-    /**
-     * @param mixed $coverLetter
-     */
-    public function setCoverLetter($coverLetter): void
-    {
-        $this->coverLetter = $coverLetter;
-    }
-
-
 }

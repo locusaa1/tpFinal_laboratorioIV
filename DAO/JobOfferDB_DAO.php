@@ -18,19 +18,17 @@ class JobOfferDB_DAO
 
             $query = "insert into " .
                 $this->tableName .
-                "(id_job_offer, id_job_position, id_enterprise, id_user, start_date, limit_date, description, salary, resume, cover_letter) 
-                values (:id_job_offer, :id_job_position, :id_enterprise, :id_user, :start_date, :limit_date, :description, :salary, :resume, :cover_letter);";
+                "(id_job_offer, id_job_position, id_enterprise, start_date, limit_date, description, salary, flyer) 
+                values (:id_job_offer, :id_job_position, :id_enterprise, :start_date, :limit_date, :description, :salary, :flyer);";
 
             $parameters['id_job_offer'] = $jobOffer->getIdJobOffer();
             $parameters['id_job_position'] = $jobOffer->getIdJobPosition();
             $parameters['id_enterprise'] = $jobOffer->getIdEnterprise();
-            $parameters['id_user'] = $jobOffer->getIdUser();
             $parameters['start_date'] = date('Y-m-d',strtotime($jobOffer->getStartDate()));
             $parameters['limit_date'] = date('Y-m-d',strtotime($jobOffer->getLimitDate()));
             $parameters['description'] = $jobOffer->getDescription();
             $parameters['salary'] = $jobOffer->getSalary();
-            $parameters['resume'] = $jobOffer->getResume();
-            $parameters['cover_letter'] = $jobOffer->getCoverLetter();
+            $parameters['flyer'] = $jobOffer->getFlyer();
 
             $this->connection = Connection::GetInstance();
 
@@ -59,13 +57,11 @@ class JobOfferDB_DAO
                 $jobOffer->setIdJobOffer($row['id_job_offer']);
                 $jobOffer->setIdJobPosition($row['id_job_position']);
                 $jobOffer->setIdEnterprise($row['id_enterprise']);
-                $jobOffer->setIdUser($row['id_user']);
                 $jobOffer->setStartDate($row['start_date']);
                 $jobOffer->setLimitDate($row['limit_date']);
                 $jobOffer->setDescription($row['description']);
                 $jobOffer->setSalary($row['salary']);
-                $jobOffer->setResume($row['resume']);
-                $jobOffer->setCoverLetter($row['cover_letter']);
+                $jobOffer->setFlyer($row['flyer']);
                 array_push($jobOfferList, $jobOffer);
             }
 
@@ -91,13 +87,11 @@ class JobOfferDB_DAO
             $jobOfferFound->setIdJobOffer($resultSet[0]['id_job_offer']);
             $jobOfferFound->setIdJobPosition($resultSet[0]['id_job_position']);
             $jobOfferFound->setIdEnterprise($resultSet[0]['id_enterprise']);
-            $jobOfferFound->setIdUser($resultSet[0]['id_user']);
             $jobOfferFound->setStartDate($resultSet[0]['start_date']);
             $jobOfferFound->setLimitDate($resultSet[0]['limit_date']);
             $jobOfferFound->setDescription($resultSet[0]['description']);
             $jobOfferFound->setSalary($resultSet[0]['salary']);
-            $jobOfferFound->setResume($resultSet[0]['resume']);
-            $jobOfferFound->setCoverLetter($resultSet[0]['cover_letter']);
+            $jobOfferFound->setFlyer($resultSet[0]['flyer']);
 
             return $jobOfferFound;
         } catch (Exception $exception) {
@@ -143,22 +137,5 @@ class JobOfferDB_DAO
         }
     }
 
-    public function updateJobOfferByAnApply($idJobOffer, $userId, $coverLetter, $resume)
-    {
-        
-        try {
-            
-            $query = "update " . $this->tableName . " set " .
-                "id_user = " . $userId . ", " .
-                "resume = '" . $resume . "', " .
-                "cover_letter = '" . $coverLetter .  "' where id_job_offer = " . $idJobOffer . ";";
 
-            $this->connection = Connection::GetInstance();
-
-            $this->connection->ExecuteNonQuery($query);
-        } catch (Exception $exception) {
-
-            throw $exception;
-        }
-    }
 }

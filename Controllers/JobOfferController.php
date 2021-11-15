@@ -37,21 +37,16 @@ class JobOfferController
     {
         $jobPositionController = new JobPositionController();
         $enterpriseController = new EnterpriseController();
-        $userController = new UserController();
 
         $jobOfferDTO = new JobOfferDTO();
         $jobOfferDTO->completeSetter($jobOffer->getIdJobOffer(),
             $enterpriseController->getEnterpriseByCuit($jobOffer->getIdEnterprise())->getName(),
             $jobPositionController->getJobPositionCareerByJobPositionId($jobOffer->getIdJobPosition())->getDescription(),
             $jobPositionController->getJobPositionDescriptionById($jobOffer->getIdJobPosition()),
-            $userController->getUserNameById($jobOffer->getIdUser()),
-            $userController->getUserEmailById($jobOffer->getIdUser()),
             date('d-m-Y', strtotime($jobOffer->getStartDate())),
             date('d-m-Y', strtotime($jobOffer->getLimitDate())),
             $jobOffer->getDescription(),
-            $jobOffer->getSalary(),
-            $jobOffer->getResume(),
-            $jobOffer->getCoverLetter());
+            $jobOffer->getSalary());
 
         return $jobOfferDTO;
     }
@@ -226,19 +221,6 @@ class JobOfferController
         return $jobOfferById;
     }
 
-    public function jobOfferPresentation($jobOfferId)
-    {
-        $jobOffer = $this->jobOfferById($jobOfferId);
-
-        echo "Empresa: " . ($this->jobOfferEnterpriseByEnterpriseId($jobOffer->getIdEnterprise()))->getName() . "<br>";
-        echo "Posición: " . $this->jobOfferJobPositionDescription($jobOffer->getIdJobPosition()) . "<br>";
-        echo "Carrera: " . ($this->jobOfferCareer($jobOffer->getIdJobPosition()))->getDescription() . "<br>";
-        echo "Descripción: " . $jobOffer->getDescription() . "<br>";
-        echo "Salario: " . settype($jobOffer->getSalary(), 'string') . "<br>";
-        echo "Fecha de publicación: " . $jobOffer->getStartDate() . "<br>";
-        echo "Fecha de cierre: " . $jobOffer->getLimitDate() . "<br>";
-    }
-
     public function jobOfferStudentView()
     {
         $careerController = new CareerController();
@@ -275,7 +257,7 @@ class JobOfferController
         $availableList = array();
 
         foreach ($jobOfferList as $jobOffer) {
-            if ($jobOffer->getIdUser() == null && $jobOffer->getLimitDate() >= date('Y-m-d')) {
+            if ($jobOffer->getLimitDate() >= date('Y-m-d')) {
                 array_push($availableList, $jobOffer);
             }
         }
