@@ -10,14 +10,11 @@ class JobOfferDTO
     private $enterpriseName;
     private $careerName;
     private $jobPositionDescription;
-    private $userName;
-    private $userEmail;
     private $startDate;
     private $limitDate;
     private $description;
     private $salary;
-    private $resume;
-    private $coverLetter;
+
 
     /**
      * JobOfferDTO constructor.
@@ -91,38 +88,7 @@ class JobOfferDTO
         $this->jobPositionDescription = $jobPositionDescription;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUserName()
-    {
-        return $this->userName;
-    }
-
-    /**
-     * @param mixed $userName
-     */
-    public function setUserName($userName): void
-    {
-        $this->userName = $userName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserEmail()
-    {
-        return $this->userEmail;
-    }
-
-    /**
-     * @param mixed $userEmail
-     */
-    public function setUserEmail($userEmail): void
-    {
-        $this->userEmail = $userEmail;
-    }
-
+    
     /**
      * @return mixed
      */
@@ -187,51 +153,17 @@ class JobOfferDTO
         $this->salary = $salary;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getResume()
-    {
-        return $this->resume;
-    }
+    
 
-    /**
-     * @param mixed $resume
-     */
-    public function setResume($resume): void
-    {
-        $this->resume = $resume;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCoverLetter()
-    {
-        return $this->coverLetter;
-    }
-
-    /**
-     * @param mixed $coverLetter
-     */
-    public function setCoverLetter($coverLetter): void
-    {
-        $this->coverLetter = $coverLetter;
-    }
-
-    public function completeSetter($idJobOffer, $enterpriseName, $careerName, $jobPositionDescription, $userName, $userEmail, $startDate, $limitDate, $description, $salary, $resume, $coverLetter)
+    public function completeSetter($idJobOffer, $enterpriseName, $careerName, $jobPositionDescription, $startDate, $limitDate, $description, $salary)
     {
         $this->setIdJobOffer($idJobOffer);
         $this->setEnterpriseName($enterpriseName);
         $this->setCareerName($careerName);
         $this->setJobPositionDescription($jobPositionDescription);
-        $this->setUserName($userName);
-        $this->setUserEmail($userEmail);
         $this->setStartDate($startDate);
         $this->setLimitDate($limitDate);
         $this->setDescription($description);
         $this->setSalary($salary);
-        $this->setResume($resume);
-        $this->setCoverLetter($coverLetter);
     }
 }
