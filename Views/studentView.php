@@ -35,7 +35,7 @@
             <br>
             <a href="<?php echo FRONT_ROOT ?>Student/StudentAcademicInformation">Información académica</a>
             <br>
-            <a href="<?php echo FRONT_ROOT ?>Student/StudentApplyView?userId=<?php echo  $loggedUser->getIdUser()?>">Mis postulaciones</a>  
+            <a href="<?php echo FRONT_ROOT ?>Student/StudentApplyView">Mis postulaciones</a>  
             <br>
         </section> 
         <section class="enterpriseStudentContainer">
