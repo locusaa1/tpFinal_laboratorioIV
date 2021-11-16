@@ -61,7 +61,7 @@
         <?php    
         if(!empty($jobOfferAppliesDTO)){
             ?>
-                 <div class="studentOffersListContainer">
+                <div class="studentOffersListContainer">
                     <br>
                     <p class="offerData">Posición</p> 
                     <p class="offerDataAnswer"><?php echo $jobOfferAppliesDTO->getJobPositionDescription()?></p>
@@ -88,14 +88,12 @@
                     foreach ($activeAppliesList as $studentAppliedDTO)
                     {
                     ?>
-                    <h2 class="rejectionMessaje">Postulaciones Activas</h2>
+                    <h2 class="titleMessaje">Postulaciones Activas</h2>
                     <br><br> 
-                    </div class="studentOffersListContainer">
+                    <div class="companyAppliesListContainer">
                         <br>
                         <p class="offerData">Nombre</p> 
                         <p class="offerDataAnswer"><?php echo $studentAppliedDTO->getStudentName()?></p>
-                        <p class="offerData">Edad</p> 
-                        <p class="offerDataAnswer"><?php echo $studentAppliedDTO->getStudentAge()?></p>
                         <p class="offerData">Email</p> 
                         <p class="offerDataAnswer"><?php echo $studentAppliedDTO->getStudentEmail()?></p>
                         <p class="offerData">Teléfono</p> 
@@ -103,7 +101,10 @@
                         <p class="offerData">Carta de presentación</p> 
                         <p class="offerDataAnswerDescription"><?php echo $studentAppliedDTO->getCoverLetter()?></p>
                         <p class="offerData">Currículum Vitae</p> 
-                        <p class="offerDataAnswer"><?php echo $studentAppliedDTO->getStudentPhone()?></p>
+                        <a href="../<?php echo $studentAppliedDTO->getResume()?> ?>" class="downloadButton" download="">Descargar CV</a>
+                        <br>
+                        <a class="applyButton" href="<?php echo FRONT_ROOT ?>Apply/dismissApplicationByCompany?idApply=<?php echo $studentAppliedDTO->getIdApply()?>&idJobOffer=<?php echo $studentAppliedDTO->getIdJobOffer()?>">Desestimar aplicación</a>
+                        <br>
                     </div>    
                     <?php
                     }
@@ -113,14 +114,12 @@
                     foreach ($notActiveAppliesList as $studentAppliedDTO)
                     {
                     ?>
-                    <h2 class="rejectionMessaje">Postulaciones Inactivas</h2>
+                    <h2 class="titleMessaje">Postulaciones Inactivas</h2>
                     <br><br> 
-                    </div class="studentOffersListContainer">
+                    <div class="companyAppliesListContainer">
                         <br>
                         <p class="offerData">Nombre</p> 
                         <p class="offerDataAnswer"><?php echo $studentAppliedDTO->getStudentName()?></p>
-                        <p class="offerData">Edad</p> 
-                        <p class="offerDataAnswer"><?php echo $studentAppliedDTO->getStudentAge()?></p>
                         <p class="offerData">Email</p> 
                         <p class="offerDataAnswer"><?php echo $studentAppliedDTO->getStudentEmail()?></p>
                         <p class="offerData">Teléfono</p> 
@@ -128,9 +127,8 @@
                         <p class="offerData">Carta de presentación</p> 
                         <p class="offerDataAnswerDescription"><?php echo $studentAppliedDTO->getCoverLetter()?></p>
                         <p class="offerData">Currículum Vitae</p> 
-                        <p class="offerDataAnswer"><?php echo $studentAppliedDTO->getStudentPhone()?></p>
+                        <a href="../<?php echo $studentAppliedDTO->getResume()?> ?>" class="downloadButton" download="">Descargar CV</a>
                         <br>
-                        <a class="applyButton" href="#">Desestimar aplicación</a>
                     </div>    
                     <?php
                     }
@@ -140,6 +138,7 @@
         ?>  
     </section>
     <section>
+        <br><br>
         <a class="backButton" href="<?php echo FRONT_ROOT ?>Apply/jobOfferWithAppliesCompanyView">Volver</a>
     </section>   
 </main>

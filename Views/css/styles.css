@@ -962,3 +962,44 @@ align-items: center;
    
 
 }
+
+
+.titleMessaje
+{
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    margin-top: 2rem;
+    text-decoration: none;
+    background-color: var(--grey);
+    color: var(--blue);
+    font-size: 2.5rem;
+    font-weight: bolder;
+    text-align: center;
+    margin-left: 65rem;
+    margin-right: 65rem;
+}
+
+.companyAppliesListContainer
+{
+    background-color: var(--blue);
+    border-radius: 1.5rem;
+    margin: auto;
+    width: 700px;
+    position: relative;
+}
+
+.downloadButton
+{
+    text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 1.5rem;
+    color: var(--white);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    margin-left: 6rem;
+    margin-right: 6rem;
+    
+}

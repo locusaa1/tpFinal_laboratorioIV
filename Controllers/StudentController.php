@@ -8,7 +8,7 @@ use Controllers\JobOfferController as JobOfferController;
 use Controllers\CareerController as CareerController;
 use Controllers\UserController as UserController;
 use DTO\StudentApplicationDTO as StudentApplicationDTO;
-use DateTime as DateTime;
+use Controllers\ApplyController as ApplyController;
 
 class StudentController
 {
@@ -83,7 +83,25 @@ class StudentController
     public function StudentApplyView()
     {
         $jobOfferController = new JobOfferController();
-        $applications = $jobOfferController->GetJobOffersByUserApplications();
+        $jobOffers = $jobOfferController->GetJobOffersByUserApplications();
+
+        $applyController = new ApplyController();
+        $applies = $applyController->getStudentAppliesByUserId ();
+
+        $activeApplications = array();
+        $notActiveApplications = array();
+
+        foreach ($jobOffers as $jobOffer){
+            foreach ($applies as $apply){
+                if($jobOffer->getIdJobOffer()==$apply->getIdJobOffer()){
+                    if($apply->getBanStatus()==0){
+                        array_push($activeApplications, $jobOffer);
+                    }else{
+                        array_push($notActiveApplications, $jobOffer);
+                    }
+                }
+            }
+        }
 
         require_once(VIEWS_PATH . "studentApplyView.php");
     }
@@ -104,17 +122,14 @@ class StudentController
         return $this->studentDAO->GetByEmail($email);
     }
 
-    public function generateStudentApplicationDTO($idJobOffer, $idUser, $coverLetter, $resume, $banStatus)
+    public function generateStudentApplicationDTO($idApply, $idJobOffer, $idUser, $coverLetter, $resume, $banStatus)
     {
         $userController = new UserController();
         $student = $this->getStudentByEmail($userController->getUserEmailById($idUser));
         
-        $today = new DateTime();
-        $age = $today->diff($student->getBirthDate()); 
-        
         $studentApplicationDTO = new StudentApplicationDTO();
-        $studentApplicationDTO->completeSetter($idJobOffer, 
-        $student->getFirstName() . " " . $student->getLastName(), $age, $student->getEmail(),
+        $studentApplicationDTO->completeSetter($idApply, $idJobOffer, 
+        $student->getFirstName() . " " . $student->getLastName(), $student->getEmail(),
         $student->getPhoneNumber(),  $coverLetter, $resume, $banStatus);
 
         return $studentApplicationDTO;
