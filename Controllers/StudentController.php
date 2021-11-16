@@ -7,7 +7,8 @@ use Models\User as User;
 use Controllers\JobOfferController as JobOfferController;
 use Controllers\CareerController as CareerController;
 use Controllers\UserController as UserController;
-
+use DTO\StudentApplicationDTO as StudentApplicationDTO;
+use DateTime as DateTime;
 
 class StudentController
 {
@@ -101,6 +102,22 @@ class StudentController
     public function getStudentByEmail($email)
     {
         return $this->studentDAO->GetByEmail($email);
+    }
+
+    public function generateStudentApplicationDTO($idJobOffer, $idUser, $coverLetter, $resume, $banStatus)
+    {
+        $userController = new UserController();
+        $student = $this->getStudentByEmail($userController->getUserEmailById($idUser));
+        
+        $today = new DateTime();
+        $age = $today->diff($student->getBirthDate()); 
+        
+        $studentApplicationDTO = new StudentApplicationDTO();
+        $studentApplicationDTO->completeSetter($idJobOffer, 
+        $student->getFirstName() . " " . $student->getLastName(), $age, $student->getEmail(),
+        $student->getPhoneNumber(),  $coverLetter, $resume, $banStatus);
+
+        return $studentApplicationDTO;
     }
 }
 

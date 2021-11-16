@@ -8,6 +8,7 @@ use Controllers\JobPositionController as JobPositionController;
 use Controllers\EnterpriseController as EnterpriseController;
 use Controllers\CareerController as CareerController;
 use DTO\JobOfferAppliesDTO as JobOfferAppliesDTO;
+use Controllers\StudentController as StudentController;
 
 class ApplyController
 {
@@ -221,7 +222,47 @@ class ApplyController
         }
 
         require_once(VIEWS_PATH . "companyAppliesView.php");
+
+    }
+
+    public function companyJobOfferAppliesDetails ($idJobOffer)
+    {
+        $studentController = new StudentController();
+        $jobOfferController = new JobOfferController();
+        $jobOffer = $jobOfferController->jobOfferById($idJobOffer);
+        $jobOfferAppliesDTO= $this->generateJobOfferAppliesDTO($jobOffer);
         
+        $jobOfferApplies = array();
+
+        foreach ($this->GetApplyList() as $apply){
+            if($apply->getIdJobOffer()==$idJobOffer){
+                array_push($jobOfferApplies, $apply);
+            }
+        }
+
+        $studentAppliesDTOList = array();
+
+        foreach ($jobOfferApplies as $apply){
+            $studentApplyDTO = $studentController->generateStudentApplicationDTO($idJobOffer, $apply->getIdUser(),
+            $apply->getCoverLetter(), $apply->getResume(), $apply->getBanStatus());
+
+            array_push($studentAppliesDTOList, $studentApplyDTO);
+
+        }
+
+        $activeAppliesList = array();
+        $notActiveAppliesList = array();
+
+        foreach ($studentAppliesDTOList as $applyDTO){
+            if($applyDTO->getBanStatus()==0){
+                array_push($activeAppliesList, $applyDTO);
+            }else{
+                array_push($notActiveAppliesList, $applyDTO);
+            }
+        }
+
+        require_once(VIEWS_PATH . "companyAppliesByJobOffer.php");
+
     }
 
 }

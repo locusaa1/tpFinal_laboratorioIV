@@ -109,13 +109,13 @@
                     <p class="offerData">Fecha de publicación</p> 
                     <p class="offerDataAnswerDate"><?php echo $jobOfferApplies->getStartDate()?></p>
                     <p class="offerData">Fecha de cierre</p> 
-                    <p class="offerDataAnswerDate"><?php echo$jobOfferApplies->getLimitDate()?></p>
+                    <p class="offerDataAnswerDate"><?php echo $jobOfferApplies->getLimitDate()?></p>
                     <p class="offerData">Total de postulados</p> 
-                    <p class="offerDataAnswerDate"><?php echo$jobOfferApplies->getTotalApplications()?></p>
+                    <p class="offerDataAnswerDate"><?php echo $jobOfferApplies->getTotalApplications()?></p>
                     <p class="offerData">Postulados activos</p> 
-                    <p class="offerDataAnswerDate"><?php echo$jobOfferApplies->getActiveApplications()?></p>
+                    <p class="offerDataAnswerDate"><?php echo $jobOfferApplies->getActiveApplications()?></p>
                     <p class="offerData"></p>
-                    <a class="applyButton" href="#">Ver detalle</a>
+                    <a class="applyButton" href="<?php echo FRONT_ROOT ?>Apply/companyJobOfferAppliesDetails?idJobOffer=<?php echo $jobOfferApplies->getIdJobOffer()?>">Ver detalle</a>
                     <br>
                 </div> 
                <?php 
