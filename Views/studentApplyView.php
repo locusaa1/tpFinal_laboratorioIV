@@ -22,34 +22,65 @@
             <p>Mis postulaciones</p>
         </div>
 </section>
-<section class="studentInfo">
+<section class="">
     <?php
-    if(!empty(($applications)))
+    if(!empty(($activeApplications)))
     {
-        foreach ($applications as $jobOffer){
+        foreach ($activeApplications as $jobOffer){
         ?>
-        <legend>Postulación</legend>
-        <p class="offerData">Empresa</p> 
-        <p class="offerDataAnswer"><?php echo $jobOffer->getEnterpriseName()?></p>
-        <p class="offerData">Posición</p> 
-        <p class="offerDataAnswer"><?php echo $jobOffer->getJobPositionDescription()?></p>
-        <p class="offerData">Descripción</p> 
-        <p class="offerDataAnswer"><?php echo $jobOffer->getDescription()?></p>
-        <p class="offerData">Salario</p> 
-        <p class="offerDataAnswer"><?php echo $jobOffer->getSalary()?></p>
         <br>
-        <?php
-        }
-    }else{
-        ?>
-        <div class="rejectionMessaje">
-            <?php echo 'Usted no tiene aplicaciones por el momento'?>
+        <h2 class="titleMessaje">Postulaciones Activas</h2>
+        <br>
+        <div class="companyAppliesListContainer">
+            <p class="offerData">Empresa</p> 
+            <p class="offerDataAnswer"><?php echo $jobOffer->getEnterpriseName()?></p>
+            <p class="offerData">Posición</p> 
+            <p class="offerDataAnswer"><?php echo $jobOffer->getJobPositionDescription()?></p>
+            <p class="offerData">Descripción</p> 
+            <p class="offerDataAnswerDescription"><?php echo $jobOffer->getDescription()?></p>
+            <p class="offerData">Salario</p> 
+            <p class="offerDataAnswer"><?php echo $jobOffer->getSalary()?></p>
+            <br>
+            <a class="applyButton" href="<?php echo FRONT_ROOT ?>Apply/dismissApplicationByStudent?idJobOffer=<?php echo $jobOffer->getIdJobOffer()?>">Desestimar aplicación</a>
+        <br>
         </div>
         <?php
-    } 
+        }
+    }
+    
+    if(!empty(($notActiveApplications)))
+    {
+        foreach ($notActiveApplications as $jobOffer){
+        ?>
+        <br>
+        <h2 class="titleMessaje">Postulaciones Inactivas</h2>
+        <br> 
+        <div class="companyAppliesListContainer">
+            <p class="offerData">Empresa</p> 
+            <p class="offerDataAnswer"><?php echo $jobOffer->getEnterpriseName()?></p>
+            <p class="offerData">Posición</p> 
+            <p class="offerDataAnswer"><?php echo $jobOffer->getJobPositionDescription()?></p>
+            <p class="offerData">Descripción</p> 
+            <p class="offerDataAnswerDescription"><?php echo $jobOffer->getDescription()?></p>
+            <p class="offerData">Salario</p> 
+            <p class="offerDataAnswer"><?php echo $jobOffer->getSalary()?></p>
+        <br>
+        </div>
+        <?php
+        }
+    }
+
+    if(empty($notActiveApplications) && empty($activeApplications)){
+        ?>
+        <div class="rejectionMessaje">
+            <?php echo 'Usted no realizó aplicaciones hasta el momento'?>
+        </div>
+        <?php
+    }
     ?>
 </section>   
 <section>
+<br><br>
     <a class="backButton" href="<?php echo FRONT_ROOT ?>Student/StudentView">Volver</a>
 </section>     
   

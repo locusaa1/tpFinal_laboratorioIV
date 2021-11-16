@@ -84,7 +84,7 @@ class JobPositionDAO implements IJobPositionDAO
             $jobPositionList = array();
 
             $query = "select j.id_job_position, j.id_career, j.description from " . $this->tableName . " j inner join
-            careers c on j.id_career = c.id_career where c.active = 1";
+            careers c on j.id_career = c.id_career where c.active = 1 order by description;";
 
             $this->connection = Connection::GetInstance();
 

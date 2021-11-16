@@ -22,7 +22,7 @@ class ApplyDAO implements IApplyDAO
                 values (:id_user, :id_job_offer, :cover_letter, :resume, :ban_status)";
 
             $parameters['id_user'] = $apply->getIdUser();
-            $parameters['id_job_offer'] = $apply->getIdUser();
+            $parameters['id_job_offer'] = $apply->getIdJobOffer();
             $parameters['cover_letter'] = $apply->getCoverLetter();
             $parameters['resume'] = $apply->getResume();
             $parameters['ban_status'] = $apply->getBanStatus();
@@ -61,6 +61,22 @@ class ApplyDAO implements IApplyDAO
                 array_push($applyList, $apply);
             }
             return $applyList;
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
+
+    public function updateApplyBanStatusTo1 ($idApply)
+    {
+        try {
+            
+            $query = "update " . $this->tableName . " set " .
+                "ban_status = " . 1 . " where id_apply = " . $idApply . ";";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
         } catch (Exception $exception) {
 
             throw $exception;

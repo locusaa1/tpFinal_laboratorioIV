@@ -392,6 +392,19 @@ class JobOfferController
 
     }
 
+    public function generateApplyEmailMessage($idJobOffer)
+    {
+        $jobOffer = $this->jobOfferById($idJobOffer);
+        $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+
+        $message = "Hola " . $_SESSION['user']->getName() . "!" . "<br><br>" . 
+        "Hemos recibido con éxito tu postulación para " . $jobOfferDTO->getJobPositionDescription() . ".<br>".
+        "Desde el área de Recursos Humanos estarán analizando tu perfil.<br><br>" . 
+        "Muchas gracias de parte de todo el equipo de " . $jobOfferDTO->getEnterpriseName() . ".";
+        
+        return $message;
+    }
+
     public function GetJobOffersByUserApplications()
     {
         $jobOfferList = $this->jobOfferList();
@@ -413,6 +426,24 @@ class JobOfferController
 
         return $studentApplications;
     }
+
+    public function getJobOffersByCompanyName()
+    {
+        $enterpriseController = new EnterpriseController();
+        $enterprise = $enterpriseController->getEnterpriseByName ($_SESSION['user']->getName());
+
+        $companyJobOfferList = array();
+
+        foreach ($this->jobOfferList() as $jobOffer){
+            if($jobOffer->getIdEnterprise()==$enterprise->getIdEnterprise()){
+                array_push($companyJobOfferList, $jobOffer);
+            }
+        }
+
+        return $companyJobOfferList;
+    }
+
+
 }
 
 ?>
