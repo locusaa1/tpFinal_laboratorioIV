@@ -359,19 +359,20 @@ class JobOfferController
                 $apply->setCoverLetter($coverLetter);
                 $apply->setResume($route);
                 $apply->setBanStatus(0);
-        
-                
-                $applyController->generateNewApply($apply);
 
                 if (!file_exists(UPLOADS_PATH)) {
                     mkdir(UPLOADS_PATH, 0777, true);
                     if (file_exists(UPLOADS_PATH)) {
                         move_uploaded_file($file, $route);
                         $_GET['successfulApplication'] = 1;
+                        $applyController->generateNewApply($apply);
+                        mail($_SESSION['user']->getEmail(), "Hemos recibido tu postulación", $this->generateApplyEmailMessage($jobOfferId));
                     }
                 } else {
                     move_uploaded_file($file, $route);
                     $_GET['successfulApplication'] = 1;
+                    $applyController->generateNewApply($apply);
+                    mail($_SESSION['user']->getEmail(), "Hemos recibido tu postulación", $this->generateApplyEmailMessage($jobOfferId));
                 }
 
             } catch (Exception $ex) {
@@ -397,9 +398,9 @@ class JobOfferController
         $jobOffer = $this->jobOfferById($idJobOffer);
         $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
 
-        $message = "Hola " . $_SESSION['user']->getName() . "!" . "<br><br>" . 
-        "Hemos recibido con éxito tu postulación para " . $jobOfferDTO->getJobPositionDescription() . ".<br>".
-        "Desde el área de Recursos Humanos estarán analizando tu perfil.<br><br>" . 
+        $message = "Hola " . $_SESSION['user']->getName() . "!" . "\n\n" . 
+        "Hemos recibido con éxito tu postulación para " . $jobOfferDTO->getJobPositionDescription() . ".\n".
+        "Desde el área de Recursos Humanos estarán analizando tu perfil.\n\n" . 
         "Muchas gracias de parte de todo el equipo de " . $jobOfferDTO->getEnterpriseName() . ".";
         
         return $message;
