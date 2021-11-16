@@ -38,11 +38,11 @@
         </section> 
         <section class="enterpriseStudentContainer">
             <p class="postulatesPicture"></p>
-            <a href="#">Postulaciones</a>  
+            <a href="<?php echo FRONT_ROOT ?>Apply/jobOfferWithAppliesCompanyView">Postulaciones</a>  
         </section> 
         <section class="searchStudentContainer">
          <p class="searchPicture"></p>
-            <a href="#">Búsquedas abiertas</a>
+            <a href="#">Ofertas Laborales</a>
         </section>            
     </div>   
 </main>
