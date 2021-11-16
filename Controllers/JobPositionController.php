@@ -126,6 +126,21 @@ class JobPositionController
 
     }
 
+    public function getJobPositionById($idJobPosition)
+    {
+        $jobPositionList = $this->jobPositionList();
+
+        $jobPositionById = null;
+
+        foreach($this->jobPositionList() as $jobPosition){
+            if($jobPosition->getJobPositionId()==$idJobPosition){
+                $jobPositionById=$jobPosition;
+            }
+        }
+
+        return $jobPositionById;
+    }
+
 
 }
 

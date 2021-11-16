@@ -206,4 +206,11 @@ class EnterpriseController
         require_once(VIEWS_PATH . "enterpriseDetailsCompany.php");
 
     }
+
+    public function getEnterpriseByName ($name)
+    {
+        $enterprise = $this->enterpriseDB->GetByName($name);
+
+        return $enterprise;
+    }
 }

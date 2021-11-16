@@ -426,6 +426,24 @@ class JobOfferController
 
         return $studentApplications;
     }
+
+    public function getJobOffersByCompanyName()
+    {
+        $enterpriseController = new EnterpriseController();
+        $enterprise = $enterpriseController->getEnterpriseByName ($_SESSION['user']->getName());
+
+        $companyJobOfferList = array();
+
+        foreach ($this->jobOfferList() as $jobOffer){
+            if($jobOffer->getIdEnterprise()==$enterprise->getIdEnterprise()){
+                array_push($companyJobOfferList, $jobOffer);
+            }
+        }
+
+        return $companyJobOfferList;
+    }
+
+
 }
 
 ?>
