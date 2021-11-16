@@ -243,7 +243,7 @@ class ApplyController
         $studentAppliesDTOList = array();
 
         foreach ($jobOfferApplies as $apply){
-            $studentApplyDTO = $studentController->generateStudentApplicationDTO($idJobOffer, $apply->getIdUser(),
+            $studentApplyDTO = $studentController->generateStudentApplicationDTO($apply->getIdApply(), $idJobOffer, $apply->getIdUser(),
             $apply->getCoverLetter(), $apply->getResume(), $apply->getBanStatus());
 
             array_push($studentAppliesDTOList, $studentApplyDTO);
@@ -265,6 +265,41 @@ class ApplyController
 
     }
 
+    public function dismissApplicationByCompany ($idApply, $idJobOffer)
+    {
+        $this->applyDAO->updateApplyBanStatusTo1 ($idApply);
+
+        $this->companyJobOfferAppliesDetails($idJobOffer);        
+
+    }
+
+    public function getStudentAppliesByUserId()
+    {
+        $applyList = array();
+
+        foreach($this->GetApplyList() as $apply){
+            if($apply->getIdUser()==$_SESSION['user']->getIdUser()){
+                array_push($applyList, $apply);
+            }
+        }
+
+        return $applyList;
+    }
+
+    public function dismissApplicationByStudent ($idJobOffer)
+    {
+        $applies = $this->getStudentAppliesByUserId ();
+
+        foreach($applies as $apply){
+            if($apply->getIdJobOffer()==$idJobOffer){
+                $this->applyDAO->updateApplyBanStatusTo1 ($apply->getIdApply());
+            }
+        } 
+        
+        $studentController = new StudentController();
+        $studentController->StudentApplyView();
+
+    }
 }
 
 ?>

@@ -6,14 +6,34 @@ namespace DTO;
 //Data transfer object no es una representación de la estructura en la base de datos.
 class StudentApplicationDTO
 {
+    private $idApply;
     private $idJobOffer;
     private $studentName;
-    private $studentAge;
     private $studentEmail;
     private $studentPhone;
     private $coverLetter;
     private $resume;
     private $banStatus;
+
+     /**
+     * Get the value of idApply
+     */ 
+    public function getIdApply()
+    {
+        return $this->idApply;
+    }
+
+    /**
+     * Set the value of idApply
+     *
+     * @return  self
+     */ 
+    public function setIdApply($idApply)
+    {
+        $this->idApply = $idApply;
+
+        return $this;
+    }
 
     /**
      * Get the value of idJobOffer
@@ -51,26 +71,6 @@ class StudentApplicationDTO
     public function setStudentName($studentName)
     {
         $this->studentName = $studentName;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of studentAge
-     */ 
-    public function getStudentAge()
-    {
-        return $this->studentAge;
-    }
-
-    /**
-     * Set the value of studentAge
-     *
-     * @return  self
-     */ 
-    public function setStudentAge($studentAge)
-    {
-        $this->studentAge = $studentAge;
 
         return $this;
     }
@@ -175,11 +175,11 @@ class StudentApplicationDTO
         return $this;
     }
 
-    public function completeSetter($idJobOffer, $studentName, $studentAge, $studentEmail, $studentPhone, $coverLetter, $resume, $banStatus)
+    public function completeSetter($idApply, $idJobOffer, $studentName, $studentEmail, $studentPhone, $coverLetter, $resume, $banStatus)
     {
+        $this->setIdApply($idApply);
         $this->setIdJobOffer($idJobOffer);
         $this->setStudentName($studentName);
-        $this->setStudentAge($studentAge);
         $this->setStudentEmail($studentEmail);
         $this->setStudentPhone($studentPhone);
         $this->setCoverLetter($coverLetter);
@@ -188,4 +188,6 @@ class StudentApplicationDTO
     }
 
   
+
+   
 }
