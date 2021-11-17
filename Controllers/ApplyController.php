@@ -269,7 +269,9 @@ class ApplyController
     {
         $this->applyDAO->updateApplyBanStatusTo1 ($idApply);
 
-        $this->companyJobOfferAppliesDetails($idJobOffer);        
+        $this->companyJobOfferAppliesDetails($idJobOffer); 
+        
+        mail($_SESSION['user']->getEmail(), "Información acerca de tu proceso de selección", $this->generateDismissApplicationMessageByCompany($idJobOffer));
 
     }
 
@@ -295,10 +297,41 @@ class ApplyController
                 $this->applyDAO->updateApplyBanStatusTo1 ($apply->getIdApply());
             }
         } 
+
+        mail($_SESSION['user']->getEmail(), "Información acerca de tu proceso de selección", $this->generateDismissApplicationMessageByStudent($idJobOffer));
         
         $studentController = new StudentController();
         $studentController->StudentApplyView();
 
+    }
+
+    public function generateDismissApplicationMessageByCompany ($idJobOffer)
+    {
+        $jobOfferController = new JobOfferController();
+
+        $jobOffer = $jobOfferController->jobOfferById($idJobOffer);
+        $jobOfferDTO = $jobOfferController->generateJobOfferDTO($jobOffer);
+
+        $message = "Hola!" . "\n\n" . 
+        "Te agradecemos que hayas aplicado con nosotros para el puesto de " . $jobOfferDTO->getJobPositionDescription() . ".\n".
+        "Por el momento no vamos a continuar con tu proceso. Mantendremos tu información en nuestra plataforma para considerarte en futuras oportunidades.\n\n" . 
+        "Te enviamos un cordial saludo de parte de todo el equipo de " . $jobOfferDTO->getEnterpriseName() . ".";
+        
+        return $message;
+    }
+
+    public function generateDismissApplicationMessageByStudent ($idJobOffer)
+    {
+        $jobOfferController = new JobOfferController();
+
+        $jobOffer = $jobOfferController->jobOfferById($idJobOffer);
+        $jobOfferDTO = $jobOfferController->generateJobOfferDTO($jobOffer);
+
+        $message = "Hola " . $_SESSION['user']->getName() . "!" . "\n\n" . 
+        "Se ha cancelado tu aplicación para el puesto de " . $jobOfferDTO->getJobPositionDescription() . ".\n\n" .
+        "Te enviamos un cordial saludo de parte del equipo de la UTN.";
+        
+        return $message;
     }
 }
 
