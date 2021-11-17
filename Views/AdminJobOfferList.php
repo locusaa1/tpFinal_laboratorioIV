@@ -50,7 +50,6 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                         <td>Empresa</td>
                         <td>Carrera</td>
                         <td>Puesto</td>
-                        <td>Estado</td>
                         <td>Fecha inicial</td>
                         <td>Fecha límite</td>
                         <td>Salario</td>
@@ -62,12 +61,10 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                     <tbody>
                     <?php
                     foreach ($jobOfferDTOList as $jobOfferDTO) {
-                        $status = ($jobOfferDTO->getUserName()!==null)?'Ocupada':'Disponible';
                         echo '<tr>';
                         echo '<td>' . $jobOfferDTO->getEnterpriseName() . '</td>';
                         echo '<td>' . $jobOfferDTO->getCareerName() . '</td>';
                         echo '<td>' . $jobOfferDTO->getJobPositionDescription() . '</td>';
-                        echo '<td>' . $status . '</td>';
                         echo '<td>' . $jobOfferDTO->getStartDate() . '</td>';
                         echo '<td>' . $jobOfferDTO->getLimitDate() . '</td>';
                         echo '<td>' . $jobOfferDTO->getSalary() . '</td>'; ?>

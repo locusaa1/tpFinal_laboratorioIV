@@ -20,7 +20,7 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
     </div>
     <div class="row ml-3 mr-3">
         <div class="col w-100">
-            <div class="card">
+            <div class="card bg-info">
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <img src="../<?php echo $enterprise->getImagePath() ?>" class="img-thumbnail" alt="...">
@@ -34,6 +34,8 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                                     <input class="form-control form-control-lg" type="text" id="name" name="name"
                                            value=""
                                            placeholder="<?php echo $enterprise->getName() ?>"><br>
+                                    <label>Email:</label><br>
+                                    <input type="email" class="form-control form-control-lg" name="email" placeholder="<?php echo $enterprise->getEmail() ?>"><br>
                                     <label for="phoneNumber">Phone number:</label><br>
                                     <input class="form-control form-control-lg" type="number" id="phoneNumber"
                                            name="phoneNumber" value=""
@@ -51,10 +53,10 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                                            placeholder="<?php echo $enterprise->getAddressNumber() ?>"><br>
                                     <label for="image">Actualizar la imágen</label><br>
                                     <input type="file" id="image" name="enterpriseImage"><br>
-                                    <button class="btn btn-outline-success btn-lg btn-block" type="submit" name="action"
+                                    <button class="btn btn-success btn-lg btn-block" type="submit" name="action"
                                             value="update">Actualizar
                                     </button>
-                                    <button class="btn btn-outline-dark btn-lg btn-block" type="reset">Refrescar
+                                    <button class="btn btn-dark btn-lg btn-block" type="reset">Refrescar
                                     </button>
                                     </ul>
                                 </div>

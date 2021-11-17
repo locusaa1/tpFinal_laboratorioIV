@@ -6,9 +6,9 @@ namespace Controllers;
 use DAO\AdminDAO as AdminDAO;
 use DAO\AdminDB_DAO as AdminDB;
 use Models\Administrator;
-use Exception as Exception;
 use Controllers\UserController;
 use Models\User;
+use Exception as Exception;
 
 class AdminController
 {
@@ -91,7 +91,7 @@ class AdminController
         $admin->setPhoneNumber($phoneNumber);
         $admin->setEmail($email);
         $message = $this->addNewAdmin($admin);
-        if(strcmp($message,'El registro se almacenó con éxito en la base de datos')==0){
+        if (strcmp($message, 'El registro se almacenó con éxito en la base de datos') == 0) {
 
             $newUser = new User();
             $newUser->setName($admin->getFirstName());
@@ -99,15 +99,23 @@ class AdminController
             $newUser->setPassword($admin->getDni());
             $newUser->setUserType('admin');
             $message = $userController->AddNewUser($newUser);
-            if(strcmp($message, 'El registro se almacenó con éxito en la base de datos')==0){
+            if (strcmp($message, 'El registro se almacenó con éxito en la base de datos') == 0) {
 
                 $subject = 'Registro de administrador';
-                $emailMessage = 'Felicidades: '.$admin->getFirstName().', tu usuario dentro del a plataforma
+                $emailMessage = 'Felicidades: ' . $admin->getFirstName() . ', tu usuario dentro del a plataforma
                 de la Universidad Tecnológica Nacional ha sido creado con éxito.\r\n Una vez dentro de ella asgurate
                 de actualizar la contraseña actual por una más segura.\r\n
-                Los datos para ingresar son tu email('.$admin->getEmail().') como usuario y tu dni ('.$admin->getDni().') como contraseña';
-                wordwrap($emailMessage,70,"\r\n");
-                $confirm =mail($admin->getEmail(),$subject,$emailMessage);
+                Los datos para ingresar son tu email(' . $admin->getEmail() . ') como usuario y tu dni (' . $admin->getDni() . ') como contraseña';
+
+
+                try {
+
+                    mail($admin->getEmail(),$subject,$message);
+                } catch (Exception $exception){
+
+                    die(var_dump($exception));
+                }
+                $confirm = mail($admin->getEmail(), $subject, $emailMessage);
             }
         }
         $this->newAdminForm($message);
