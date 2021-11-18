@@ -62,7 +62,7 @@ class EnterpriseController
         }
     }
 
-    public function enterpriseForm($name, $enterpriseImage, $cuit, $phoneNumber, $addressName, $addressNumber, $action)
+    public function enterpriseForm($name, $enterpriseImage, $email, $cuit, $phoneNumber, $addressName, $addressNumber, $action)
     {
         $newEnterprise = new Enterprise();
         $message = null;
@@ -73,7 +73,7 @@ class EnterpriseController
             $fileName = $enterpriseImage["name"];
             $file = null;
             $route = null;
-            if (strcmp('',$enterpriseImage['name'])!=0){
+            if (strcmp('', $enterpriseImage['name']) != 0) {
 
                 $file = $enterpriseImage["tmp_name"];
                 $type = $enterpriseImage["type"];
@@ -89,6 +89,7 @@ class EnterpriseController
 
                 $oldEnterprise = $this->enterpriseDB->getSpecificEnterpriseByCuit($cuit);
                 $newEnterprise->setIdEnterprise($oldEnterprise->getIdEnterprise());
+                $newEnterprise->setEmail($newEmail = (strcmp('', $email) == 0) ? $oldEnterprise->getEMail() : $email);
                 $newEnterprise->setCuit($oldEnterprise->getCuit());
                 $newEnterprise->setName($newName = (strcmp('', $name) == 0) ? $oldEnterprise->getName() : $name);
                 $newEnterprise->setImagePath($newImagePath = (strcmp('', $enterpriseImage['name']) == 0) ? $oldEnterprise->getImagePath() : $route);
@@ -101,6 +102,7 @@ class EnterpriseController
 
                 $newEnterprise->setName($name);
                 $newEnterprise->setImagePath($route);
+                $newEnterprise->setEmail($email);
                 $newEnterprise->setCuit($cuit);
                 $newEnterprise->setPhoneNumber($phoneNumber);
                 $newEnterprise->setAddressName($addressName);
@@ -174,8 +176,8 @@ class EnterpriseController
     public function checkEnterpriseForRegistration($email, $password, $cuit)
     {
         $enterprise = $this->getEnterpriseByCuitNumber($cuit);
-        
-        if ($enterprise->getIdEnterprise()!=null) {
+
+        if ($enterprise->getIdEnterprise() != null) {
 
             $user = new User();
             $user->setEmail($email);
@@ -187,13 +189,13 @@ class EnterpriseController
             $userController->AddNewUser($user);
 
             require_once(VIEWS_PATH . "logInUser.php");
-        }else{
+        } else {
             $_GET['notActiveEnterprise'] = 1;
             require_once(VIEWS_PATH . "logInUser.php");
         }
     }
 
-    public function companyView ()
+    public function companyView()
     {
         $enterprise = $this->enterpriseDB->GetByName($_SESSION['user']->getName());
         require_once(VIEWS_PATH . "companyView.php");
@@ -207,7 +209,7 @@ class EnterpriseController
 
     }
 
-    public function getEnterpriseByName ($name)
+    public function getEnterpriseByName($name)
     {
         $enterprise = $this->enterpriseDB->GetByName($name);
 

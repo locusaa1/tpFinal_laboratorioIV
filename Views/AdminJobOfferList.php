@@ -50,7 +50,6 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                         <td>Empresa</td>
                         <td>Carrera</td>
                         <td>Puesto</td>
-                        <td>Estado</td>
                         <td>Fecha inicial</td>
                         <td>Fecha límite</td>
                         <td>Salario</td>
@@ -62,33 +61,31 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                     <tbody>
                     <?php
                     foreach ($jobOfferDTOList as $jobOfferDTO) {
-                        $status = ($jobOfferDTO->getUserName()!==null)?'Ocupada':'Disponible';
                         echo '<tr>';
                         echo '<td>' . $jobOfferDTO->getEnterpriseName() . '</td>';
                         echo '<td>' . $jobOfferDTO->getCareerName() . '</td>';
                         echo '<td>' . $jobOfferDTO->getJobPositionDescription() . '</td>';
-                        echo '<td>' . $status . '</td>';
                         echo '<td>' . $jobOfferDTO->getStartDate() . '</td>';
                         echo '<td>' . $jobOfferDTO->getLimitDate() . '</td>';
                         echo '<td>' . $jobOfferDTO->getSalary() . '</td>'; ?>
                         <td>
                             <button class="btn btn-outline-success btn-lg" style="transform: rotate(0)">
-                                <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferForm?update=<?php echo $jobOfferDTO->getIdJobOffer() ?>"
+                                <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferForm?update=<?php echo $jobOfferDTO->getIdJobOffer() ?>&userType=<?php echo $_SESSION['user']->getUserType() ?>"
                                    class="stretched-link btn-block btn-link text-black-50 text-decoration-none">Actualizar</a>
                             </button>
                         </td>
                         <td>
-                            <form action="<?php echo FRONT_ROOT ?>JobOffer/deleteJobOffer">
-                                <button class="btn btn-outline-danger btn-lg" style="transform: rotate(0)" type="submit" name="idJobOffer"
-                                        value="<?php echo $jobOfferDTO->getIdJobOffer() ?>">
-                                    Eliminar
-                                </button>
-                            </form>
+                            <button class="btn btn-outline-danger btn-lg" style="transform: rotate(0)">
+                                <a class="stretched-link btn-block btn-link text-black-50 text-decoration-none"
+                                   href="<?php echo FRONT_ROOT ?>JobOffer/deleteJobOffer?idJobOffer=<?php echo $jobOfferDTO->getIdJobOffer() ?>&userType=<?php echo $_SESSION['user']->getUserType() ?>">Eliminar</a>
+                            </button>
+
                         </td>
                         <td>
                             <button class="btn btn-outline-primary btn-lg" style="transform: rotate(0)">
-                                <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferDetails?details=<?php echo $jobOfferDTO->getIdJobOffer() ?>"
-                                   class="stretched-link btn-block btn-link text-black-50 text-decoration-none">Ver Detalle</a>
+                                <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferDetails?idJobOffer=<?php echo $jobOfferDTO->getIdJobOffer() ?>&userType=<?php echo $_SESSION['user']->getUserType() ?>"
+                                   class="stretched-link btn-block btn-link text-black-50 text-decoration-none">Ver
+                                    Detalle</a>
                             </button>
                         </td></tr>
                         <?php

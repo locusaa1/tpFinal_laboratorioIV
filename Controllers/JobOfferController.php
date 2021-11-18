@@ -51,17 +51,38 @@ class JobOfferController
         return $jobOfferDTO;
     }
 
-    public function jobOfferDetails($details)
+    public function jobOfferDetails($idJobOffer, $userType)
     {
-
-        $studentController = new StudentController();
         $jobOfferDTO = new JobOfferDTO();
         $enterpriseController = new EnterpriseController();
-        $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($details);
+        $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($idJobOffer);
         $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
         $enterprise = $enterpriseController->getEnterpriseByCuit($jobOffer->getIdEnterprise());
-        $student = $studentController->getStudentByEmail($jobOfferDTO->getUserEmail());
-        require_once(VIEWS_PATH . 'AdminJobOfferDetails.php');
+
+        if (strcmp($userType, 'admin') == 0) {
+
+            require_once(VIEWS_PATH . 'AdminJobOfferDetails.php');
+        } else {
+
+            require_once(VIEWS_PATH . 'companyJobOfferDetails.php');
+        }
+    }
+
+    public function jobOfferListCompanyView($enterpriseName, $errorMessage = null, $message = null)
+    {
+        $enterpriseController = new EnterpriseController();
+        $enterprise = $enterpriseController->getEnterpriseByName($enterpriseName);
+        $jobOfferDTOList = array();
+
+        foreach ($this->jobOfferList() as $jobOffer) {
+
+            $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+            if (strcmp($jobOfferDTO->getEnterpriseName(), $enterpriseName) == 0) {
+
+                array_push($jobOfferDTOList, $jobOfferDTO);
+            }
+        }
+        require_once(VIEWS_PATH . 'companyJobOfferList.php');
     }
 
     public function jobOfferListView($errorMessage = null, $message = null)
@@ -81,16 +102,37 @@ class JobOfferController
         require_once(VIEWS_PATH . 'AdminJobOfferList.php');
     }
 
-    public function deleteJobOffer($idJobOffer)
+    public function generatePDFView($idJobOffer)
+    {
+        $applyController = new ApplyController();
+        $studentList = $applyController->getActiveApplyListByJobOffer($idJobOffer);
+        require_once (VIEWS_PATH.'generatePDFView.php');
+    }
+
+    public function deleteJobOffer($idJobOffer, $userType)
     {
         try {
 
             $this->jobOfferDAO->deleteJobOffer($idJobOffer);
             $message = 'La oferta fue eliminada con éxito';
-            $this->jobOfferListView(null, $message);
+            if ($userType == 'admin') {
+
+                $this->jobOfferListView(null, $message);
+            } else {
+
+                $this->jobOfferListCompanyView($_SESSION['user']->getName(), null, $message);
+            }
+
         } catch (Exception $exception) {
 
             $message = 'El proceso no fue completado';
+            if ($userType == 'admin') {
+
+                $this->jobOfferListView($message, null);
+            } else {
+
+                $this->jobOfferListCompanyView($_SESSION['user']->getName(), $message, null);
+            }
             throw $exception;
         }
 
@@ -110,45 +152,78 @@ class JobOfferController
             $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($update);
             $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
         }
-        require_once(VIEWS_PATH . 'AdminJobOfferForm.php');
+        require_once(VIEWS_PATH . 'JobOfferForm.php');
     }
 
-    public function jobOfferFormAction($idEnterprise, $idJobPosition, $startDate, $limitDate, $description, $salary, $idJobOffer, $action)
+    public function jobOfferFormAction($idEnterprise, $flyer, $idJobPosition, $startDate, $limitDate, $description, $salary, $idJobOffer, $userType, $action)
     {
         $message = null;
         $errorMessage = null;
+        try {
 
-        if ($limitDate >= date('Y-m-d')) {
-            $newJobOffer = new JobOffer();
+            if ($limitDate >= date('Y-m-d') or (strcmp($limitDate,'')==0 and $action=='update')) {
+                $newJobOffer = new JobOffer();
 
-            if ($action == 'update') {
+                $fileName = $flyer["name"];
+                $file = null;
+                $route = null;
+                if (strcmp('', $flyer['name']) != 0) {
 
-                $oldJobOffer = $this->jobOfferDAO->getSpecificJobOfferById($idJobOffer);
-                $newJobOffer->setIdJobOffer($idJobOffer);
-                $newJobOffer->setIdJobPosition($newId = (strcmp('', $idJobPosition) == 0) ? $oldJobOffer->getIdJobPosition() : $idJobPosition);
-                $newJobOffer->setIdEnterprise($newId = (strcmp('', $idEnterprise) == 0) ? $oldJobOffer->getIdEnterprise() : $idEnterprise);
-                $newJobOffer->setStartDate($newStartDate = (strcmp('', $startDate) == 0) ? $oldJobOffer->getStartDate() : $startDate);
-                $newJobOffer->setLimitDate($newLimitDate = (strcmp('', $limitDate) == 0) ? $oldJobOffer->getLimitDate() : $limitDate);
-                $newJobOffer->setDescription($newDescription = (strcmp('', $description) == 0) ? $oldJobOffer->getDescription() : $description);
-                $newJobOffer->setSalary($newSalary = (strcmp('', $salary) == 0) ? $oldJobOffer->getSalary() : $salary);
-                $this->jobOfferDAO->updateJobOffer($newJobOffer);
-                $message = 'La oferta laboral fue actualizada con éxito';
+                    $file = $flyer["tmp_name"];
+                    $type = $flyer["type"];
+                    $fileName = uniqid("doc") . $fileName;
+                    $route = UPLOADS_PATH . basename($fileName);
+                    if (!file_exists(UPLOADS_PATH)) {
+                        mkdir(UPLOADS_PATH, 0777, true);
+                    }
+                    move_uploaded_file($file, $route);
+                }
+                if ($action == 'update') {
+
+                    $oldJobOffer = $this->jobOfferDAO->getSpecificJobOfferById($idJobOffer);
+                    $newJobOffer->setIdJobOffer($idJobOffer);
+                    $newJobOffer->setIdJobPosition($newId = (strcmp('', $idJobPosition) == 0) ? $oldJobOffer->getIdJobPosition() : $idJobPosition);
+                    $newJobOffer->setIdEnterprise($newId = (strcmp('', $idEnterprise) == 0) ? $oldJobOffer->getIdEnterprise() : $idEnterprise);
+                    $newJobOffer->setStartDate($newStartDate = (strcmp('', $startDate) == 0) ? $oldJobOffer->getStartDate() : $startDate);
+                    $newJobOffer->setLimitDate($newLimitDate = (strcmp('', $limitDate) == 0) ? $oldJobOffer->getLimitDate() : $limitDate);
+                    $newJobOffer->setDescription($newDescription = (strcmp('', $description) == 0) ? $oldJobOffer->getDescription() : $description);
+                    $newJobOffer->setSalary($newSalary = (strcmp('', $salary) == 0) ? $oldJobOffer->getSalary() : $salary);
+                    $newJobOffer->setFlyer($newFlyer = (strcmp('', $flyer['name']) == 0) ? $oldJobOffer->getFlyer() : $route);
+                    $this->jobOfferDAO->updateJobOffer($newJobOffer);
+                    $message = 'La oferta laboral fue actualizada con éxito';
+                } else {
+
+                    $newJobOffer->setIdJobPosition($idJobPosition);
+                    $newJobOffer->setIdEnterprise($idEnterprise);
+                    $newJobOffer->setStartDate($startDate);
+                    $newJobOffer->setLimitDate($limitDate);
+                    $newJobOffer->setDescription($description);
+                    $newJobOffer->setSalary($salary);
+                    $newJobOffer->setFlyer($route);
+                    $this->jobOfferDAO->add($newJobOffer);
+                    $message = 'La oferta laboral fue creada con éxito';
+                }
+
+                if ($userType == 'admin') {
+
+                    $this->jobOfferListView(null, $message);
+                } else {
+
+                    $this->jobOfferListCompanyView($_SESSION['user']->getName(), null, $message);
+                }
             } else {
 
-                $newJobOffer->setIdJobPosition($idJobPosition);
-                $newJobOffer->setIdEnterprise($idEnterprise);
-                $newJobOffer->setStartDate($startDate);
-                $newJobOffer->setLimitDate($limitDate);
-                $newJobOffer->setDescription($description);
-                $newJobOffer->setSalary($salary);
-                $this->jobOfferDAO->add($newJobOffer);
-                $message = 'La oferta laboral fue creada con éxito';
-            }
-            $this->jobOfferListView(null, $message);
-        } else {
+                $errorMessage = 'La fecha limite para crear una oferta laboral debe ser como mínimo hoy!';
+                if ($userType == 'admin') {
 
-            $errorMessage = 'La fecha limite para crear una oferta laboral debe ser como mínimo hoy!';
-            $this->jobOfferListView($errorMessage, null);
+                    $this->jobOfferListView($errorMessage, null);
+                } else {
+
+                    $this->jobOfferListCompanyView($_SESSION['user']->getName(), $errorMessage, null);
+                }
+            }
+        } catch (Exception $exception) {
+
         }
     }
 
@@ -344,7 +419,7 @@ class JobOfferController
         $applyController = new ApplyController();
         $applicationFlag = $applyController->verifyIfStudentAlreadyApplyToOffer($userId, $jobOfferId);
 
-        if ($jobOfferCareer->getIdCareer() == $studentCareerId && $applicationFlag==false) {
+        if ($jobOfferCareer->getIdCareer() == $studentCareerId && $applicationFlag == false) {
             try {
 
                 $fileName = $resume["name"];
@@ -359,7 +434,6 @@ class JobOfferController
                 $apply->setCoverLetter($coverLetter);
                 $apply->setResume($route);
                 $apply->setBanStatus(0);
-
                 if (!file_exists(UPLOADS_PATH)) {
                     mkdir(UPLOADS_PATH, 0777, true);
                     if (file_exists(UPLOADS_PATH)) {
@@ -397,12 +471,10 @@ class JobOfferController
     {
         $jobOffer = $this->jobOfferById($idJobOffer);
         $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
-
-        $message = "Hola " . $_SESSION['user']->getName() . "!" . "\n\n" . 
-        "Hemos recibido con éxito tu postulación para " . $jobOfferDTO->getJobPositionDescription() . ".\n".
-        "Desde el área de Recursos Humanos estarán analizando tu perfil.\n\n" . 
-        "Muchas gracias de parte de todo el equipo de " . $jobOfferDTO->getEnterpriseName() . ".";
-        
+        $message = "Hola " . $_SESSION['user']->getName() . "!" . "\n\n" .
+            "Hemos recibido con éxito tu postulación para " . $jobOfferDTO->getJobPositionDescription() . ".\n" .
+            "Desde el área de Recursos Humanos estarán analizando tu perfil.\n\n" .
+            "Muchas gracias de parte de todo el equipo de " . $jobOfferDTO->getEnterpriseName() . ".";
         return $message;
     }
 
@@ -411,14 +483,14 @@ class JobOfferController
         $jobOfferList = $this->jobOfferList();
 
         $applyController = new ApplyController();
-        $jobOfferIdList= $applyController->getJobOffersIdByStudentApplications ();
+        $jobOfferIdList = $applyController->getJobOffersIdByStudentApplications();
 
         $studentApplications = array();
 
         foreach ($jobOfferList as $jobOffer) {
 
-            foreach($jobOfferIdList as $id){
-                
+            foreach ($jobOfferIdList as $id) {
+
                 if ($jobOffer->getIdJobOffer() == $id) {
                     array_push($studentApplications, $this->generateJobOfferDTO($jobOffer));
                 }
@@ -431,12 +503,12 @@ class JobOfferController
     public function getJobOffersByCompanyName()
     {
         $enterpriseController = new EnterpriseController();
-        $enterprise = $enterpriseController->getEnterpriseByName ($_SESSION['user']->getName());
+        $enterprise = $enterpriseController->getEnterpriseByName($_SESSION['user']->getName());
 
         $companyJobOfferList = array();
 
-        foreach ($this->jobOfferList() as $jobOffer){
-            if($jobOffer->getIdEnterprise()==$enterprise->getIdEnterprise()){
+        foreach ($this->jobOfferList() as $jobOffer) {
+            if ($jobOffer->getIdEnterprise() == $enterprise->getIdEnterprise()) {
                 array_push($companyJobOfferList, $jobOffer);
             }
         }

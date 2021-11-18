@@ -19,11 +19,12 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
 
             $query = "insert into " .
                 $this->tableName .
-                "(id_enterprise, name, cuit, phone_number, address_name, address_number, image)
-                values (:id_enterprise, :name, :cuit, :phone_number, :address_name, :address_number, :image);";
+                "(id_enterprise, name, email, cuit, phone_number, address_name, address_number, image)
+                values (:id_enterprise, :name, :email, :cuit, :phone_number, :address_name, :address_number, :image);";
 
             $parameters['id_enterprise'] = $enterprise->getIdEnterprise();
             $parameters['name'] = $enterprise->getName();
+            $parameters['email'] = $enterprise->getEmail();
             $parameters['cuit'] = $enterprise->getCuit();
             $parameters['phone_number'] = $enterprise->getPhoneNumber();
             $parameters['address_name'] = $enterprise->getAddressName();
@@ -94,6 +95,7 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
             $query = "update " . $this->tableName . " set " .
                 "id_enterprise = '" . $newEnterprise->getIdEnterprise() . "',
                 name = '" . $newEnterprise->getName() . "',
+                email ='" . $newEnterprise->getEmail() . "',
                 cuit = '" . $newEnterprise->getCuit() . "',
                 phone_number = '" . $newEnterprise->getPhoneNumber() . "',
                 address_name = '" . $newEnterprise->getAddressName() . "',
@@ -126,6 +128,7 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
 
                 $enterprise->setIdEnterprise($resultSet[0]['id_enterprise']);
                 $enterprise->setName($resultSet[0]['name']);
+                $enterprise->setEmail($resultSet[0]['email']);
                 $enterprise->setCuit($resultSet[0]['cuit']);
                 $enterprise->setPhoneNumber($resultSet[0]['phone_number']);
                 $enterprise->setAddressName($resultSet[0]['address_name']);
@@ -143,11 +146,11 @@ class EnterpriseDB_DAO implements IEnterpriseDAO
     {
         $enterpriseList = $this->getAll();
         $enterpriseFound = null;
-        if (!empty($enterpriseList)){
+        if (!empty($enterpriseList)) {
 
-            foreach ($enterpriseList as $enterprise){
+            foreach ($enterpriseList as $enterprise) {
 
-                if ($enterprise->getIdEnterprise() == $id){
+                if ($enterprise->getIdEnterprise() == $id) {
 
                     $enterpriseFound = $enterprise;
                 }
