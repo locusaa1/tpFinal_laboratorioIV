@@ -44,7 +44,18 @@
          <p class="searchPicture"></p>
             <a href="<?php echo FRONT_ROOT ?>jobOffer/jobOfferListCompanyView?enterpriseName=<?php echo $loggedUser->getName()?>">Ofertas Laborales</a>
         </section>            
-    </div>   
+    </div>
+    <section>
+        <?php
+        if($expiredOffers>0){
+            ?>
+            
+            <a class="expiredOffers" href="<?php echo FRONT_ROOT ?>jobOffer/jobOfferListCompanyView?enterpriseName=<?php echo $loggedUser->getName()?>">Usted tiene<?php echo " " . $expiredOffers . " "?> oferta/as vencida/as. Debe actualizar o eliminar la misma.</a>
+           
+           <?php
+        }
+       ?>
+    </section>   
 </main>
 <?php
     require_once ('companies.php');

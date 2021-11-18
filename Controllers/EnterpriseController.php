@@ -8,6 +8,7 @@ use Models\Enterprise as Enterprise;
 use Exception as Exception;
 use Models\User as User;
 use Controllers\UserController as UserController;
+use Controllers\JobOfferController as JobOfferController;
 
 class EnterpriseController
 {
@@ -198,6 +199,18 @@ class EnterpriseController
     public function companyView()
     {
         $enterprise = $this->enterpriseDB->GetByName($_SESSION['user']->getName());
+
+        $jobOfferController = new JobOfferController();
+        $companyJobOfferList = $jobOfferController->getJobOffersByCompanyName();
+
+        $expiredOffers = 0;
+
+        foreach ($companyJobOfferList as $jobOffer){
+            if($jobOffer->getLimitDate() < date('Y-m-d')){
+                $expiredOffers++;
+            }
+        }
+
         require_once(VIEWS_PATH . "companyView.php");
     }
 
