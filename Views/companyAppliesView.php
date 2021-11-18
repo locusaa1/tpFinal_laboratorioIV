@@ -20,7 +20,7 @@
 <main class="">
    <section class="hello-Bg">
         <div class="hello">
-            <p>Aplicaciones</p>
+            <p>Ofertas Laborales y Postulados</p>
         </div>
     </section>
    
@@ -115,7 +115,7 @@
                     <p class="offerData">Postulados activos</p> 
                     <p class="offerDataAnswerDate"><?php echo $jobOfferApplies->getActiveApplications()?></p>
                     <p class="offerData"></p>
-                    <a class="applyButton" href="<?php echo FRONT_ROOT ?>Apply/companyJobOfferAppliesDetails?idJobOffer=<?php echo $jobOfferApplies->getIdJobOffer()?>">Ver detalle</a>
+                    <a class="applyButton" href="<?php echo FRONT_ROOT ?>Apply/companyJobOfferAppliesDetails?idJobOffer=<?php echo $jobOfferApplies->getIdJobOffer()?>&flag=<?php echo false?>">Ver detalle</a>
                     <br>
                 </div> 
                <?php 
@@ -129,6 +129,10 @@
         ?>  
     <br><br>
     </section>
+    <section>
+        <br><br>
+        <a class="backButton" href="<?php echo FRONT_ROOT ?>Enterprise/companyView">Volver</a>
+    </section> 
 </main>
 <?php
 require_once ('companies.php');

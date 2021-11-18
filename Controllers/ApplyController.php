@@ -251,7 +251,7 @@ class ApplyController
 
     }
 
-    public function companyJobOfferAppliesDetails ($idJobOffer)
+    public function companyJobOfferAppliesDetails ($idJobOffer, $flag)
     {
         $studentController = new StudentController();
         $jobOfferController = new JobOfferController();
@@ -279,25 +279,36 @@ class ApplyController
         $activeAppliesList = array();
         $notActiveAppliesList = array();
 
-        foreach ($studentAppliesDTOList as $applyDTO){
-            if($applyDTO->getBanStatus()==0){
-                array_push($activeAppliesList, $applyDTO);
-            }else{
-                array_push($notActiveAppliesList, $applyDTO);
+        if($flag){
+            foreach ($studentAppliesDTOList as $applyDTO){
+                if($applyDTO->getBanStatus()==0){
+                    array_push($activeAppliesList, $applyDTO);
+                }else{
+                    array_push($notActiveAppliesList, $applyDTO);
+                }
+            }
+        }else{
+            foreach ($studentAppliesDTOList as $applyDTO){
+                if($applyDTO->getBanStatus()==0){
+                    array_push($activeAppliesList, $applyDTO);
+                }
             }
         }
+        
 
         require_once(VIEWS_PATH . "companyAppliesByJobOffer.php");
 
     }
 
-    public function dismissApplicationByCompany ($idApply, $idJobOffer)
+    public function dismissApplicationByCompany ($idApply, $idJobOffer, $flag)
     {
         $this->applyDAO->updateApplyBanStatusTo1 ($idApply);
 
-        $this->companyJobOfferAppliesDetails($idJobOffer);
-
         mail($_SESSION['user']->getEmail(), "Información acerca de tu proceso de selección", $this->generateDismissApplicationMessageByCompany($idJobOffer));
+
+        $this->companyJobOfferAppliesDetails($idJobOffer, $flag);
+
+       
 
     }
 

@@ -20,43 +20,9 @@
 <main class="">
    <section class="hello-Bg">
         <div class="hello">
-            <p>Detalle de las postulaciones</p>
+            <p>Postulaciones</p>
         </div>
     </section>
-    <p>
-        <?php
-        if(!empty($_GET['noCareerCoincidence']))
-        {
-        ?>
-            <div class="rejectionMessaje">
-                <?php echo 'Su carrera no está autorizada para aplicar a la oferta'?>
-            </div>
-            <?php
-            unset($_GET['noCareerCoincidence']);
-        } 
-
-        if(!empty($_GET['alreadyApplied']))
-        {
-        ?>
-            <div class="rejectionMessaje">
-                <?php echo 'Usted ya aplicó a esta oferta laboral.'?>
-            </div>
-            <?php
-            unset($_GET['alreadyApplied']);
-        } 
-
-        if(!empty($_GET['successfulApplication']))
-        {
-        ?>
-            <div class="rejectionMessaje">
-                <?php echo 'Su aplicación ha sido exitosa'?>
-            </div>
-            <?php
-            unset($_GET['successfulApplication']);
-        } 
-        
-        ?>
-    </p>
     <section class="">
         <?php    
         if(!empty($jobOfferAppliesDTO)){
@@ -82,13 +48,13 @@
                     <br> 
                 </div>
                     <br><br> 
-
+                    <h2 class="titleMessaje">Postulaciones Activas</h2>
                 <?php
                 if(!empty($activeAppliesList)){
                     foreach ($activeAppliesList as $studentAppliedDTO)
                     {
                     ?>
-                    <h2 class="titleMessaje">Postulaciones Activas</h2>
+                    
                     <br><br> 
                     <div class="companyAppliesListContainer">
                         <br>
@@ -103,18 +69,33 @@
                         <p class="offerData">Currículum Vitae</p> 
                         <a href="../<?php echo $studentAppliedDTO->getResume()?> ?>" class="downloadButton" download="">Descargar CV</a>
                         <br>
-                        <a class="applyButton" href="<?php echo FRONT_ROOT ?>Apply/dismissApplicationByCompany?idApply=<?php echo $studentAppliedDTO->getIdApply()?>&idJobOffer=<?php echo $studentAppliedDTO->getIdJobOffer()?>">Desestimar aplicación</a>
+                        <a class="applyButton" href="<?php echo FRONT_ROOT ?>Apply/dismissApplicationByCompany?idApply=<?php echo $studentAppliedDTO->getIdApply()?>&idJobOffer=<?php echo $studentAppliedDTO->getIdJobOffer()?>&flag=<?php echo false?>">Desestimar aplicación</a>
                         <br>
                     </div>    
                     <?php
                     }
+                }else{
+                    ?>
+                    <div class="backButton">
+                    <?php echo 'No hay postulaciones activas en esta oferta'?>
+                    </div>
+                    <?php
                 }
-
+                ?>
+                <br><br>
+                <h2 class="titleMessaje">Postulaciones Desestimadas</h2>
+                <?php
+                if($flag==false){
+                    ?>
+                     <a class="backButton" href="<?php echo FRONT_ROOT ?>Apply/companyJobOfferAppliesDetails?idJobOffer=<?php echo $jobOfferAppliesDTO->getIdJobOffer()?>&flag=<?php echo true?>">Ver</a>
+                    <?php
+                    }
+                if($flag){
                 if(!empty($notActiveAppliesList)){
                     foreach ($notActiveAppliesList as $studentAppliedDTO)
                     {
                     ?>
-                    <h2 class="titleMessaje">Postulaciones Inactivas</h2>
+                    
                     <br><br> 
                     <div class="companyAppliesListContainer">
                         <br>
@@ -132,13 +113,22 @@
                     </div>    
                     <?php
                     }
+                }else{
+                    ?>
+                    <div class="backButton">
+                    <?php echo 'No hay postulaciones desestimadas en esta oferta'?>
+                    </div>
+                    <?php
                 }
                 
+        
+            }
         }
+        
         ?>  
     </section>
     <section>
-        <br><br>
+        <br><br><br>
         <a class="backButton" href="<?php echo FRONT_ROOT ?>Apply/jobOfferWithAppliesCompanyView">Volver</a>
     </section>   
 </main>
