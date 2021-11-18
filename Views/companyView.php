@@ -42,7 +42,7 @@
         </section> 
         <section class="searchStudentContainer">
          <p class="searchPicture"></p>
-            <a href="#">Ofertas Laborales</a>
+            <a href="<?php echo FRONT_ROOT ?>jobOffer/jobOfferListCompanyView?enterpriseName=<?php echo $loggedUser->getName()?>">Ofertas Laborales</a>
         </section>            
     </div>   
 </main>

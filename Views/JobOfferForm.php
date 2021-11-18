@@ -1,10 +1,20 @@
 <?php
+if (!isset($_SESSION['user'])) {
+
+    require_once(VIEWS_PATH . "index.php");
+}
+
+if (isset($_SESSION['user'])) {
+
+    if ($_SESSION['user']->getUserType() == "student") {
+        require_once(VIEWS_PATH . "index.php");
+    }
+
+}
+
 require_once('title.php');
 require_once('nav.php');
 
-use Utility\AdminUtility as AdminUtility;
-
-AdminUtility::checkSessionStatus($_SESSION['user']);
 
 ?>
 <main class="">
@@ -13,7 +23,9 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
             <p>Ofertas laborales</p>
         </div>
     </section>
-    <?php require_once('adminNav.php'); ?>
+    <?php if ($_SESSION['user']->getUserType()=='admin') {
+        require_once('adminNav.php');
+    }?>
     <div class="row ml-3 mr-3">
         <div class="col w-100">
             <div class="card bg-info">
@@ -76,6 +88,7 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
                                     <label for="salary">Salario: $</label><br>
                                     <input class="form-control form-control-lg" <?php if(!isset($jobOfferDTO)){echo 'required';} ?> name="salary" type="number" placeholder="<?php echo $message = (isset($jobOfferDTO))? $jobOfferDTO->getSalary():''?>"><br>
                                     <input type="hidden" name="idJobOffer" value="<?php echo $idJobOffer = (isset($jobOfferDTO))? $jobOfferDTO->getIdJobOffer():''?>">
+                                    <input type="hidden" name="userType" value="<?php echo $_SESSION['user']->getUserType() ?>">
                                     <button class="btn btn-success btn-lg btn-block" type="submit" name="action" value="<?php echo $message = (isset($jobOfferDTO))? 'update':'create'?>"><?php echo $message = (isset($jobOfferDTO))? 'Actualizar':'Crear'?></button>
                                     <button class="btn btn-dark btn-lg btn-block" type="reset">Refrescar</button>
                                 </div>

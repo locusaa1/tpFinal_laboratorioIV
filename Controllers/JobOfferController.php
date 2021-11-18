@@ -51,17 +51,41 @@ class JobOfferController
         return $jobOfferDTO;
     }
 
-    public function jobOfferDetails($details)
+    public function jobOfferDetails($idJobOffer, $userType)
     {
 
-        $studentController = new StudentController();
+        $applyController = new ApplyController();
         $jobOfferDTO = new JobOfferDTO();
         $enterpriseController = new EnterpriseController();
-        $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($details);
+        $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($idJobOffer);
         $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
         $enterprise = $enterpriseController->getEnterpriseByCuit($jobOffer->getIdEnterprise());
-        $student = $studentController->getStudentByEmail($jobOfferDTO->getUserEmail());
-        require_once(VIEWS_PATH . 'AdminJobOfferDetails.php');
+        $studentList = $applyController->getActiveApplyListByJobOffer($jobOffer->getIdJobOffer());
+
+        if (strcmp($userType, 'admin') == 0) {
+
+            require_once(VIEWS_PATH . 'AdminJobOfferDetails.php');
+        } else {
+
+            require_once(VIEWS_PATH . 'companyJobOfferDetails.php');
+        }
+    }
+
+    public function jobOfferListCompanyView($enterpriseName, $errorMessage = null, $message = null)
+    {
+        $enterpriseController = new EnterpriseController();
+        $enterprise = $enterpriseController->getEnterpriseByName($enterpriseName);
+        $jobOfferDTOList = array();
+
+        foreach ($this->jobOfferList() as $jobOffer) {
+
+            $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+            if (strcmp($jobOfferDTO->getEnterpriseName(), $enterpriseName) == 0) {
+
+                array_push($jobOfferDTOList, $jobOfferDTO);
+            }
+        }
+        require_once(VIEWS_PATH . 'companyJobOfferList.php');
     }
 
     public function jobOfferListView($errorMessage = null, $message = null)
@@ -81,16 +105,30 @@ class JobOfferController
         require_once(VIEWS_PATH . 'AdminJobOfferList.php');
     }
 
-    public function deleteJobOffer($idJobOffer)
+    public function deleteJobOffer($idJobOffer, $userType)
     {
         try {
 
             $this->jobOfferDAO->deleteJobOffer($idJobOffer);
             $message = 'La oferta fue eliminada con éxito';
-            $this->jobOfferListView(null, $message);
+            if ($userType == 'admin') {
+
+                $this->jobOfferListView(null, $message);
+            } else {
+
+                $this->jobOfferListCompanyView($_SESSION['user']->getName(), null, $message);
+            }
+
         } catch (Exception $exception) {
 
             $message = 'El proceso no fue completado';
+            if ($userType == 'admin') {
+
+                $this->jobOfferListView($message, null);
+            } else {
+
+                $this->jobOfferListCompanyView($_SESSION['user']->getName(), $message, null);
+            }
             throw $exception;
         }
 
@@ -110,16 +148,16 @@ class JobOfferController
             $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($update);
             $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
         }
-        require_once(VIEWS_PATH . 'AdminJobOfferForm.php');
+        require_once(VIEWS_PATH . 'JobOfferForm.php');
     }
 
-    public function jobOfferFormAction($idEnterprise, $flyer, $idJobPosition, $startDate, $limitDate, $description, $salary, $idJobOffer, $action)
+    public function jobOfferFormAction($idEnterprise, $flyer, $idJobPosition, $startDate, $limitDate, $description, $salary, $idJobOffer, $userType, $action)
     {
         $message = null;
         $errorMessage = null;
         try {
 
-            if ($limitDate >= date('Y-m-d')) {
+            if ($limitDate >= date('Y-m-d') or (strcmp($limitDate,'')==0 and $action=='update')) {
                 $newJobOffer = new JobOffer();
 
                 $fileName = $flyer["name"];
@@ -146,7 +184,7 @@ class JobOfferController
                     $newJobOffer->setLimitDate($newLimitDate = (strcmp('', $limitDate) == 0) ? $oldJobOffer->getLimitDate() : $limitDate);
                     $newJobOffer->setDescription($newDescription = (strcmp('', $description) == 0) ? $oldJobOffer->getDescription() : $description);
                     $newJobOffer->setSalary($newSalary = (strcmp('', $salary) == 0) ? $oldJobOffer->getSalary() : $salary);
-                    $newJobOffer->setFlyer($newFlyer = (strcmp('', $flyer) == 0) ? $oldJobOffer->getFlyer() : $route);
+                    $newJobOffer->setFlyer($newFlyer = (strcmp('', $flyer['name']) == 0) ? $oldJobOffer->getFlyer() : $route);
                     $this->jobOfferDAO->updateJobOffer($newJobOffer);
                     $message = 'La oferta laboral fue actualizada con éxito';
                 } else {
@@ -161,11 +199,24 @@ class JobOfferController
                     $this->jobOfferDAO->add($newJobOffer);
                     $message = 'La oferta laboral fue creada con éxito';
                 }
-                $this->jobOfferListView(null, $message);
+
+                if ($userType == 'admin') {
+
+                    $this->jobOfferListView(null, $message);
+                } else {
+
+                    $this->jobOfferListCompanyView($_SESSION['user']->getName(), null, $message);
+                }
             } else {
 
                 $errorMessage = 'La fecha limite para crear una oferta laboral debe ser como mínimo hoy!';
-                $this->jobOfferListView($errorMessage, null);
+                if ($userType == 'admin') {
+
+                    $this->jobOfferListView($errorMessage, null);
+                } else {
+
+                    $this->jobOfferListCompanyView($_SESSION['user']->getName(), $errorMessage, null);
+                }
             }
         } catch (Exception $exception) {
 
@@ -416,10 +467,10 @@ class JobOfferController
     {
         $jobOffer = $this->jobOfferById($idJobOffer);
         $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
-        $message = "Hola " . $_SESSION['user']->getName() . "!" . "\n\n" . 
-        "Hemos recibido con éxito tu postulación para " . $jobOfferDTO->getJobPositionDescription() . ".\n".
-        "Desde el área de Recursos Humanos estarán analizando tu perfil.\n\n" . 
-        "Muchas gracias de parte de todo el equipo de " . $jobOfferDTO->getEnterpriseName() . ".";
+        $message = "Hola " . $_SESSION['user']->getName() . "!" . "\n\n" .
+            "Hemos recibido con éxito tu postulación para " . $jobOfferDTO->getJobPositionDescription() . ".\n" .
+            "Desde el área de Recursos Humanos estarán analizando tu perfil.\n\n" .
+            "Muchas gracias de parte de todo el equipo de " . $jobOfferDTO->getEnterpriseName() . ".";
         return $message;
     }
 

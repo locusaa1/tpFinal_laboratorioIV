@@ -24,9 +24,35 @@ class ApplyController
         return $this->applyDAO->getAllFromDB();
     }
 
-    public function GetApplyListByJobOffer($idJobOffer)
+    public function getActiveApplyListByJobOffer($idJobOffer)
     {
-        
+        $jobOfferController = new JobOfferController();
+        $studentController = new StudentController();
+        $jobOffer = $jobOfferController->jobOfferById($idJobOffer);
+        $jobOfferApplies = array();
+        $studentAppliesDTOList = array();
+        $activeList = array();
+
+        foreach ($this->GetApplyList() as $apply){
+
+            if ($apply->getIdJobOffer() == $idJobOffer){
+
+                array_push($jobOfferApplies, $apply);
+            }
+        }
+        foreach ($jobOfferApplies as $apply){
+
+            $studentApplyDTO = $studentController->generateStudentApplicationDTO($apply->getIdApply(), $idJobOffer, $apply->getIdUser(), $apply->getCoverLetter(), $apply->getResume(),$apply->getBanStatus());
+            array_push($studentAppliesDTOList, $studentApplyDTO);
+        }
+        foreach ($studentAppliesDTOList as $studentAppliesDTO){
+
+            if ($studentAppliesDTO->getBanStatus()==0){
+
+                array_push($activeList, $studentAppliesDTO);
+            }
+        }
+        return $activeList;
     }
 
     public function generateNewApply (Apply $apply)
@@ -100,12 +126,12 @@ class ApplyController
     {
         $careerController = new CareerController();
         $careerList = $careerController->careerList();
-        
+
         $jobPositionController = new JobPositionController();
         $jobPositionList = $jobPositionController->jobPositionList();
 
         $jobPositionFilterByCompanyList = array();
-        
+
         $jobOfferController = new JobOfferController();
         $companyJobOfferList = $jobOfferController->getJobOffersByCompanyName();
 
@@ -204,12 +230,12 @@ class ApplyController
 
         $careerController = new CareerController();
         $careerList = $careerController->careerList();
-        
+
         $jobPositionController = new JobPositionController();
         $jobPositionList = $jobPositionController->jobPositionList();
 
         $jobPositionFilterByCompanyList = array();
-        
+
         $jobOfferController = new JobOfferController();
         $companyJobOfferList = $jobOfferController->getJobOffersByCompanyName();
 
@@ -231,7 +257,7 @@ class ApplyController
         $jobOfferController = new JobOfferController();
         $jobOffer = $jobOfferController->jobOfferById($idJobOffer);
         $jobOfferAppliesDTO= $this->generateJobOfferAppliesDTO($jobOffer);
-        
+
         $jobOfferApplies = array();
 
         foreach ($this->GetApplyList() as $apply){
@@ -269,8 +295,8 @@ class ApplyController
     {
         $this->applyDAO->updateApplyBanStatusTo1 ($idApply);
 
-        $this->companyJobOfferAppliesDetails($idJobOffer); 
-        
+        $this->companyJobOfferAppliesDetails($idJobOffer);
+
         mail($_SESSION['user']->getEmail(), "Información acerca de tu proceso de selección", $this->generateDismissApplicationMessageByCompany($idJobOffer));
 
     }
@@ -296,10 +322,10 @@ class ApplyController
             if($apply->getIdJobOffer()==$idJobOffer){
                 $this->applyDAO->updateApplyBanStatusTo1 ($apply->getIdApply());
             }
-        } 
+        }
 
         mail($_SESSION['user']->getEmail(), "Información acerca de tu proceso de selección", $this->generateDismissApplicationMessageByStudent($idJobOffer));
-        
+
         $studentController = new StudentController();
         $studentController->StudentApplyView();
 
@@ -312,11 +338,11 @@ class ApplyController
         $jobOffer = $jobOfferController->jobOfferById($idJobOffer);
         $jobOfferDTO = $jobOfferController->generateJobOfferDTO($jobOffer);
 
-        $message = "Hola!" . "\n\n" . 
+        $message = "Hola!" . "\n\n" .
         "Te agradecemos que hayas aplicado con nosotros para el puesto de " . $jobOfferDTO->getJobPositionDescription() . ".\n".
-        "Por el momento no vamos a continuar con tu proceso. Mantendremos tu información en nuestra plataforma para considerarte en futuras oportunidades.\n\n" . 
+        "Por el momento no vamos a continuar con tu proceso. Mantendremos tu información en nuestra plataforma para considerarte en futuras oportunidades.\n\n" .
         "Te enviamos un cordial saludo de parte de todo el equipo de " . $jobOfferDTO->getEnterpriseName() . ".";
-        
+
         return $message;
     }
 
@@ -327,10 +353,10 @@ class ApplyController
         $jobOffer = $jobOfferController->jobOfferById($idJobOffer);
         $jobOfferDTO = $jobOfferController->generateJobOfferDTO($jobOffer);
 
-        $message = "Hola " . $_SESSION['user']->getName() . "!" . "\n\n" . 
+        $message = "Hola " . $_SESSION['user']->getName() . "!" . "\n\n" .
         "Se ha cancelado tu aplicación para el puesto de " . $jobOfferDTO->getJobPositionDescription() . ".\n\n" .
         "Te enviamos un cordial saludo de parte del equipo de la UTN.";
-        
+
         return $message;
     }
 }
