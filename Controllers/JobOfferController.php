@@ -53,14 +53,11 @@ class JobOfferController
 
     public function jobOfferDetails($idJobOffer, $userType)
     {
-
-        $applyController = new ApplyController();
         $jobOfferDTO = new JobOfferDTO();
         $enterpriseController = new EnterpriseController();
         $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($idJobOffer);
         $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
         $enterprise = $enterpriseController->getEnterpriseByCuit($jobOffer->getIdEnterprise());
-        $studentList = $applyController->getActiveApplyListByJobOffer($jobOffer->getIdJobOffer());
 
         if (strcmp($userType, 'admin') == 0) {
 
@@ -103,6 +100,13 @@ class JobOfferController
             array_push($jobOfferDTOList, $jobOfferDTO);
         }
         require_once(VIEWS_PATH . 'AdminJobOfferList.php');
+    }
+
+    public function generatePDFView($idJobOffer)
+    {
+        $applyController = new ApplyController();
+        $studentList = $applyController->getActiveApplyListByJobOffer($idJobOffer);
+        require_once (VIEWS_PATH.'generatePDFView.php');
     }
 
     public function deleteJobOffer($idJobOffer, $userType)

@@ -47,6 +47,14 @@ include_once('nav.php');
                             echo '<p>' . $jobOfferDTO->getDescription() . '</p>';
                             ?>
                         </div>
+                        <div class="card-body">
+                            <?php
+                            echo 'Genere el pdf con los alumnos postulados:';
+                            ?>
+                            <button class="btn btn-dark btn-lg btn-block" type="reset">
+                                <a target="_blank" rel="noopener noreferrer" href="<?php echo FRONT_ROOT ?>/JobOffer/generatePDFView?idJobOffer=<?php echo $jobOfferDTO->getIdJobOffer() ?>">Generar</a>
+                            </button>
+                        </div>
                     </div>
 
                 </div>
