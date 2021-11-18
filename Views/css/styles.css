@@ -977,6 +977,7 @@ align-items: center;
     text-align: center;
     margin-left: 65rem;
     margin-right: 65rem;
+    width: 700px;
 }
 
 .companyAppliesListContainer
@@ -1003,3 +1004,4 @@ align-items: center;
     margin-right: 6rem;
     
 }
+
