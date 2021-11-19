@@ -83,5 +83,20 @@ class ApplyDAO implements IApplyDAO
         }
     }
 
+    public function deleteApply($idApply)
+    {
+        try {
+
+            $query = "delete from " . $this->tableName . " where id_apply ='" . $idApply . "';";
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query);
+        } catch (Exception $exception) {
+
+            throw $exception;
+        }
+    }
+
 }
 ?>
