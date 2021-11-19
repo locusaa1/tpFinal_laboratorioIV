@@ -370,6 +370,26 @@ class ApplyController
 
         return $message;
     }
+
+    public function deleteApply ($idApply)
+    {
+        $this->applyDAO->deleteApply($idApply);
+    }
+
+    public function generateCloseApplicationMessageByCompany ($idJobOffer)
+    {
+        $jobOfferController = new JobOfferController();
+
+        $jobOffer = $jobOfferController->jobOfferById($idJobOffer);
+        $jobOfferDTO = $jobOfferController->generateJobOfferDTO($jobOffer);
+
+        $message = "Hola!" . "\n\n" .
+        "Te agradecemos que hayas aplicado con nosotros para el puesto de " . $jobOfferDTO->getJobPositionDescription() . ".\n".
+        "Culminó la etapa de postulaciones. En caso de continuar con el proceso de selección nos estaremos comunicando con vos.\n\n" .
+        "Te enviamos un cordial saludo de parte de todo el equipo de " . $jobOfferDTO->getEnterpriseName() . ".";
+
+        return $message;
+    }
 }
 
 ?>

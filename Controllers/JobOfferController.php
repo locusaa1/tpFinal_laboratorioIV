@@ -112,6 +112,21 @@ class JobOfferController
     public function deleteJobOffer($idJobOffer, $userType)
     {
         try {
+            $applyController = new ApplyController();
+            $applyList = $applyController->GetApplyList();
+
+            $userController = new UserController();
+
+
+            foreach ($applyList as $apply){
+                if($apply->getIdJobOffer()==$idJobOffer){
+                    if($apply->getBanStatus()==0){
+                        mail($userController->getUserEmailById($apply->getIdUser()), "Información acerca de tu proceso de selección", $applyController->generateCloseApplicationMessageByCompany($idJobOffer));
+                    }
+                    $applyController->deleteApply($apply->getIdApply());
+                    
+                }
+            }
 
             $this->jobOfferDAO->deleteJobOffer($idJobOffer);
             $message = 'La oferta fue eliminada con éxito';
