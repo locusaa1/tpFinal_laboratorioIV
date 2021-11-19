@@ -300,13 +300,38 @@ class ApplyController
 
     }
 
-    public function dismissApplicationByCompany ($idApply, $idJobOffer, $flag)
+
+    public function getSpecificApplyById($idApply)
+    {
+        $apply = null;
+        foreach ($this->GetApplyList() as $specificApply){
+
+            if ($apply->getIdAppy == $idApply){
+
+                $apply = $specificApply;
+            }
+        }
+        return $apply;
+    }
+
+    public function dismissApplicationByCompany ($idApply, $idJobOffer, $userType)
     {
         $this->applyDAO->updateApplyBanStatusTo1 ($idApply);
+        $userController = new UserController();
+        $apply = $this->getSpecificApplyById($idApply);
+        $email = $userController->getUserEmailById($apply->getIdUser());
+        mail($email, "Información acerca de tu proceso de selección", $this->generateDismissApplicationMessageByCompany($idJobOffer));
 
-        mail($_SESSION['user']->getEmail(), "Información acerca de tu proceso de selección", $this->generateDismissApplicationMessageByCompany($idJobOffer));
 
-        $this->companyJobOfferAppliesDetails($idJobOffer, $flag);
+        if ($userType == 'company'){
+
+            $this->companyJobOfferAppliesDetails($idJobOffer);
+        }else {
+
+            $jobOfferController = new JobOfferController();
+            $jobOfferController->jobOfferDetails($idJobOffer, $userType);
+        }
+
 
        
 

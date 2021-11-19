@@ -58,6 +58,8 @@ class JobOfferController
         $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($idJobOffer);
         $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
         $enterprise = $enterpriseController->getEnterpriseByCuit($jobOffer->getIdEnterprise());
+        $applyController = new ApplyController();
+        $studentList = $applyController->getActiveApplyListByJobOffer($idJobOffer);
 
         if (strcmp($userType, 'admin') == 0) {
 
@@ -105,8 +107,12 @@ class JobOfferController
     public function generatePDFView($idJobOffer)
     {
         $applyController = new ApplyController();
+        $enterpriseController = new EnterpriseController();
         $studentList = $applyController->getActiveApplyListByJobOffer($idJobOffer);
-        require_once (VIEWS_PATH.'generatePDFView.php');
+        $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($idJobOffer);
+        $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);
+        $enterprise = $enterpriseController->getEnterpriseByName($jobOfferDTO->getEnterpriseName());
+        require_once(VIEWS_PATH . 'generatePDFView.php');
     }
 
     public function deleteJobOffer($idJobOffer, $userType)
@@ -176,7 +182,7 @@ class JobOfferController
         $errorMessage = null;
         try {
 
-            if ($limitDate >= date('Y-m-d') or (strcmp($limitDate,'')==0 and $action=='update')) {
+            if ($limitDate >= date('Y-m-d') or (strcmp($limitDate, '') == 0 and $action == 'update')) {
                 $newJobOffer = new JobOffer();
 
                 $fileName = $flyer["name"];

@@ -69,7 +69,8 @@
                         <p class="offerData">Currículum Vitae</p> 
                         <a href="../<?php echo $studentAppliedDTO->getResume()?> ?>" class="downloadButton" download="">Descargar CV</a>
                         <br>
-                        <a class="applyButton" href="<?php echo FRONT_ROOT ?>Apply/dismissApplicationByCompany?idApply=<?php echo $studentAppliedDTO->getIdApply()?>&idJobOffer=<?php echo $studentAppliedDTO->getIdJobOffer()?>&flag=<?php echo false?>">Desestimar aplicación</a>
+
+                        <a class="applyButton" href="<?php echo FRONT_ROOT ?>Apply/dismissApplicationByCompany?idApply=<?php echo $studentAppliedDTO->getIdApply()?>&idJobOffer=<?php echo $studentAppliedDTO->getIdJobOffer()?>&userType=<?php echo $_SESSION['user']->getUserType() ?>">Desestimar aplicación</a>
                         <br>
                     </div>    
                     <?php
