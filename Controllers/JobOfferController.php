@@ -456,6 +456,7 @@ class JobOfferController
                 $apply->setCoverLetter($coverLetter);
                 $apply->setResume($route);
                 $apply->setBanStatus(0);
+
                 if (!file_exists(UPLOADS_PATH)) {
                     mkdir(UPLOADS_PATH, 0777, true);
                     if (file_exists(UPLOADS_PATH)) {
@@ -472,7 +473,8 @@ class JobOfferController
                 }
 
             } catch (Exception $ex) {
-                $message = $ex->getMessage();
+                $_GET['notSuccessfulApplication']=1;
+                throw $ex;
             }
 
 

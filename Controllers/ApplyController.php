@@ -9,6 +9,7 @@ use Controllers\EnterpriseController as EnterpriseController;
 use Controllers\CareerController as CareerController;
 use DTO\JobOfferAppliesDTO as JobOfferAppliesDTO;
 use Controllers\StudentController as StudentController;
+use Exception as Exception;
 
 class ApplyController
 {
@@ -56,8 +57,14 @@ class ApplyController
     }
 
     public function generateNewApply (Apply $apply)
-    {
-        $this->applyDAO->add($apply);
+    {   
+        try{
+            $this->applyDAO->add($apply);
+        }catch (Exception $exception) {
+
+            throw $exception;
+        }
+        
     }
 
     public function verifyIfStudentAlreadyApplyToOffer($idUser, $idJobOffer)

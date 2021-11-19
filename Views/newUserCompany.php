@@ -17,6 +17,18 @@ require_once('nav.php');
         <?php
     }
 
+    if(!empty($_GET['notSuccessfulRegistration']))
+    {   
+        ?>
+        <div class="rejectionMessaje">
+        <?php
+        echo "Sucedió un error inesperado, complete el formulario nuevamente.";
+        unset($_GET['notSuccessfulRegistration']);
+        ?>
+        </div>
+        <?php
+    }
+
     ?>
 </p>
 <form action="<?php echo FRONT_ROOT ?>User/NewUserCompany" method="post" class="loginForm">

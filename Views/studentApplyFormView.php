@@ -54,6 +54,16 @@
             <?php
             unset($_GET['successfulApplication']);
         } 
+
+        if(!empty($_GET['notSuccessfulApplication']))
+        {
+        ?>
+            <div class="rejectionMessaje">
+                <?php echo 'Sucedió un error inesperado, aplique nuevamente'?>
+            </div>
+            <?php
+            unset($_GET['notSuccessfulApplication']);
+        } 
         
         ?>
     </p>

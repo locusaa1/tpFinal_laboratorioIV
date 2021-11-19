@@ -186,10 +186,17 @@ class EnterpriseController
             $user->setName($enterprise->getName());
             $user->setUserType("company");
 
-            $userController = new UserController();
-            $userController->AddNewUser($user);
-
-            require_once(VIEWS_PATH . "logInUser.php");
+            
+            try{
+                $userController = new UserController();
+                $userController->AddNewUser($user);
+                require_once(VIEWS_PATH . "logInUser.php");
+            }catch (Exception $ex) {
+                $_GET['notSuccessfulRegistration']=1;
+                require_once(VIEWS_PATH . "newUserCompany.php");
+                throw $ex;
+            }
+            
         } else {
             $_GET['notActiveEnterprise'] = 1;
             require_once(VIEWS_PATH . "logInUser.php");
