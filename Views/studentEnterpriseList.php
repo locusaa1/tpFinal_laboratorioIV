@@ -94,7 +94,11 @@
         <a class="backButton" href="<?php echo FRONT_ROOT ?>Student/StudentView">Volver</a>
     </section>   
 </main>
-<?php
-require_once ('companies.php');
+<br><br>
+<div>
+<p class="companiesLine"></p> 
+</div>
+<?php 
+
 require_once ('contactForm.php');
 ?>

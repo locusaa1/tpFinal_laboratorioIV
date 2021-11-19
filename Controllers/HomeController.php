@@ -68,6 +68,19 @@ class HomeController
     {
         require_once(VIEWS_PATH . 'test.php');
     }
+
+    public function sendContactFormMessage ($name, $number, $mail, $message)
+    {
+        $completeMessage = "Nombre: " . $name . "\n\n" .
+        "Teléfono: " . $number . "\n\n" .
+        "Mail: " . $mail . "\n\n" .
+        "Mensaje: " . $message . ".\n\n";
+
+        mail("admin@utn.com", "Mensaje Formulario de Contacto", $completeMessage);
+
+        require_once(VIEWS_PATH . "index.php");
+        
+    }
     
 }
 

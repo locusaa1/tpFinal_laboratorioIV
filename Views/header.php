@@ -21,4 +21,4 @@
      <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
      <title>Portal de Empleos UTN</title>
 </head>
-<body>
+<body class="generalBg">

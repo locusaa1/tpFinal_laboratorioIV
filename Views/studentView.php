@@ -50,7 +50,11 @@
 </main>
 <?php
     if(!empty($flyerList)){
-        ?>    
+        ?>
+        <br><br>
+        <div>
+        <p class="companiesLine"></p> 
+        </div>    
         <h2 class="mainCompanies">Algunas de las ofertas laborales</h2>  
         <div class="someOffers"> 
             <?php    
@@ -67,6 +71,10 @@
         
             }
             ?>
+        </div>
+        <br><br>
+        <div>
+        <p class="companiesLine"></p> 
         </div>
         <?php 
     }else{
