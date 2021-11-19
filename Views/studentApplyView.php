@@ -26,10 +26,13 @@
     <?php
     if(!empty(($activeApplications)))
     {
+        ?>
+        <h2 class="titleMessaje">Postulaciones Activas</h2>
+        <?php
         foreach ($activeApplications as $jobOffer){
         ?>
-        <br>
-        <h2 class="titleMessaje">Postulaciones Activas</h2>
+        
+        
         <br>
         <div class="companyAppliesListContainer">
             <p class="offerData">Empresa</p> 
@@ -50,10 +53,13 @@
     
     if(!empty(($notActiveApplications)))
     {
+        ?>
+        <h2 class="titleMessaje">Postulaciones Inactivas</h2>
+        <?php
         foreach ($notActiveApplications as $jobOffer){
         ?>
         <br>
-        <h2 class="titleMessaje">Postulaciones Inactivas</h2>
+        
         <br> 
         <div class="companyAppliesListContainer">
             <p class="offerData">Empresa</p> 

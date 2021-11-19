@@ -40,6 +40,7 @@ require_once('nav.php');
                 ?>
             </div>
         </div>
+        <br><br>
         <div class="row">
             <div class="row sticky-top w-100">
                 <button class="btn btn-primary btn-lg btn-block" style="transform: rotate(0)" type="button">
