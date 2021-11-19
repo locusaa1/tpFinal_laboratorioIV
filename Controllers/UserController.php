@@ -129,6 +129,7 @@ class UserController
         } catch (Exception $exception) {
 
             $message = 'Algo inesperado sucedió y el registro no fue almacenado';
+            throw $exception;
         } finally {
 
             return $message;

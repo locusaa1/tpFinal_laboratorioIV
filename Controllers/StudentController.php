@@ -9,6 +9,7 @@ use Controllers\CareerController as CareerController;
 use Controllers\UserController as UserController;
 use DTO\StudentApplicationDTO as StudentApplicationDTO;
 use Controllers\ApplyController as ApplyController;
+use Exception as Exception;
 
 class StudentController
 {
@@ -44,10 +45,16 @@ class StudentController
                     $user->setName($student->getFirstName());
                     $user->setUserType("student");
 
-                    $userController = new UserController();
-                    $userController->AddNewUser($user);
-
-                    require_once(VIEWS_PATH . "logInUser.php");
+                    try{
+                        $userController = new UserController();
+                        $userController->AddNewUser($user);
+                        require_once(VIEWS_PATH . "logInUser.php");
+                    }catch (Exception $ex) {
+                        $_GET['notSuccessfulRegistration']=1;
+                        require_once(VIEWS_PATH . "newUserStudent.php");
+                        throw $ex;
+                    }
+                                        
                 }
 
             } else {
