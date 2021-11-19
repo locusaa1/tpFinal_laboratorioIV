@@ -8,8 +8,8 @@ AdminUtility::checkSessionStatus($_SESSION['user']);
 ?>
 
     <main class="">
-        <section class="ourMision-Bg">
-            <div class="ourMision">
+        <section class="hello-Bg">
+            <div class="hello">
                 <p>Listado de ofertas laborales</p>
             </div>
         </section>

@@ -110,6 +110,7 @@ class JobOfferDB_DAO
                 id_enterprise = " . $updateJobOffer->getIdEnterprise() . ",
                 start_date = '" . date('Y-m-d', strtotime($updateJobOffer->getStartDate())) . "',
                 limit_date = '" . date('Y-m-d', strtotime($updateJobOffer->getLimitDate())) . "',
+                flyer = '" . $updateJobOffer->getFlyer() . "',
                 description = '" . $updateJobOffer->getDescription() . "',
                 salary = '" . $updateJobOffer->getSalary() . "' where id_job_offer = '" . $updateJobOffer->getIdJobOffer() . "';";
 
