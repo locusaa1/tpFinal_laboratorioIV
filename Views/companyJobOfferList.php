@@ -16,8 +16,8 @@ require_once('nav.php');
 ?>
 
     <main class="">
-        <section class="ourMision-Bg">
-            <div class="ourMision">
+        <section class="hello-Bg">
+            <div class="hello">
                 <p>Listado de ofertas laborales</p>
             </div>
         </section>
@@ -75,7 +75,7 @@ require_once('nav.php');
                         echo '<td>' . $jobOfferDTO->getSalary() . '</td>'; ?>
                         <td>
                             <button class="btn btn-outline-success btn-lg" style="transform: rotate(0)">
-                                <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferForm?update=<?php echo $jobOfferDTO->getIdJobOffer() ?>&userType=<?php echo $_SESSION['user']->getUserType() ?>"
+                                <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferForm?update=<?php echo $jobOfferDTO->getIdJobOffer() ?>"
                                    class="stretched-link btn-block btn-link text-black-50 text-decoration-none">Actualizar</a>
                             </button>
                         </td>

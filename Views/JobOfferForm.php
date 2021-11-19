@@ -18,8 +18,8 @@ require_once('nav.php');
 
 ?>
 <main class="">
-    <section class="ourMision-Bg">
-        <div class="ourMision">
+    <section class="hello-Bg">
+        <div class="hello">
             <p>Ofertas laborales</p>
         </div>
     </section>

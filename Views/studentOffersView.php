@@ -98,6 +98,8 @@
                 <br>
                 <div class="studentOffersListContainer">
                     <br>
+                    <img src="../<?php echo $jobOffer->getFlyer() ?>" class="img-thumbnail" alt="...">
+                    <br>
                     <p class="offerData">Empresa</p> 
                     <p class="offerDataAnswer"><?php echo $jobOffer->getEnterpriseName()?></p>
                     <p class="offerData">Posición</p> 
@@ -108,10 +110,8 @@
                     <p class="offerDataAnswerDescription"><?php echo $jobOffer->getDescription()?></p>
                     <p class="offerData">Salario</p> 
                     <p class="offerDataAnswer"><?php echo $jobOffer->getSalary()?></p>
-                    <p class="offerData">Fecha de publicación</p> 
-                    <p class="offerDataAnswerDate"><?php echo $jobOffer->getStartDate()?></p>
-                    <p class="offerData">Fecha de cierre</p> 
-                    <p class="offerDataAnswerDate"><?php echo $jobOffer->getLimitDate()?></p>
+                    <p class="offerData">Fecha Inicio  /  Fecha Cierre</p> 
+                    <p class="offerDataAnswerDate"><?php echo $jobOffer->getStartDate()?>  /  <?php echo $jobOffer->getLimitDate()?></p>
                     <p class="offerData"></p>
                     <a class="applyButton" href="<?php echo FRONT_ROOT ?>JobOffer/JobOfferApplyForm?id=<?php echo $jobOffer->getIdJobOffer()?>">Aplicar</a>
                     <br>

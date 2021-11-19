@@ -68,6 +68,7 @@ class HomeController
     {
         require_once(VIEWS_PATH . 'test.php');
     }
+    
 }
 
 ?>

@@ -7,8 +7,8 @@ use Utility\AdminUtility as AdminUtility;
 AdminUtility::checkSessionStatus($_SESSION['user']);
 ?>
 <main class="">
-    <section class="ourMision-Bg">
-        <div class="ourMision">
+    <section class="hello-Bg">
+        <div class="hello">
             <p>Creating a new enterprise</p>
         </div>
     </section>

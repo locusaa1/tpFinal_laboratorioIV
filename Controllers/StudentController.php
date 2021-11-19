@@ -33,6 +33,8 @@ class StudentController
             if ($student->getActive()) {
                 if ($user) {
                     $_SESSION ['user'] = $user;
+                    $jobOfferController = new JobOfferController();
+                    $flyerList = $jobOfferController->getRandomJobOfferFlyers ();
                     require_once(VIEWS_PATH . "studentView.php");
                 } else {
 
@@ -68,6 +70,8 @@ class StudentController
 
     public function StudentView()
     {
+        $jobOfferController = new JobOfferController();
+        $flyerList = $jobOfferController->getRandomJobOfferFlyers ();
         require_once(VIEWS_PATH . "studentView.php");
     }
 

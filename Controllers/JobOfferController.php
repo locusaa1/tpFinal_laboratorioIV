@@ -46,7 +46,7 @@ class JobOfferController
             date('d-m-Y', strtotime($jobOffer->getStartDate())),
             date('d-m-Y', strtotime($jobOffer->getLimitDate())),
             $jobOffer->getDescription(),
-            $jobOffer->getSalary());
+            $jobOffer->getSalary(), $jobOffer->getFlyer());
 
         return $jobOfferDTO;
     }
@@ -178,6 +178,7 @@ class JobOfferController
 
     public function jobOfferFormAction($idEnterprise, $flyer, $idJobPosition, $startDate, $limitDate, $description, $salary, $idJobOffer, $userType, $action)
     {
+        
         $message = null;
         $errorMessage = null;
         try {
@@ -535,6 +536,32 @@ class JobOfferController
         }
 
         return $companyJobOfferList;
+    }
+
+    public function getRandomJobOfferFlyers ()
+    {
+        $jobOfferController = new JobOfferController();
+
+        $list = $jobOfferController->jobOfferList();
+
+        $flyerPathList = array();
+        $count=0;
+
+        foreach ($list as $jobOffer){
+            if ($jobOffer->getLimitDate() >= date('Y-m-d')) {
+                array_push($flyerPathList, $jobOffer->getFlyer());
+                $count++;
+            }
+        }
+
+        $flyersArray = array();
+
+        if($count>=3){
+            shuffle($flyerPathList);
+            $flyersArray=$flyerPathList;
+        }
+        
+        return $flyersArray;
     }
 
 

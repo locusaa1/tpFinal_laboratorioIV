@@ -3,8 +3,8 @@ include_once('title.php');
 include_once('nav.php');
 ?>
 <main class="">
-    <section class="ourMision-Bg">
-        <div class="ourMision">
+    <section class="hello-Bg">
+        <div class="hello">
             <p>Detalle de oferta laboral</p>
         </div>
     </section>

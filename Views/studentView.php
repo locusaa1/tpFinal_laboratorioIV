@@ -49,6 +49,29 @@
     </div>   
 </main>
 <?php
-    require_once ('companies.php');
+    if(!empty($flyerList)){
+        ?>    
+        <h2 class="mainCompanies">Algunas de las ofertas laborales</h2>  
+        <div class="someOffers"> 
+            <?php    
+            $iterator = 0;    
+            while($iterator<5 && $iterator<count($flyerList)) {   
+            ?>
+            
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../<?php echo $flyerList[$iterator] ?>" class="img-thumbnail" alt="...">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+            <?php
+            $iterator++;   
+        
+            }
+            ?>
+        </div>
+        <?php 
+    }else{
+        require_once ('companies.php');    
+    }    
+    
     require_once ('contactForm.php');
 ?>

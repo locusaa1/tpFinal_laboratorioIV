@@ -306,7 +306,7 @@ class ApplyController
         $apply = null;
         foreach ($this->GetApplyList() as $specificApply){
 
-            if ($apply->getIdAppy == $idApply){
+            if ($specificApply->getIdAppy() == $idApply){
 
                 $apply = $specificApply;
             }
@@ -314,7 +314,7 @@ class ApplyController
         return $apply;
     }
 
-    public function dismissApplicationByCompany ($idApply, $idJobOffer, $userType)
+    public function dismissApplicationByCompany ($idApply, $idJobOffer, $flag)
     {
         $this->applyDAO->updateApplyBanStatusTo1 ($idApply);
         $userController = new UserController();
@@ -323,13 +323,13 @@ class ApplyController
         mail($email, "Información acerca de tu proceso de selección", $this->generateDismissApplicationMessageByCompany($idJobOffer));
 
 
-        if ($userType == 'company'){
+        if ($_SESSION['user']->getUserType() == 'company'){
 
-            $this->companyJobOfferAppliesDetails($idJobOffer);
+            $this->companyJobOfferAppliesDetails($idJobOffer, $flag);
         }else {
 
             $jobOfferController = new JobOfferController();
-            $jobOfferController->jobOfferDetails($idJobOffer, $userType);
+            $jobOfferController->jobOfferDetails($idJobOffer, $_SESSION['user']->getUserType());
         }
 
 

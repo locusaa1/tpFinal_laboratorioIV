@@ -14,6 +14,7 @@ class JobOfferDTO
     private $limitDate;
     private $description;
     private $salary;
+    private $flyer;
 
 
     /**
@@ -153,9 +154,27 @@ class JobOfferDTO
         $this->salary = $salary;
     }
 
-    
+     /**
+     * Get the value of flyer
+     */ 
+    public function getFlyer()
+    {
+        return $this->flyer;
+    }
 
-    public function completeSetter($idJobOffer, $enterpriseName, $careerName, $jobPositionDescription, $startDate, $limitDate, $description, $salary)
+    /**
+     * Set the value of flyer
+     *
+     * @return  self
+     */ 
+    public function setFlyer($flyer)
+    {
+        $this->flyer = $flyer;
+
+        return $this;
+    }
+
+    public function completeSetter($idJobOffer, $enterpriseName, $careerName, $jobPositionDescription, $startDate, $limitDate, $description, $salary, $flyer)
     {
         $this->setIdJobOffer($idJobOffer);
         $this->setEnterpriseName($enterpriseName);
@@ -165,5 +184,8 @@ class JobOfferDTO
         $this->setLimitDate($limitDate);
         $this->setDescription($description);
         $this->setSalary($salary);
+        $this->setFlyer($flyer);
     }
+
+   
 }
