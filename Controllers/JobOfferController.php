@@ -37,7 +37,6 @@ class JobOfferController
     {
         $jobPositionController = new JobPositionController();
         $enterpriseController = new EnterpriseController();
-
         $jobOfferDTO = new JobOfferDTO();
         $jobOfferDTO->completeSetter($jobOffer->getIdJobOffer(),
             $enterpriseController->getEnterpriseByCuit($jobOffer->getIdEnterprise())->getName(),
@@ -159,16 +158,22 @@ class JobOfferController
 
     }
 
-    public function jobOfferForm($update = null)
+    public function jobOfferForm($update = null, $name = null)
     {
         $jobOffer = null;
         $jobOfferDTO = null;
         $enterpriseController = new EnterpriseController();
-        $enterpriseList = $enterpriseController->getAllEnterprises();
+        $enterpriseList = array();
+        if($name){
+            $enterpriseList = $enterpriseController->getEnterpriseByName($name);
+        }else{
+            $enterpriseList = $enterpriseController->getAllEnterprises();
+        }
+
         $jobPositionController = new JobPositionController();
         $jobPositionList = $jobPositionController->jobPositionList();
 
-        if ($update != null) {
+        if ($update) {
 
             $jobOffer = $this->jobOfferDAO->getSpecificJobOfferById($update);
             $jobOfferDTO = $this->generateJobOfferDTO($jobOffer);

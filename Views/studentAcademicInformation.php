@@ -32,9 +32,23 @@
         <p class="data">Legajo</p> 
         <p class="dataAnswer"><?php echo $student->getFileNumber()?></p>
         <p class="data">Carrera</p> 
-        <p class="dataAnswer"><?php echo $career->getDescription()?></p>
+        <p class="dataAnswer"><?php
+            if($career){
+                echo $career->getDescription();
+            }else{
+                echo "Su carrera actualmente no está activa";
+            }?>
+            </p>
         <p class="data">Estado</p> 
-        <p class="dataAnswer">Activo</p>
+        <p class="dataAnswer">
+            <?php
+            if ($career){
+                echo $career->getDescription();
+            }else{
+                echo "Inactivo debido al estado de su carrera";
+            }
+            ?>
+        </p>
         <p class="data"><br></p>
     </section>   
     <section>

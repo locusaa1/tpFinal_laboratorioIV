@@ -44,7 +44,7 @@ require_once('nav.php');
         <div class="row">
             <div class="row sticky-top w-100">
                 <button class="btn btn-primary btn-lg btn-block" style="transform: rotate(0)" type="button">
-                    <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferForm"
+                    <a href="<?php echo FRONT_ROOT ?>JobOffer/jobOfferForm?name=<?php echo $_SESSION['user']->getName()?>"
                        class="btn-link stretched-link text-black-50">Crear
                         nueva oferta</a>
                 </button>

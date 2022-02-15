@@ -4,7 +4,7 @@
 </div>
 
 <section class="companies-Bg">
-<
+
 <h2 class="mainCompanies">Algunas de las empresas que nos acompañan</h2>
 <br><br>
 
